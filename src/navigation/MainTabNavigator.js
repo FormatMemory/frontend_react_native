@@ -2,11 +2,11 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import TabBarIcon from '../components/TabBarIcon/TabBarIcon';
+import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import AccountScreen from '../screens/AccountScreen';
+import AccountScreen from '../screens/AccountScreen/AccountScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
