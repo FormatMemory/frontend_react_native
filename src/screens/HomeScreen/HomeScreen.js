@@ -2,7 +2,21 @@ import React, { Component } from 'react';
 import {
   Image,
 } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { 
+  Container, 
+  Title, 
+  Header, 
+  Card, 
+  CardItem, 
+  Thumbnail, 
+  Text, 
+  Button, 
+  Icon,
+  Left, 
+  Body, 
+  Right,
+  Content,
+ } from 'native-base';
 import PostList from '../../components/Posts/PostList';
 import { MonoText } from '../../common/StyledText';
 
@@ -14,9 +28,16 @@ export default class HomeScreen extends React.Component {
 
   render() {
       return (
-         <PostList>
-
-         </PostList>
+        <Container>
+          <Header>
+            <Title>Deal Site</Title>
+          </Header>
+          <Body>
+            <Content padder>
+              <PostList></PostList> 
+            </Content>
+          </Body>
+        </Container>
       );
     }
 }

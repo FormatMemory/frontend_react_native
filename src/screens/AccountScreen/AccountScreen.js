@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
-import { Container } from 'native-base';
+import React from 'react';
+import { 
+    Container, 
+    Title, 
+    Header,
+    Text,
+    Body,
+    Content,
+    } from 'native-base';
 import {
     Image,
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
     View,
   } from 'react-native';
 
-export default function AccountScreen(props){
+export default class extends React.Component {
     // const [errorState, setErrorState] = useState(null);
 
     // // useEffect( () => {
     // //     // functions
     // // }, []);
 
-    return (
-        <Container>
-            <Text>
-                AccountScreen
-            </Text>
-        </Container>
-
-    );
+    render(){
+        return (
+            <Container>
+              <Content padder>
+              <Text>
+                    Account Screen
+                </Text>
+              </Content>
+            </Container>
+        );
+    }
 }
 
 // export default AccountScreen;
