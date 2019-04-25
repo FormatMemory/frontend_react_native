@@ -57,9 +57,7 @@ export default class HomeScreen extends React.Component {
             <Title>Deal Site</Title>
           </Header>
           {/* <Body> */}
-            <Content padder>
             <PostList></PostList>
-            </Content>
           {/* </Body> */}
         </Container>
       );
