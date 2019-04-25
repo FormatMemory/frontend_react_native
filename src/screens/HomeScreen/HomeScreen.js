@@ -17,11 +17,32 @@ import {
   Right,
   Content,
  } from 'native-base';
-import PostList from '../../components/Posts/PostList';
+import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
 
+// type Props = {};
 
 export default class HomeScreen extends React.Component {
+
+  componentWillMount() {
+    // this.props.askForGalleryPermission();
+    // this.props.productsFetch();
+  }
+
+  componentWillUnmount() {
+    // this.props.unsubscribe();
+  }
+
+
+  renderNoContent() {
+    return (
+      <NoContentView
+        image={imgAppCloud}
+        title={i18n.t('products.noContent')}
+      />
+    );
+  }
+
   static navigationOptions = {
     header: null,
   };
@@ -32,11 +53,14 @@ export default class HomeScreen extends React.Component {
           <Header>
             <Title>Deal Site</Title>
           </Header>
-          <Body>
+          {/* <Body> */}
             <Content padder>
-              <PostList></PostList> 
+              <Post></Post>
+              <Post></Post>
+              <Post></Post>
+              <Post></Post>
             </Content>
-          </Body>
+          {/* </Body> */}
         </Container>
       );
     }

@@ -5,20 +5,18 @@ export default class Post extends Component {
   render() {
     return (
       <Container>
-        <Header />
-        <Content>
           <Card>
             <CardItem>
               <Left>
-                <Thumbnail source={{uri: 'Image URL'}} />
+                <Thumbnail source={{uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'}} />
                 <Body>
-                  <Text>NativeBase</Text>
+                  <Text>Deal Name</Text>
                   <Text note>GeekyAnts</Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem cardBody>
-              <Image source={{uri: 'Image URL'}} style={{height: 200, width: null, flex: 1}}/>
+              <Image source={{uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'}} style={{height: 200, width: null, flex: 1}}/>
             </CardItem>
             <CardItem>
               <Left>
@@ -38,7 +36,6 @@ export default class Post extends Component {
               </Right>
             </CardItem>
           </Card>
-        </Content>
       </Container>
     );
   }

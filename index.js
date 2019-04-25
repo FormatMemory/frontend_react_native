@@ -10,11 +10,14 @@ if (__DEV__) {
 
 const store = createStore(allReducers);
 
-// registerRootComponent(App);
-
-render() { return(
-    <Provider store= {store}>
-      <App />
-    </Provider>
-  );
+class App extends React.Component{
+    render() {
+        return(
+            <Provider store= {store}>
+            <App />
+            </Provider>
+        );
+    }
 }
+
+registerRootComponent(App);
