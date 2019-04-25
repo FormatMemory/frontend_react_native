@@ -10,4 +10,11 @@ if (__DEV__) {
 
 const store = createStore(allReducers);
 
-registerRootComponent(App);
+// registerRootComponent(App);
+
+render() { return(
+    <Provider store= {store}>
+      <App />
+    </Provider>
+  );
+}
