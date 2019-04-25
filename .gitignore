@@ -4,6 +4,7 @@
 
 #extra
 *.lock
+package-lock.json
 
 # Xcode
 #
