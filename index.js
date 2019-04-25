@@ -11,7 +11,7 @@ if (__DEV__) {
 
 const store = createStore(allReducers, applyMiddleware(thunk));
 
-class App extends React.Component{
+class DealApp extends React.Component{
     render() {
         return(
             <Provider store= {store}>
@@ -21,4 +21,4 @@ class App extends React.Component{
     }
 }
 
-registerRootComponent(App);
+registerRootComponent(DealApp);
