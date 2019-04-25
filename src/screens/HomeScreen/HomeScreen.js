@@ -21,6 +21,7 @@ import {
  } from 'native-base';
 import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
+import PostList from '../../components/Posts/PostList';
 
 // type Props = {};
 
@@ -57,11 +58,7 @@ export default class HomeScreen extends React.Component {
           </Header>
           {/* <Body> */}
             <Content padder>
-            <List>
-            <ListItem><Post></Post></ListItem>
-            <ListItem><Post></Post></ListItem>
-            <ListItem><Post></Post></ListItem> 
-            </List>
+            <PostList></PostList>
             </Content>
           {/* </Body> */}
         </Container>

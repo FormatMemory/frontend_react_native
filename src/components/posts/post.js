@@ -9,8 +9,8 @@ class Post extends Component {
   }
   render() {
     return (
-      <Container>
-          <Card style={{height:300}}>
+      <Container style={styles.card}>
+          <Card>
             <CardItem cardBody>
               <Image source={{uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'}} style={styles.deal_head_image}/>
             </CardItem>
@@ -18,7 +18,7 @@ class Post extends Component {
               <Left>
                 <Thumbnail source={{uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'}}  style={{height: 30, width: 10, flex: 0.1}} />
                 <Body>
-                  <Text>Deal Name</Text>
+                  <Text>{this.props.title}</Text>
                   <Text note>user</Text>
                 </Body>
               </Left>
@@ -33,11 +33,11 @@ class Post extends Component {
               <Body>
                 <Button transparent>
                   <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
+                  <Text>{ this.props.comments } Comments</Text>
                 </Button>
               </Body>
               <Right>
-                <Text>11h ago</Text>
+                <Text>{this.props.published}</Text>
               </Right>
             </CardItem>
           </Card>
@@ -56,7 +56,15 @@ const styles = StyleSheet.create({
   },
   deal_head_image:{
     flex:1,
-    height:200,
+    height:175,
+    width:"100%"
+  },
+  card:{
+    flex:1,
+    padding:5,
+    backgroundColor:"#fff",
+    marginTop:5,
+    height:325,
     width:"100%"
   }
 });
