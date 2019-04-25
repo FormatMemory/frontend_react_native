@@ -16,6 +16,8 @@ import {
   Body, 
   Right,
   Content,
+  ListItem,
+  List
  } from 'native-base';
 import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
@@ -55,10 +57,11 @@ export default class HomeScreen extends React.Component {
           </Header>
           {/* <Body> */}
             <Content padder>
-              <Post></Post>
-              <Post></Post>
-              <Post></Post>
-              <Post></Post>
+            <List>
+            <ListItem><Post></Post></ListItem>
+            <ListItem><Post></Post></ListItem>
+            <ListItem><Post></Post></ListItem> 
+            </List>
             </Content>
           {/* </Body> */}
         </Container>

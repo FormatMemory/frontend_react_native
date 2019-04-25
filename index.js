@@ -1,24 +1,31 @@
 import { KeepAwake, registerRootComponent } from 'expo';
-import App from 'App';
-import allReducers from './src/store/reducers/index.js';
-import {createStore, applyMiddleware} from 'redux';
+import App from './App';
+import React from 'react';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk'
+import configureStore from './src/store/configureStore';
 
 if (__DEV__) {
   KeepAwake.activate();
 }
 
-const store = createStore(allReducers, applyMiddleware(thunk));
+const store = configureStore();
 
-class DealApp extends React.Component{
-    render() {
-        return(
-            <Provider store= {store}>
-            <App />
-            </Provider>
-        );
-    }
-}
+const DealAppRedux = () => (
+    <Provider store= {store}>
+        <App/>
+    </Provider>
+);
+// const store = createStore(rootReducer, applyMiddleware(thunk));
 
-registerRootComponent(DealApp);
+// export default class DealApp extends React.Component{
+//     render() {
+//         return(
+
+//         );
+//     }
+// }
+
+registerRootComponent(DealAppRedux);
+
+//DealApp;
