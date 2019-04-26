@@ -31,7 +31,7 @@ class PostList extends Component {
   render() {
     return (
         <Container>
-        <Content padder>
+        <Content>
             {
               this.state.PostList.map((item, index) => {
                 return (

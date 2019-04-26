@@ -47,7 +47,7 @@ class Post extends Component {
 }
 
 const styles = StyleSheet.create({
-  deal_image:{
+  user_image:{
     flex:1,
     padding:10,
     backgroundColor: "#fff",
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flex:1,
     padding:5,
     backgroundColor:"#fff",
-    marginTop:5,
+    marginTop:1,
     height:325,
     width:"100%"
   }
