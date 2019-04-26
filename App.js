@@ -2,19 +2,35 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './src/navigation/AppNavigator';
+import { connect } from 'react-redux';
+import {
+  startLoad,
+  stopLoad,
+  startError,
+  stopError
+} from './src/store/actions/index';
 
-export default class App extends React.Component {
+class App extends React.Component {
   state = {
-    isLoadingComplete: false,
+    
   };
 
+    // isLoadingComplete: false,
+    // isLoading: true,
+    // isError: false,
+    // errorMessage: "",
+
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    console.log(this.props.isLoading);
+    if (this.state.isLoading && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
+          // onError={this._handleLoadingError}
+          // onFinish={this._handleFinishLoading}
+          // startAsync={this.props.onStartLoading}
+          onError={this.props.onError}
+          onFinish={this.props.onStopLoading}
         />
       );
     } else {
@@ -43,15 +59,15 @@ export default class App extends React.Component {
     ]);
   };
 
-  _handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
-    console.warn(error);
-  };
+  // _handleLoadingError = error => {
+  //   // In this case, you might want to report the error to your error
+  //   // reporting service, for example Sentry
+  //   console.warn(error);
+  // };
 
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
-  };
+  // _handleFinishLoading = () => {
+  //   this.setState({ isLoading: false });
+  // };
 }
 
 const styles = StyleSheet.create({
@@ -60,3 +76,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+// export default App;
+const mapStateToProps = state =>{
+  return {
+    isLoading: state.isLoading,
+    isError: state.isError,
+    error_message: state.error_message
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onStartLoading: () => dispatch(startLoad()),
+    onStopLoading: () => dispatch(stopLoad()),
+    onStartError: (err) => dispatch(startError(err)),
+    onStopError: () => dispatch(stopError())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,7 +1,8 @@
-import { START_ERROR, STOP_ERROR } from "actionTypes";
+import { START_ERROR, STOP_ERROR } from './actionTypes';
 
 
 export const startError = (err) => {
+    // console.warn(err)
     return {
         type: START_ERROR,
         error: err

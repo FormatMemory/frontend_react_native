@@ -1,4 +1,4 @@
-import { START_LOAD, STOP_LOAD } from "actionTypes";
+import { START_LOAD, STOP_LOAD } from './actionTypes';
 
 
 export const startLoad = () => {

@@ -1,11 +1,13 @@
 import { START_LOAD, STOP_LOAD } from "../actions/actionTypes";
 
 const initialState = {
-    isLoading: false,
+    isLoading: true,
 }
 
 const loadReducer = (state = initialState, action) => {
     // console.log("load reducer");
+    // console.log(action.type);
+    // console.log(state);
     switch (action.type) {
         case START_LOAD:
             return {

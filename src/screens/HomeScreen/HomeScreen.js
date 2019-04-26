@@ -27,14 +27,14 @@ import PostList from '../../components/Posts/PostList';
 
 export default class HomeScreen extends React.Component {
 
-  componentWillMount() {
-    // this.props.askForGalleryPermission();
-    // this.props.productsFetch();
-  }
+  // componentWillMount() {
+  //   // this.props.askForGalleryPermission();
+  //   // this.props.productsFetch();
+  // }
 
-  componentWillUnmount() {
-    // this.props.unsubscribe();
-  }
+  // componentWillUnmount() {
+  //   // this.props.unsubscribe();
+  // }
 
 
   renderNoContent() {
