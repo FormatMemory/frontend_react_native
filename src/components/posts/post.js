@@ -14,11 +14,13 @@ class Post extends Component {
             <CardItem cardBody button onPress={() => alert("This is deal image")}>
               <Image source={{uri: this.props.headImage}} style={styles.deal_head_image}/>
             </CardItem>
-            <CardItem button onPress={() => alert("This is deal info")}>
+            <CardItem>
               <Left>
-                <Thumbnail small source={{uri: this.props.userImage}}  />
+                <Button transparent  onPress={() => alert("This is user info")}>
+                  <Thumbnail small source={{uri: this.props.userImage}}  />
+                </Button>
                 <Body>
-                  <Text>{this.props.title}</Text>
+                  <Text  onPress={() => alert("This is deal info")}>{this.props.title}</Text>
                   <Text note style={{textAlign: 'left'}}> {this.props.username} </Text>
                 </Body>
               </Left>

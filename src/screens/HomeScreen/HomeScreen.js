@@ -19,7 +19,7 @@ import {
   ListItem,
   List
  } from 'native-base';
-import Post from '../../components/Posts/Post';
+// import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
 import PostList from '../../components/Posts/PostList';
 
