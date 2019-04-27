@@ -11,10 +11,10 @@ class Post extends Component {
     return (
       <Container style={styles.card}>
           <Card >
-            <CardItem cardBody button onPress={() => alert("This is Card Image")}>
+            <CardItem cardBody button onPress={() => alert("This is deal image")}>
               <Image source={{uri: this.props.headImage}} style={styles.deal_head_image}/>
             </CardItem>
-            <CardItem button onPress={() => alert("This is Card info")}>
+            <CardItem button onPress={() => alert("This is deal info")}>
               <Left>
                 <Thumbnail small source={{uri: this.props.userImage}}  />
                 <Body>
@@ -33,7 +33,7 @@ class Post extends Component {
                   <Text note> {this.props.views > 0 ? this.props.views : 0} views</Text> 
               </Left>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
                   <Text>{this.props.likes > 0 ? this.props.likes : 0} Likes</Text>
                 </Button>
