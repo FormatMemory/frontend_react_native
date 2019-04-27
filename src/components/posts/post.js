@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, Grid, Row, View} from 'native-base';
 
 class Post extends Component {
   constructor(props) {
@@ -10,34 +10,33 @@ class Post extends Component {
   render() {
     return (
       <Container style={styles.card}>
-          <Card>
-            <CardItem cardBody>
-              <Image source={{uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'}} style={styles.deal_head_image}/>
+          <Card >
+            <CardItem cardBody button onPress={() => alert("This is Card Image")}>
+              <Image source={{uri: this.props.headImage}} style={styles.deal_head_image}/>
             </CardItem>
-            <CardItem>
+            <CardItem button onPress={() => alert("This is Card info")}>
               <Left>
-                <Thumbnail source={{uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png'}}  style={{height: 30, width: 10, flex: 0.1}} />
+                <Thumbnail small source={{uri: this.props.userImage}}  />
                 <Body>
                   <Text>{this.props.title}</Text>
-                  <Text note>user</Text>
+                  <Text note style={{textAlign: 'left'}}> {this.props.username} </Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
-                </Button>
-              </Left>
-              <Body>
-                <Button transparent>
+                {/* <Button transparent>
                   <Icon active name="chatbubbles" />
                   <Text>{ this.props.comments } Comments</Text>
-                </Button>
-              </Body>
+                </Button> */}
+                  <Text note>{this.props.published}</Text>
+                  <Text note> {this.props.views > 0 ? this.props.views : 0} views</Text> 
+              </Left>
               <Right>
-                <Text>{this.props.published}</Text>
+                <Button transparent>
+                  <Icon active name="thumbs-up" />
+                  <Text>{this.props.likes > 0 ? this.props.likes : 0} Likes</Text>
+                </Button>
               </Right>
             </CardItem>
           </Card>
