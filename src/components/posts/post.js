@@ -12,16 +12,16 @@ class Post extends Component {
       <Container style={styles.card}>
           <Card >
             <CardItem cardBody button onPress={() => alert("This is deal image")}>
-              <Image source={{uri: this.props.headImage}} style={styles.deal_head_image}/>
+              <Image source={{uri: this.props.post.headImage}} style={styles.deal_head_image}/>
             </CardItem>
             <CardItem>
               <Left>
                 <Button transparent  onPress={() => alert("This is user info")}>
-                  <Thumbnail small source={{uri: this.props.userImage}}  />
+                  <Thumbnail small source={{uri: this.props.post.userImage}}  />
                 </Button>
                 <Body>
-                  <Text  onPress={() => alert("This is deal info")}>{this.props.title}</Text>
-                  <Text note style={{textAlign: 'left'}}> {this.props.username} </Text>
+                  <Text  onPress={() => alert("This is deal info")}>{this.props.post.title}</Text>
+                  <Text note style={{textAlign: 'left'}}> {this.props.post.username} </Text>
                 </Body>
               </Left>
             </CardItem>
@@ -31,13 +31,13 @@ class Post extends Component {
                   <Icon active name="chatbubbles" />
                   <Text>{ this.props.comments } Comments</Text>
                 </Button> */}
-                  <Text note>{this.props.published}</Text>
-                  <Text note> {this.props.views > 0 ? this.props.views : 0} views</Text> 
+                  <Text note>{this.props.post.published}</Text>
+                  <Text note> {this.props.post.views > 0 ? this.props.post.views : 0} views</Text> 
               </Left>
               <Right>
                 <Button transparent onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.props.likes > 0 ? this.props.likes : 0} Likes</Text>
+                  <Text>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
                 </Button>
               </Right>
             </CardItem>
@@ -69,5 +69,17 @@ const styles = StyleSheet.create({
     width:"100%"
   }
 });
+
+// const mapStateToProps = state => {
+//   return {
+    
+//   };
+// };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+
+//   }
+// };
 
 export default Post;
