@@ -1,83 +1,73 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { Container, Footer, Content } from 'native-base';
+import { Container, Footer, Content, Text, Button, Icon} from 'native-base';
 import { Comments } from '../Comments/Comments'
 
 class PostDetail extends Component {
   constructor(props) {
     super(props);
-    
+    state = {
+       post:null
+    }
   }
 
-  comments = this.state.comments.map((item, index) => {
-        return (
-            <Comments key={index}
-                    post={item}
-                    onPostSelected={() => props.onPostSelected(key)} 
-            />
-        )
-    };
+  sample = [
+    { id: 1, title: 'The CDFWERFQEWFEWQWED That Wins Customers', username: 'closeBwak',likes:'123', views:'245', comments:'9', published:'4h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/I/617-Kg7OcpL._SL520_.jpg', userImage: 'https://1ofdmq2n8tc36m6i46scovo2e-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/Steven_Hallam-slide.jpg' },
+  
+    { id: 2, title: '2Lorem ipsum dolor sit amet, everti rationibus his ', likes:'323', username: 'tasteCloet', views:'710', comments:'16', published:'9h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/G/01/xba/Dashboard_E_2x_April_2019._CB454465255_SY520_.jpg', userImage: 'http://alexsears.com/assets/img/alexsears.jpg' },
+
+    { id: 3, title: '10 Funny CDFWERFQEWFEWQWED Quotes', username: '⬆️哇塞', views:'698', likes:'43', comments:'8', published:'14h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/I/41Z4evkR8TL._AC_SY480_.jpg', userImage: 'https://media.nngroup.com/media/people/photos/Kim-Flaherty-Headshot.png.400x400_q95_autocrop_crop_upscale.png'},
+  ];
+
+  getPostDetail = (key) => {
+    this.setState(prevState => {
+      return {
+        post: this.sample.filter(post => post.id == key)
+      };
+    });
+  }
+
+  componentWillMount(){
+    this.getPostDetail(this.props.key)
+  }
+
   render() {
     return (
-      <Container >
-      <Content padder>
-        <Image source={{uri: this.props.post.headImage}} 
-                style={styles.deal_head_image }
-                onPress={() => alert("This is deal head image")}
-         />
-        <Text style={ styles.post_title }>{ this.props.item.title }</Text>
-        <Text style={ styles.post_content }>{ this.props.item.content }</Text>
-        <Text style={ styles.post_help_text}>{ count(this.props.comments)} Comments</Text>
-        {this.comments}
+      
+      <Container key={ this.state.post.id }>
+      {console.log(this.state)}
+      {console.log(this.props.key)}
+      <Text>PostDetail</Text>
+        <Content padder>
+            <Image source={{uri: this.state.post.headImage}}
+                    style={styles.deal_head_image }
+                    onPress={() => alert("This is deal head image")}
+            />
+            <Text style={ styles.post_title }>{ this.state.post.title }</Text>
+            <Text style={ styles.post_content }>{ this.state.post.content }</Text>
+            <Text style={ styles.post_help_text}>{ this.state.comments} Comments</Text>
+            {/* <Comments
+                post_id={this.state.post_id}
+            /> */}
         </Content>
         <Footer>
                 <Button transparent onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
+                  <Text>{this.state.post.likes > 0 ? this.state.post.likes : 0} Likes</Text>
                 </Button>
                 <Button transparent onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
+                  <Text>{this.state.post.likes > 0 ? this.state.post.likes : 0} Likes</Text>
                 </Button>
                 <Button transparent onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
+                  <Text>{this.state.post.likes > 0 ? this.state.post.likes : 0} Likes</Text>
                 </Button>
                 <Button transparent onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
+                  <Text>{this.state.post.likes > 0 ? this.state.post.likes : 0} Likes</Text>
                 </Button>
         </Footer>
-          {/* <Card >
-            <CardItem cardBody button onPress={() => alert("This is deal image")}>
-            <CardItem>
-              <Left>
-                <Button transparent  onPress={() => alert("This is user info")}>
-                  <Thumbnail small source={{uri: this.props.post.userImage}}  />
-                </Button>
-                <Body>
-                  <Text  onPress={() => alert("This is deal info")}>{this.props.post.title}</Text>
-                  <Text note style={{textAlign: 'left'}}> {this.props.post.username} </Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem>
-              <Left>
-                {/* <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>{ this.props.comments } Comments</Text>
-                </Button> */}
-                  {/* <Text note>{this.props.post.published}</Text>
-                  <Text note> {this.props.post.views > 0 ? this.props.post.views : 0} views</Text> 
-              </Left>
-              <Right>
-                <Button transparent onPress={() => alert("This is like")}>
-                  <Icon active name="thumbs-up" />
-                  <Text>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
-                </Button>
-              </Right>
-            </CardItem>
-          </Card> */} */}
       </Container>
     );
   }
@@ -113,7 +103,7 @@ const styles = StyleSheet.create({
     flex:1,
     padding:10,
     fontSize:20,
-    matgin:5,
+    margin:5,
     textAlign:"center",
     fontWeight:"bold",
     textTransform:"capitalize",
@@ -131,13 +121,13 @@ const styles = StyleSheet.create({
   }
 });
 
-// const mapStateToProps = state => {
+// const mapStateTostate = state => {
 //   return {
     
 //   };
 // };
 
-// const mapDispatchToProps = dispatch => {
+// const mapDispatchTostate = dispatch => {
 //   return {
 
 //   }

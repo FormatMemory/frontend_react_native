@@ -21,9 +21,7 @@ import {
  } from 'native-base';
 // import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
-import PostList from '../../components/Posts/PostDetail';
-
-// type Props = {};
+import PostDetail from '../../components/Posts/PostDetail';
 
 export default class HomeScreen extends React.Component {
 
@@ -46,18 +44,20 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  static navigationOptions = {
-    header: null,
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: String(navigation.getParam('key', 'Title')),
+    };
   };
 
   render() {
       return (
         <Container>
-          <Header>
-            <Title>Deal Site</Title>
-          </Header>
           {/* <Body> */}
-            <PostList></PostList>
+          {console.log(this.props)}
+            <PostDetail
+                key={this.props.key}
+            />
           {/* </Body> */}
         </Container>
       );

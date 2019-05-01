@@ -5,13 +5,18 @@ import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Ic
 class Post extends Component {
   constructor(props) {
     super(props);
-    
   }
+  goToPostDetail = () => {
+    alert("Go to post details");
+    console.log(this.props.post);
+    this.props.onPostSelected(this.props.post.id);
+  }
+  
   render() {
     return (
-      <Container style={styles.card}>
+      <Container key={this.props.post.id} style={styles.card}>
           <Card >
-            <CardItem cardBody button onPress={() => alert("This is deal image")}>
+            <CardItem cardBody button onPress={() => this.goToPostDetail(this.props.post.id)}>
               <Image source={{uri: this.props.post.headImage}} style={styles.deal_head_image}/>
             </CardItem>
             <CardItem>
@@ -46,6 +51,7 @@ class Post extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   user_image:{

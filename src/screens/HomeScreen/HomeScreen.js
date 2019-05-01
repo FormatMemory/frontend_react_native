@@ -22,6 +22,7 @@ import {
 // import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
 import PostList from '../../components/Posts/PostList';
+import PostDetail from './PostDetailScreen';
 
 // type Props = {};
 
@@ -50,6 +51,21 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  onPostSelected = (key) => {
+    console.log("HomeScreen on post selected "+key);
+    console.log(key)
+    this.props.navigation.push('Details', {
+      key:key
+    });
+
+    
+    // this.props.navigation.navigate({
+    //   name:'PostDetail',
+    //   component:PostDetail,
+    //   post_key: key
+    // })
+  }
+  
   render() {
       return (
         <Container>
@@ -57,7 +73,9 @@ export default class HomeScreen extends React.Component {
             <Title>Deal Site</Title>
           </Header>
           {/* <Body> */}
-            <PostList></PostList>
+            <PostList
+              onPostSelected = {this.onPostSelected}
+            />
           {/* </Body> */}
         </Container>
       );

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import Post from './Post';
+//import console = require('console');
+
 class PostList extends Component {
   constructor(props) {
     super(props);
@@ -10,10 +12,14 @@ class PostList extends Component {
     };
   }
 
+  onPostSelected = (key) => {
+    this.props.onPostSelected(key);
+  }
+
   getPostLists = () => {
     this.setState(prevState => {
       return {
-        PostList: [
+        postList: [
           { id: 1, title: 'The CDFWERFQEWFEWQWED That Wins Customers', username: 'closeBwak',likes:'123', views:'245', comments:'9', published:'4h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/I/617-Kg7OcpL._SL520_.jpg', userImage: 'https://1ofdmq2n8tc36m6i46scovo2e-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/Steven_Hallam-slide.jpg' },
   
           { id: 2, title: '2Lorem ipsum dolor sit amet, everti rationibus his ', likes:'323', username: 'tasteCloet', views:'710', comments:'16', published:'9h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/G/01/xba/Dashboard_E_2x_April_2019._CB454465255_SY520_.jpg', userImage: 'http://alexsears.com/assets/img/alexsears.jpg' },
@@ -33,11 +39,11 @@ class PostList extends Component {
         <Container>
         <Content>
             {
-              this.state.PostList.map((item, index) => {
+              this.state.postList.map((item, index) => {
                 return (
                   <Post key={index}
                         post={item}
-                        onPostSelected={() => props.onPostSelected(key)} 
+                        onPostSelected={this.onPostSelected}
                   />
                 );
               })
