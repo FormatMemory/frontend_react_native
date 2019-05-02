@@ -47,7 +47,7 @@ class PostDetailScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: String(navigation.getParam('key', 'Title')),
+      // title: String(navigation.getParam('key', 'Title')),
     };
   };
 

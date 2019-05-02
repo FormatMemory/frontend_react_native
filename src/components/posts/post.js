@@ -7,7 +7,7 @@ class Post extends Component {
     super(props);
   }
   goToPostDetail = () => {
-    alert("Go to post details");
+    // alert("Go to post details");
     // console.log(this.props.post);
     this.props.onPostSelected(this.props.post.id);
   }
@@ -25,7 +25,7 @@ class Post extends Component {
                   <Thumbnail small source={{uri: this.props.post.userImage}}  />
                 </Button>
                 <Body>
-                  <Text  onPress={() => alert("This is deal info")}>{this.props.post.title}</Text>
+                  <Text onPress={() => this.goToPostDetail(this.props.post.id)}>{this.props.post.title}</Text>
                   <Text note style={{textAlign: 'left'}}> {this.props.post.username} </Text>
                 </Body>
               </Left>

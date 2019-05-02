@@ -42,10 +42,10 @@ class HomeScreen extends React.Component {
   //   // this.props.unsubscribe();
   // }
 
-  // state = {
-  //   // post_id:-1
-  // };
-  
+  constructor(props) {
+    super(props);
+  }
+
   renderNoContent() {
     return (
       <NoContentView
