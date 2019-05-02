@@ -18,7 +18,7 @@ class PostList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Posts : [],
+      postList : [],
       refreshing: false,
     };
   }
@@ -28,22 +28,68 @@ class PostList extends Component {
     return 1;
   }
 
+  fetchData = (retry=0) => {
+    const prom =  new Promise( (resolve, reject) => {
+      if(this.state.refreshing){
+        reject('Already in refreshing');
+      }
+      else{
+        this.wait();
+        setTimeout( () => {
+          var didSucceed = Math.random() >= 0.5;
+          if (didSucceed){
+            resolve(this.getPostLists());
+            console.log('success'+retry);
+          }else{
+              if(retry >= 5){
+                console.log(111111);
+                reject('Test Error');
+              }else{
+                console.log('Fetch error, retry'+retry);
+                this.fetchData(retry+1)
+                .then(data =>
+                  resolve(data)
+                )
+                .catch(
+                  err => {
+                      reject(err)
+                  }
+                )
+              }
+          }
+        }, 2000);
+      }
+    });
+    return prom;
+  }
+
   wait(){
     setTimeout(function(){
       //do what you need here
       console.log("finish reloading");
-      alert("refreshed");
+      // alert("refreshed");
   }, 1500);
   }
 
   _onRefresh = () => {
     this.setState({refreshing: true});
-
-    Promise.all(this.fetchaData(), this.wait())
-            .then(
-                this.setState({refreshing: false}
-            )
-    );
+    this.fetchData()
+      .then( newData =>
+          this.setState(prevState => {
+            console.log(newData)
+            return {
+              ...prevState,
+              ...newData
+            }
+          })
+      )
+      .catch(
+        err => {
+          console.log(err);
+          alert(err);
+        }
+      )
+      this.setState({refreshing: false});
   }
   
   onPostSelected = (key) => {
@@ -51,7 +97,7 @@ class PostList extends Component {
   }
 
   getPostLists = () => {
-    this.setState(prevState => {
+    // this.setState(prevState => {
       return {
         postList: [
           { id: 1, title: 'The CDFWERFQEWFEWQWED That Wins Customers', username: 'closeBwak',likes:'123', views:'245', comments:'9', published:'4h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/I/617-Kg7OcpL._SL520_.jpg', userImage: 'https://1ofdmq2n8tc36m6i46scovo2e-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/Steven_Hallam-slide.jpg' },
@@ -61,11 +107,11 @@ class PostList extends Component {
           { id: 3, title: '雅诗兰黛的撒娇哭泣都能看见', username: '⬆️哇塞', views:'698', likes:'43', comments:'8', published:'14h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/I/41Z4evkR8TL._AC_SY480_.jpg', userImage: 'https://media.nngroup.com/media/people/photos/Kim-Flaherty-Headshot.png.400x400_q95_autocrop_crop_upscale.png'},
         ]
       };
-    });
+    // });
   };
 
   componentWillMount(){
-    this.getPostLists(); 
+    this._onRefresh();
   }
 
   // componentDidMount(){
