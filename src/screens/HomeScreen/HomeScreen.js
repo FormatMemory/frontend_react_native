@@ -22,7 +22,6 @@ import {
 // import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
 import PostList from '../../components/Posts/PostList';
-import PostDetail from './PostDetailScreen';
 import {
   updatePostId
 } from '../../store/actions/index';
@@ -44,6 +43,9 @@ class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+  componentDidMount(){
+    // this.props.navigation.reset();
   }
 
   renderNoContent() {
