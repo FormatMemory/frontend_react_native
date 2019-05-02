@@ -27,7 +27,7 @@ class PostDetail extends Component {
     console.log("#########");
     this.setState(prevState => {
       return {
-        cur_post: this.sample.filter(post => post.id == key)
+        cur_post: this.sample.filter(post => post.id == key)[0]
       };
     });
   }
@@ -46,8 +46,8 @@ class PostDetail extends Component {
       
       <Container key={ this.props.post.postId }>
       {console.log(this.state)}
-      {console.log(this.props.postId)}
-      <Text>PostDetail</Text>
+      {console.log(this.props.post.postId)}
+      {/* <Text>PostDetail</Text> */}
         <Content padder>
             <Image source={{uri: this.state.cur_post.headImage}}
                     style={styles.deal_head_image }
@@ -55,12 +55,12 @@ class PostDetail extends Component {
             />
             <Text style={ styles.post_title }>{ this.state.cur_post.title }</Text>
             <Text style={ styles.post_content }>{ this.state.cur_post.content }</Text>
-            <Text style={ styles.post_help_text}>{ this.state.comments} Comments</Text>
+            <Text style={ styles.post_help_text}>{ this.state.cur_post.comments} Comments</Text>
             {/* <Comments
-                post_id={this.state.post_id}
+                postId={this.props.post.postId}
             /> */}
         </Content>
-        <Footer>
+        {/* <Footer>
                 <Button transparent onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
                   <Text>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
@@ -77,7 +77,7 @@ class PostDetail extends Component {
                   <Icon active name="thumbs-up" />
                   <Text>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                 </Button>
-        </Footer>
+        </Footer> */}
       </Container>
     );
   }
@@ -112,10 +112,9 @@ const styles = StyleSheet.create({
   post_content:{
     flex:1,
     padding:10,
-    fontSize:20,
+    fontSize:16,
     margin:5,
     textAlign:"center",
-    fontWeight:"bold",
     textTransform:"capitalize",
     backgroundColor: "#fff",
     alignItems:"center",
