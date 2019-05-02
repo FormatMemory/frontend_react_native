@@ -8,7 +8,7 @@ class Post extends Component {
   }
   goToPostDetail = () => {
     alert("Go to post details");
-    console.log(this.props.post);
+    // console.log(this.props.post);
     this.props.onPostSelected(this.props.post.id);
   }
   

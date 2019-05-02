@@ -1,8 +1,11 @@
-import { KeepAwake, registerRootComponent } from 'expo';
+import { KeepAwake, registerRootComponent,  registerComponent} from 'expo';
 import App from './App';
 import React from 'react';
+import { Navigation } from 'react-navigation';
 import {Provider} from 'react-redux';
 import configureStore from './src/store/configureStore';
+import HomeScreen from './src/screens/HomeScreen/HomeScreen';
+import PostDetailScreen from './src/screens/HomeScreen/PostDetailScreen';
 
 if (__DEV__) {
   KeepAwake.activate();
@@ -26,5 +29,27 @@ const DealAppRedux = () => (
 // }
 
 registerRootComponent(DealAppRedux);
+
+// Navigation.registerComponent(
+//   "Home",
+//   () => HomeScreen,
+//   store,
+//   Provider
+// );
+
+// Navigation.registerComponent(
+//   "Account",
+//   () => AccountScreen,
+//   store,
+//   Provider
+// );
+
+// Navigation.registerComponent(
+//   "PostDetail",
+//   () => PostDetailScreen,
+//   store,
+//   Provider
+// );
+
 
 //DealApp;

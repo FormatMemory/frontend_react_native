@@ -1,22 +1,29 @@
-import { ADD_POST, DELETE_POST, UPDATE_POST } from './actionTypes';
+import { ADD_POST, DELETE_POST, UPDATE_POST, UPDATE_POST_ID } from './actionTypes';
 
 export const addPost = (post) => {
     return {
         type: ADD_POST,
-        place: post
+        post: post
     };
 };
 
 export const deletePost = (key) => {
     return {
         type: DELETE_POST,
-        placeId: key
+        postId: key
     };
 };
 
-export const updatePost = (key) => {
+export const updatePost = (post) => {
     return {
         type: UPDATE_POST,
-        placeId: key
+        post: post
     };
 };
+
+export const updatePostId = (postId) => {
+    return {
+        type: UPDATE_POST_ID,
+        postId: postId
+    }
+}

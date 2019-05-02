@@ -19,7 +19,7 @@ const errorReducer = (state = initialState, action) => {
                 ...state,
                 isError: false,
                 errorMessgae: ""
-            }
+            };
         default:
             return state;
     }

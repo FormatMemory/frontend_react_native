@@ -23,10 +23,15 @@ import {
 import { MonoText } from '../../common/StyledText';
 import PostList from '../../components/Posts/PostList';
 import PostDetail from './PostDetailScreen';
+import {
+  updatePostId
+} from '../../store/actions/index';
+import { connect } from 'react-redux';
+
 
 // type Props = {};
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
 
   // componentWillMount() {
   //   // this.props.askForGalleryPermission();
@@ -37,7 +42,10 @@ export default class HomeScreen extends React.Component {
   //   // this.props.unsubscribe();
   // }
 
-
+  // state = {
+  //   // post_id:-1
+  // };
+  
   renderNoContent() {
     return (
       <NoContentView
@@ -53,7 +61,12 @@ export default class HomeScreen extends React.Component {
 
   onPostSelected = (key) => {
     console.log("HomeScreen on post selected "+key);
-    console.log(key)
+    // console.log(key);
+    this.props.onUpdatePostId(key);
+    // console.log("@#$%^&*(");
+    // console.log(this.props);
+    // console.log(this.state);
+    // console.log("@#$%^&*(");
     this.props.navigation.push('Details', {
       key:key
     });
@@ -72,15 +85,28 @@ export default class HomeScreen extends React.Component {
           <Header>
             <Title>Deal Site</Title>
           </Header>
-          {/* <Body> */}
             <PostList
               onPostSelected = {this.onPostSelected}
             />
-          {/* </Body> */}
         </Container>
       );
     }
 }
+
+// const mapStateToProps = state => {
+//   return {
+//       postId: state.post.postId
+//   };
+// };
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onUpdatePostId: (postId) => dispatch(updatePostId(postId))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(HomeScreen);
+
 
 // const styles = StyleSheet.create({
 //   container: {

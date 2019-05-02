@@ -12,7 +12,11 @@ import PostDetailScreen from '../screens/HomeScreen/PostDetailScreen';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Details: PostDetailScreen,
-});
+},
+{
+  initialRouteName: 'Home',
+}
+);
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',

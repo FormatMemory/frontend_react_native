@@ -22,8 +22,9 @@ import {
 // import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
 import PostDetail from '../../components/Posts/PostDetail';
+import { connect } from 'react-redux';
 
-export default class HomeScreen extends React.Component {
+class PostDetailScreen extends React.Component {
 
   // componentWillMount() {
   //   // this.props.askForGalleryPermission();
@@ -53,17 +54,22 @@ export default class HomeScreen extends React.Component {
   render() {
       return (
         <Container>
-          {/* <Body> */}
+          {/* {console.log("FROM POST DETAIL SCREEN: "+this.props)}
           {console.log(this.props)}
-            <PostDetail
-                key={this.props.key}
-            />
-          {/* </Body> */}
+          {console.log("UP FROM POST DETAIL SCREEN")}  */}
+            <PostDetail/>
         </Container>
       );
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        postId: state.postId
+    };
+};
+
+export default connect(mapStateToProps)(PostDetailScreen);
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
