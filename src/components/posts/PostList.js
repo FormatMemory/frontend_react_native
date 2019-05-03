@@ -89,19 +89,21 @@ class PostList extends Component {
     }, 2500);
   }
   
+  appendPostList(newData){
+    //append new data to the last of current postlist state
+    this.setState(prevState => {
+      newPostList = prevState.postList.concat(newData.postList);
+      return {
+        ...prevState,
+        postList:newPostList
+      }
+    })
+  }
+
   _onRefresh = () => {
     this.setState({refreshing: true});
     this.fetchData()
-      .then( newData =>
-          this.setState(prevState => {
-            console.log(newData)
-            newPostList = prevState.postList.concat(newData.postList);
-            console.log(newPostList);
-            return {
-              ...prevState,
-              postList:newPostList
-            }
-          }))
+      .then( newData => this.appendPostList(newData))
       .catch(
         err => {
           console.log(err);
