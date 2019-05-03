@@ -90,12 +90,22 @@ class PostList extends Component {
   }
   
   appendPostList(newData){
-    //append new data to the last of current postlist state
+    //append new data to the last of current postList state
     this.setState(prevState => {
       newPostList = prevState.postList.concat(newData.postList);
       return {
         ...prevState,
         postList:newPostList
+      }
+    })
+  }
+
+  updatePostList = (newData) => {
+    //update the entire postList state
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        postList:newData
       }
     })
   }
