@@ -11,7 +11,7 @@ import {
   Thumbnail, Text,
   Button, Icon,
   Left, Body, Right,
-  Spinner, ListItem
+  Spinner, ListView
 } from 'native-base';
 import Post from './Post';
 
@@ -155,7 +155,7 @@ class PostList extends Component {
   }
 
   componentDidMount(){
-  
+    
   }
 
   showSpinner = () => {
@@ -167,14 +167,21 @@ class PostList extends Component {
       }
   }
 
+  // setCurrentReadOffset = (event) => {
+  //   console.log(event.nativeEvent.contentOffset);
+  //   let itemHeight = 402;
+  //   let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
+  //   let currentItemIndex = Math.ceil(currentOffset / itemHeight);
+
+  //   this.state.dataset.setReadOffset(currentItemIndex);
+  // }
   setCurrentReadOffset = (event) => {
-    let itemHeight = 402;
-    let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
-    let currentItemIndex = Math.ceil(currentOffset / itemHeight);
-
-    this.state.dataset.setReadOffset(currentItemIndex);
+    // Log the current scroll position in the list in pixels
+    console.log(event.nativeEvent.contentOffset.y);
   }
-
+  _handleLoadMore = () => {
+    alert(111);
+  }
   render() {
     return (
         <Container>
@@ -191,9 +198,14 @@ class PostList extends Component {
                   onRefresh={this._onRefresh.bind(this)}
                   title="Loading..."
                   scrollEventThrottle={300}
-                  onScroll={this.setCurrentReadOffset}
+                  // onEndReached={this._handleLoadMore}
+                  // onEndReachedThreshold={0.5}
+                  // initialNumToRender={10}
               />
-            }>
+            }
+            onScroll={this.setCurrentReadOffset}
+            removeClippedSubviews={true}
+            >
             {this.showSpinner()}
             { this.state.postList.length != 0 ? 
               this.state.postList.map((item, index) => {
@@ -205,6 +217,17 @@ class PostList extends Component {
                 );
               }) : <Spinner color='#e0e0eb'/>
             }
+            {/* <ListView
+              dataSource={ this.state.dataSource }
+              renderRow={ rowData => {
+                return (
+                  <Post key={rowData.id}
+                        post={rowData}
+                        onPostSelected={this.onPostSelected}
+                  />
+                );
+              }}
+            /> */}
         </Content>
         </Container>
     );
