@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Image,
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  StyleSheet
 } from 'react-native';
 import {
   Container,
@@ -18,15 +19,20 @@ class PostList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      postList : [],
+      postList: [],
+      isLoading: true,
       refreshing: false,
+      curPage:1,
+      hasMore: true,
+      isError: false,
+      isUpdate: true
     };
   }
   
-  fetchaData(){
-    console.log("start reloading");
-    return 1;
-  }
+  // fetchaData(){
+  //   console.log("start reloading");
+  //   return 1;
+  // }
 
   fetchData = (retry=0) => {
     const prom =  new Promise( (resolve, reject) => {
@@ -34,15 +40,14 @@ class PostList extends Component {
         reject('Already in refreshing');
       }
       else{
-        this.wait();
+        this.wait(500);
         setTimeout( () => {
-          var didSucceed = Math.random() >= 0.5;
+          var didSucceed = Math.random() >= 0.1;
           if (didSucceed){
             resolve(this.getPostLists());
             console.log('success'+retry);
           }else{
               if(retry >= 5){
-                console.log(111111);
                 reject('Test Error');
               }else{
                 console.log('Fetch error, retry'+retry);
@@ -57,39 +62,62 @@ class PostList extends Component {
                 )
               }
           }
-        }, 2000);
+        }, 1000);
       }
     });
     return prom;
   }
 
-  wait(){
-    setTimeout(function(){
+  wait(time){
+    setTimeout( () =>{
       //do what you need here
       console.log("finish reloading");
       // alert("refreshed");
-  }, 1500);
+    }, time);
   }
 
+  updateNotify = () => {
+    setTimeout( () =>{
+      this.setState({
+        isUpdate:true
+      })
+    }, 1000);
+    setTimeout( () =>{
+      this.setState({
+        isUpdate:false
+      })
+    }, 2500);
+  }
+  
   _onRefresh = () => {
     this.setState({refreshing: true});
     this.fetchData()
       .then( newData =>
           this.setState(prevState => {
             console.log(newData)
+            newPostList = prevState.postList.concat(newData.postList);
+            console.log(newPostList);
             return {
               ...prevState,
-              ...newData
+              postList:newPostList
             }
           })
-      )
       .catch(
         err => {
           console.log(err);
           alert(err);
+          this.setState({
+            isError:true
+          })
         }
+      ).then(
+          this.setState({isError: false, isLoading:false})
+        )
+      ).then(
+        this.updateNotify()
       )
       this.setState({refreshing: false});
+      console.log(this.state);
   }
   
   onPostSelected = (key) => {
@@ -114,9 +142,9 @@ class PostList extends Component {
     this._onRefresh();
   }
 
-  // componentDidMount(){
-  //   this.setState({refreshing:false})
-  // }
+  componentDidMount(){
+  
+  }
 
   showSpinner = () => {
       if( this.state.refreshing){
@@ -127,20 +155,35 @@ class PostList extends Component {
       }
   }
 
+  setCurrentReadOffset = (event) => {
+    let itemHeight = 402;
+    let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
+    let currentItemIndex = Math.ceil(currentOffset / itemHeight);
+
+    this.state.dataset.setReadOffset(currentItemIndex);
+  }
+
   render() {
-    this.fetchaData.bind(this);
     return (
         <Container>
+        {
+          this.state.isUpdate?
+          <CardItem>
+          <Text style={ styles.updateNotify }>Updated</Text>
+          </CardItem>:null
+        }
         <Content
             refreshControl={
               <RefreshControl
                   refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh}
+                  onRefresh={this._onRefresh.bind(this)}
                   title="Loading..."
+                  scrollEventThrottle={300}
+                  onScroll={this.setCurrentReadOffset}
               />
             }>
             {this.showSpinner()}
-            {
+            { this.state.postList.length != 0 ? 
               this.state.postList.map((item, index) => {
                 return (
                   <Post key={index}
@@ -148,12 +191,27 @@ class PostList extends Component {
                         onPostSelected={this.onPostSelected}
                   />
                 );
-              })
+              }) : <Spinner color='#e0e0eb'/>
             }
         </Content>
         </Container>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  updateNotify: {
+    flex: 1,
+    padding: 1,
+    marginTop:1,
+    marginBottom:0,
+    fontSize: 14,
+    textAlign: "center",
+    textTransform: "capitalize",
+    alignItems: "center",
+    color:"#4d94ff",
+  },
+});
 
 export default PostList;
