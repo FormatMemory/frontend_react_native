@@ -101,7 +101,7 @@ class PostList extends Component {
               ...prevState,
               postList:newPostList
             }
-          })
+          }))
       .catch(
         err => {
           console.log(err);
@@ -111,13 +111,13 @@ class PostList extends Component {
           })
         }
       ).then(
-          this.setState({isError: false, isLoading:false})
-        )
+        this.setState({isError: false, isLoading:false})
       ).then(
         this.updateNotify()
+      ).then(
+        console.log(this.state)
       )
       this.setState({refreshing: false});
-      console.log(this.state);
   }
   
   onPostSelected = (key) => {
