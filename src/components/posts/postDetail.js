@@ -1,4 +1,4 @@
-import { Card, CardItem, Container, Content, Left, Right, Icon, Button, Text, Footer, FooterTab, Fab } from 'native-base';
+import { Card, CardItem, Container, Content, Left, Body, Right, Icon, Button, Text, Footer, FooterTab, Fab } from 'native-base';
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
@@ -67,6 +67,7 @@ class PostDetail extends Component {
     // console.log(this.props);
   }
 
+  //To DO: Save to libary
 
   render() {
     return (
@@ -96,24 +97,21 @@ class PostDetail extends Component {
                 postId={this.props.post.postId}
             /> */}
         </Content>
-        <Footer style={styles.footer}>
-          <FooterTab style={styles.footerTab}>
-                <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
-                  <Icon active name="thumbs-up" />
+        <Footer transparent style={styles.footer}>
+          <FooterTab transparent style={styles.footerTab}>
+                <Button small style={styles.footerButton} onPress={() => alert("This is comment")}>
+                  <Icon active name="chatbubbles" />
                   <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                 </Button>
                 <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
                   <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                 </Button>
-                <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
-                  <Icon active name="thumbs-up" />
-                  <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
-                </Button>
-                <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
-                  <Icon active name="thumbs-up" />
-                  <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
-                </Button>
+              <Button small rounded primary style={{marginStart:10, marginEnd:5, padding:5, alignSelf: 'center', height:'75%' }}>
+                  <Text style={{color:'#fff'}} onPress={() => alert("This is goDeal")}>
+                    Go Deal
+                  </Text>
+              </Button>
             </FooterTab>
         </Footer>
       </Container>
