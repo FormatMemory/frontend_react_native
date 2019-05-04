@@ -25,7 +25,9 @@ class PostList extends Component {
       curPage:1,
       hasMore: true,
       isError: false,
-      isUpdate: true
+      isUpdate: true,
+      page:1,
+      isAppending:false
     };
   }
   
@@ -40,7 +42,7 @@ class PostList extends Component {
         reject('Already in refreshing');
       }
       else{
-        this.wait(500);
+        this.wait(300);
         setTimeout( () => {
           var didSucceed = Math.random() >= 0.1;
           if (didSucceed){
@@ -71,7 +73,7 @@ class PostList extends Component {
   wait(time){
     setTimeout( () =>{
       //do what you need here
-      console.log("finish reloading");
+      console.log("wait");
       // alert("refreshed");
     }, time);
   }
@@ -104,8 +106,7 @@ class PostList extends Component {
     //update the entire postList state
     this.setState(prevState => {
       return {
-        ...prevState,
-        postList:newData
+        postList:newData.postList
       }
     })
   }
@@ -113,7 +114,7 @@ class PostList extends Component {
   _onRefresh = () => {
     this.setState({refreshing: true});
     this.fetchData()
-      .then( newData => this.appendPostList(newData))
+      .then( newData => this.updatePostList(newData))
       .catch(
         err => {
           console.log(err);
@@ -123,7 +124,13 @@ class PostList extends Component {
           })
         }
       ).then(
-        this.setState({isError: false, isLoading:false})
+        this.setState( prevState => {
+                        return {
+                          isError: false,
+                          isLoading:false,
+                          page:1
+                        }
+                      })
       ).then(
         this.updateNotify()
       ).then(
@@ -160,28 +167,52 @@ class PostList extends Component {
 
   showSpinner = () => {
       if( this.state.refreshing){
-        //this.state.postList == null || this.state.postList.length == 0 || 
+        //this.state.postList == null || this.state.postList.length == 0 ||
         return  <Spinner color='#e0e0eb'/>;
       }else{
         return null;
       }
   }
 
-  // setCurrentReadOffset = (event) => {
-  //   console.log(event.nativeEvent.contentOffset);
-  //   let itemHeight = 402;
-  //   let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
-  //   let currentItemIndex = Math.ceil(currentOffset / itemHeight);
-
-  //   this.state.dataset.setReadOffset(currentItemIndex);
-  // }
   setCurrentReadOffset = (event) => {
-    // Log the current scroll position in the list in pixels
-    console.log(event.nativeEvent.contentOffset.y);
+    //console.log(event.nativeEvent.contentOffset);
+    let itemHeight = 180;
+    let itemPerPage = 3;
+    let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
+    let currentItemIndex = Math.ceil(currentOffset / itemHeight);
+    // console.log(currentItemIndex);
+    // console.log(this.state.page);
+    // console.log(this.state);
+    this.wait(500);
+    if(!this.state.isAppending && (this.state.page*itemPerPage - currentItemIndex ) < 1.5){
+      this.setState({isAppending: true});
+      this.fetchData()
+      .then(newData => this.appendPostList(newData))
+      .then(
+        ()=>{
+          this.setState(prevState => {
+            return {
+              page: prevState.page+1
+            }
+          })
+          console.log("page: "+ this.state.page);
+        }
+      ).
+      then(this.setState({isAppending: false}))
+      .catch(err=>{
+        alert(err);
+        console.log(err);
+        this.setState({isAppending: false});
+      })
+    }
+    // this.state.dataset.setReadOffset(currentItemIndex);
+    // this.state.page = 12
   }
+
   _handleLoadMore = () => {
     alert(111);
   }
+
   render() {
     return (
         <Container>
@@ -191,44 +222,34 @@ class PostList extends Component {
           <Text style={ styles.updateNotify }>Updated</Text>
           </CardItem>:null
         }
-        <Content
-            refreshControl={
-              <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this._onRefresh.bind(this)}
-                  title="Loading..."
-                  scrollEventThrottle={300}
-                  // onEndReached={this._handleLoadMore}
-                  // onEndReachedThreshold={0.5}
-                  // initialNumToRender={10}
-              />
-            }
-            onScroll={this.setCurrentReadOffset}
-            removeClippedSubviews={true}
-            >
-            {this.showSpinner()}
-            { this.state.postList.length != 0 ? 
-              this.state.postList.map((item, index) => {
-                return (
-                  <Post key={index}
-                        post={item}
-                        onPostSelected={this.onPostSelected}
-                  />
-                );
-              }) : <Spinner color='#e0e0eb'/>
-            }
-            {/* <ListView
-              dataSource={ this.state.dataSource }
-              renderRow={ rowData => {
-                return (
-                  <Post key={rowData.id}
-                        post={rowData}
-                        onPostSelected={this.onPostSelected}
-                  />
-                );
-              }}
-            /> */}
-        </Content>
+          <Content
+              refreshControl={
+                              <RefreshControl
+                                  refreshing={this.state.refreshing}
+                                  onRefresh={this._onRefresh.bind(this)}
+                                  title="Loading..."
+
+                              />
+                            }
+              onScroll={this.setCurrentReadOffset}
+              scrollEventThrottle={500}
+              removeClippedSubviews={true}
+              // onEndReached={this._handleLoadMore}
+              // onEndReachedThreshold={0.5}
+              // initialNumToRender={10}
+              >
+              {this.showSpinner()}
+              { this.state.postList.length != 0 ? 
+                this.state.postList.map((item, index) => {
+                  return (
+                    <Post key={index}
+                          post={item}
+                          onPostSelected={this.onPostSelected}
+                    />
+                  );
+                }) : <Spinner color='#e0e0eb'/>
+              }
+          </Content>
         </Container>
     );
   }
