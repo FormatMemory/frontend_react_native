@@ -43,7 +43,7 @@ class PostList extends Component {
         reject('Already in refreshing');
       }
       else{
-        this.wait(300);
+        this.wait(200);
         setTimeout( () => {
           var didSucceed = Math.random() >= 0.1;
           if (didSucceed){
@@ -65,7 +65,7 @@ class PostList extends Component {
                 )
               }
           }
-        }, 500);
+        }, 300);
       }
     });
     return prom;
@@ -121,7 +121,9 @@ class PostList extends Component {
           console.log(err);
           alert(err);
           this.setState({
-            isError:true
+            isError:true,
+            isLoading:false,
+            refreshing: false,
           })
         }
       ).then(
@@ -261,7 +263,6 @@ class PostList extends Component {
                       refreshing={this.state.refreshing}
                       onRefresh={this._onRefresh.bind(this)}
                       title="Loading..."
-
                   />
                 }
               onScroll={this.setCurrentReadOffset}
