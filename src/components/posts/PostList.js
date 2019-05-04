@@ -131,6 +131,7 @@ class PostList extends Component {
                           isLoading:false,
                           page:1,
                           firstLoad:false,
+                          isAppending:false
                         }
                       })
       ).then(
@@ -138,7 +139,11 @@ class PostList extends Component {
       ).then(
         console.log(this.state)
       )
-      this.setState({refreshing: false});
+      this.setState({
+                  refreshing: false,
+                  isAppending:false,
+                  firstLoad:false
+         });
   }
   
   onPostSelected = (key) => {
