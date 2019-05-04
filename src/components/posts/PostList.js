@@ -187,10 +187,14 @@ class PostList extends Component {
     let itemPerPage = 3;
     let currentOffset = Math.floor(event.nativeEvent.contentOffset.y);
     let currentItemIndex = Math.ceil(currentOffset / itemHeight);
+    // this.props.onSetHeader(currentOffset);
+    // if(currentOffset > 0){
+    //   this.hedder
+    // }
     // console.log(currentItemIndex);
     // console.log(this.state.page);
     // console.log(this.state);
-    this.wait(300);
+    // this.wait(300);
     if(!this.state.isAppending && (this.state.page*itemPerPage - currentItemIndex ) < 1.5){
       this.setState({isAppending: true});
       this.fetchData()
@@ -261,7 +265,7 @@ class PostList extends Component {
                   />
                 }
               onScroll={this.setCurrentReadOffset}
-              scrollEventThrottle={500}
+              scrollEventThrottle={200}
               removeClippedSubviews={true}
               // onEndReached={this._handleLoadMore}
               // onEndReachedThreshold={0.5}

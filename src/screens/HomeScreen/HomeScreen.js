@@ -44,8 +44,20 @@ class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
   }
+  state = {
+    // scrollUp:false,
+    // prevOffset:0
+  }
   componentDidMount(){
     // this.props.navigation.reset();
+    // this.setState({
+    //   scrollUp:false,
+    //   prevOffset:0
+    // })
+  }
+
+  componentDidUpdate(){
+
   }
 
   renderNoContent() {
@@ -81,15 +93,36 @@ class HomeScreen extends React.Component {
     // })
   }
   
+  // setHeader = (contentOffset) => {
+  //   console.log(contentOffset, this.state.prevOffset);
+  //   if(contentOffset>this.state.prevOffset){
+  //     this.setState({
+  //                   scrollUp:false,
+  //                   prevOffset:contentOffset
+  //                 })
+  //   }else{
+  //     this.setState({
+  //                     scrollUp:true,
+  //                     prevOffset:contentOffset
+  //                   })
+  //   }
+  // }
+
   render() {
       return (
         <Container>
+        {/* { !this.state.scrollUp?
           <Header>
             <Title>Deal Site</Title>
           </Header>
-            <PostList
-              onPostSelected = {this.onPostSelected}
-            />
+          :null
+        } */}
+          <Header>
+            <Title>Deal Site</Title>
+          </Header>
+          <PostList
+            onPostSelected = {this.onPostSelected}
+          />
         </Container>
       );
     }
