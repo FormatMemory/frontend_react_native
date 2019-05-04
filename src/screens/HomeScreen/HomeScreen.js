@@ -81,8 +81,12 @@ class HomeScreen extends React.Component {
     // console.log(this.props);
     // console.log(this.state);
     // console.log("@#$%^&*(");
-    this.props.navigation.push('Details', {
-      key:key
+    this.props.navigation.navigate({
+      key:'goToDetail',
+      routeName:'Details',
+      params:{
+        key:key
+      }
     });
 
     
