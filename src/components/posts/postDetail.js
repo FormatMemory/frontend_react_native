@@ -1,6 +1,6 @@
-import { Card, CardItem, Container, Content, Left, Right, Text } from 'native-base';
+import { Card, CardItem, Container, Content, Left, Right, Icon, Button, Text, Footer, FooterTab, Fab } from 'native-base';
 import React, { Component } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 
 class PostDetail extends Component {
@@ -8,6 +8,7 @@ class PostDetail extends Component {
     super(props);
     state = {
       cur_post: null,
+      active: true,
     };
   }
 
@@ -95,24 +96,26 @@ class PostDetail extends Component {
                 postId={this.props.post.postId}
             /> */}
         </Content>
-        {/* <Footer>
-                <Button transparent onPress={() => alert("This is like")}>
+        <Footer style={styles.footer}>
+          <FooterTab style={styles.footerTab}>
+                <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
+                  <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                 </Button>
-                <Button transparent onPress={() => alert("This is like")}>
+                <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
+                  <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                 </Button>
-                <Button transparent onPress={() => alert("This is like")}>
+                <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
+                  <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                 </Button>
-                <Button transparent onPress={() => alert("This is like")}>
+                <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
                   <Icon active name="thumbs-up" />
-                  <Text>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
+                  <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                 </Button>
-        </Footer> */}
+            </FooterTab>
+        </Footer>
       </Container>
     );
   }
@@ -169,7 +172,26 @@ const styles = StyleSheet.create({
     marginBottom: 1,
     height: 325,
     width: "100%"
-  }
+  },
+  footerButton:{
+    flex: 1,
+    paddingLeft:5,
+    paddingRight:5
+  },
+  footerButtonText:{
+    fontSize:12,
+  },
+  footerTab:{
+    flex:1,
+    backgroundColor:"#FFF",
+    alignItems:'center',
+    justifyContent: 'center',
+  },
+  footerd:{
+    backgroundColor:"#FFF",
+    alignItems:'center',
+    justifyContent: 'center',
+  },
 });
 
 const mapStateToProps = state => {
