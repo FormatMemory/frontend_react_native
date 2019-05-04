@@ -65,7 +65,7 @@ class PostList extends Component {
                 )
               }
           }
-        }, 1000);
+        }, 500);
       }
     });
     return prom;
@@ -190,7 +190,7 @@ class PostList extends Component {
     // console.log(currentItemIndex);
     // console.log(this.state.page);
     // console.log(this.state);
-    this.wait(500);
+    this.wait(300);
     if(!this.state.isAppending && (this.state.page*itemPerPage - currentItemIndex ) < 1.5){
       this.setState({isAppending: true});
       this.fetchData()
