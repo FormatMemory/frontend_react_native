@@ -27,7 +27,8 @@ class PostList extends Component {
       isError: false,
       isUpdate: true,
       page:1,
-      isAppending:false
+      isAppending:false,
+      firstLoad:true
     };
   }
   
@@ -128,7 +129,8 @@ class PostList extends Component {
                         return {
                           isError: false,
                           isLoading:false,
-                          page:1
+                          page:1,
+                          firstLoad:false,
                         }
                       })
       ).then(
@@ -222,15 +224,37 @@ class PostList extends Component {
           <Text style={ styles.updateNotify }>Updated</Text>
           </CardItem>:null
         }
+        { this.state.postList.length == 0 ?
+          <Card transparent >
+              <CardItem >
+                    <Body style={{
+                              flex: 1,
+                              marginTop:240,
+                              justifyContent: 'center',
+                              alignItems:'center'
+                        }}>
+                        <Spinner color='#e0e0eb' />
+                        {
+                          this.state.firstLoad && !this.state.refreshing ?
+                              <Button primary style={{padding: '10%', alignSelf: 'center'}} onPress={() => this._onRefresh()}>
+                                <Text>Click Refresh</Text>
+                              </Button>
+                          :null
+                        }
+
+                    </Body>
+              </CardItem>
+          </Card>
+        :
           <Content
               refreshControl={
-                              <RefreshControl
-                                  refreshing={this.state.refreshing}
-                                  onRefresh={this._onRefresh.bind(this)}
-                                  title="Loading..."
+                  <RefreshControl
+                      refreshing={this.state.refreshing}
+                      onRefresh={this._onRefresh.bind(this)}
+                      title="Loading..."
 
-                              />
-                            }
+                  />
+                }
               onScroll={this.setCurrentReadOffset}
               scrollEventThrottle={500}
               removeClippedSubviews={true}
@@ -239,7 +263,7 @@ class PostList extends Component {
               // initialNumToRender={10}
               >
               {this.showSpinner()}
-              { this.state.postList.length != 0 ? 
+              {
                 this.state.postList.map((item, index) => {
                   return (
                     <Post key={index}
@@ -247,9 +271,10 @@ class PostList extends Component {
                           onPostSelected={this.onPostSelected}
                     />
                   );
-                }) : <Spinner color='#e0e0eb'/>
+                })
               }
           </Content>
+        }
         </Container>
     );
   }
