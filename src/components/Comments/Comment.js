@@ -9,36 +9,37 @@ class Comment extends Component {
   }
   render() {
     return (
-      <Container key={this.props.key} style={styles.card}>
-          <Card >
-            <CardItem>
-              <Left>
-                <Button transparent  onPress={() => alert("This is user info")}>
-                  <Thumbnail small source={{uri: this.props.comment.userImage}}  />
-                </Button>
-                <Body>
-                  <Text style={{fontWeight:"bold"}}> {this.props.comment.username} </Text>
-                  <Text note> {this.props.comment.created_time} </Text>
-                </Body>
-              </Left>
-              <Right>
-                  <Button transparent onPress={() => alert("This is like")}>
-                    <Icon active name="thumbs-up" />
-                    <Text>{this.props.comment.likes > 0 ? this.props.comment.likes : 0} Likes</Text>
-                 </Button>
-                 <Button transparent onPress={() => alert("This is chat")}>
-                    <Icon active name="chatbubbles" />
-                    {/* <Text>{this.props.comment.count > 0 ? this.props.comment.count : 0} Likes</Text> */}
-                 </Button>
-              </Right>
-            </CardItem>
-            <CardItem Button onPress={()=> this.props.onCommentSelected(this.props.comment.id)}>
-                <Text>
-                    {this.props.comment.content}
-                </Text>
-            </CardItem>>
-          </Card>
-      </Container>
+        <Text>111</Text>
+    //   <Container key={this.props.key} style={styles.card}>
+    //       <Card >
+    //         <CardItem>
+    //           <Left>
+    //             <Button transparent  onPress={() => alert("This is user info")}>
+    //               <Thumbnail small source={{uri: this.props.comment.userImage}}  />
+    //             </Button>
+    //             <Body>
+    //               <Text style={{fontWeight:"bold"}}> {this.props.comment.username} </Text>
+    //               <Text note> {this.props.comment.created_time} </Text>
+    //             </Body>
+    //           </Left>
+    //           <Right>
+    //               <Button transparent onPress={() => alert("This is like")}>
+    //                 <Icon active name="thumbs-up" />
+    //                 <Text>{this.props.comment.likes > 0 ? this.props.comment.likes : 0} Likes</Text>
+    //              </Button>
+    //              <Button transparent onPress={() => alert("This is chat")}>
+    //                 <Icon active name="chatbubbles" />
+    //                 {/* <Text>{this.props.comment.count > 0 ? this.props.comment.count : 0} Likes</Text> */}
+    //              </Button>
+    //           </Right>
+    //         </CardItem>
+    //         <CardItem Button onPress={()=> this.props.onCommentSelected(this.props.comment.id)}>
+    //             <Text>
+    //                 {this.props.comment.content}
+    //             </Text>
+    //         </CardItem>>
+    //       </Card>
+    //   </Container>
     );
   }
 }

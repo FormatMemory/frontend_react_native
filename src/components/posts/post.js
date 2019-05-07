@@ -41,7 +41,7 @@ class Post extends Component {
               </Left>
               <Right>
                 <Button transparent onPress={() => alert("This is like")}>
-                  <Icon active name="thumbs-up" />
+                  <Icon name="thumbs-up" />
                   <Text>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
                 </Button>
               </Right>
