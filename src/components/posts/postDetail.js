@@ -10,19 +10,17 @@ class PostDetail extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props);
+    console.log(this.props);
   }
 
   //To DO: Save to libary
 
   render() {
     return (
-
-      <Container key={this.props.post.postId}>
+      <View key={this.props.post.postId} style={ styles.contentContainer }>
         {console.log(this.props)}
         {console.log(this.props.post.postId)}
         {/* <Text>PostDetail</Text> */}
-        <Content padder>
             <Image source={{ uri: this.props.cur_post.headImage }}
               style={styles.deal_head_image}
               onPress={() => alert("This is deal head image")}
@@ -37,29 +35,28 @@ class PostDetail extends Component {
             </CardItem>
             <Text style={styles.post_title}>{this.props.cur_post.title}</Text>
             <Text style={styles.post_content}>{this.props.cur_post.content}</Text>
-
-            <Text style={styles.post_help_text}>{this.props.cur_post.comments} Comments</Text>
-        </Content>
-      </Container>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  contentContainer:{
+  },
   user_image: {
-    flex: 1,
+    // flex: 1,
     padding: 10,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start"
   },
   deal_head_image: {
-    flex: 1,
+    // flex: 1,
     height: 175,
     width: "100%"
   },
   post_title: {
-    flex: 1,
+    // flex: 1,
     padding: 10,
     marginTop: 5,
     marginBottom: 10,
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start"
   },
   post_content: {
-    flex: 1,
+    // flex: 1,
     padding: 10,
     fontSize: 16,
     margin: 5,
@@ -80,17 +77,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "flex-start"
   },
-  post_help_text:{
-    margin: 10,
-    textAlign:"right",
-    color:"#ff9000",
-    fontSize:14
-    // textShadowColor: '#ff9000',
-    // textShadowOffset: {width: 1, height: 1},
-    // textShadowRadius: 1
-  },
   card: {
-    flex: 1,
+    // flex: 1,
     padding: 5,
     backgroundColor: "#fff",
     marginBottom: 1,

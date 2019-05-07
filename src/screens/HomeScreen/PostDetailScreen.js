@@ -6,7 +6,7 @@ import {
 import { 
   Container, Text, 
   Button, Icon,
-  Footer, FooterTab
+  Footer, FooterTab, Content
  } from 'native-base';
 // import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
@@ -82,6 +82,10 @@ class PostDetailScreen extends React.Component {
     });
   }
 
+  onCommentSelected = (commentId) => {
+    console.log(commentId+"commentID selected");
+  }
+
   renderNoContent() {
     return (
       <NoContentView
@@ -103,10 +107,16 @@ class PostDetailScreen extends React.Component {
           {/* {console.log("FROM POST DETAIL SCREEN: "+this.props)}
           {console.log(this.props)}
           {console.log("UP FROM POST DETAIL SCREEN")}  */}
+          <Content padder>
             <PostDetail
               cur_post = {this.state.cur_post}
             />
-            {/* <Comments></Comments> */}
+            <Text>1212</Text>
+            <Comments
+              postId = { this.props.post.postId } 
+              onCommentSelected = { (commentId) => this.onCommentSelected(commentId) }
+            />
+            </Content>
             <Footer transparent style={styles.footer}>
                 <FooterTab transparent style={styles.footerTab}>
                       <Button small style={styles.footerButton} onPress={() => alert("This is comment")}>
@@ -139,7 +149,7 @@ const mapStateToProps = state => {
 
 const styles = StyleSheet.create({
   footerButton:{
-    flex: 1,
+    // flex: 1,
     paddingLeft:5,
     paddingRight:5
   },
@@ -147,7 +157,7 @@ const styles = StyleSheet.create({
     fontSize:12,
   },
   footerTab:{
-    flex:1,
+    // flex:1,
     backgroundColor:"#FFF",
     alignItems:'center',
     justifyContent: 'center',

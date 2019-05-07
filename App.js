@@ -21,7 +21,7 @@ class App extends React.Component {
     // errorMessage: "",
 
   render() {
-    console.log(this.props.isLoading);
+    // console.log(this.props.isLoading);
     if (this.state.isLoading && !this.props.skipLoadingScreen) {
       return (
         <AppLoading

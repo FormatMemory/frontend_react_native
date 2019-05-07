@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { Container, Content, Text} from 'native-base';
+import { Image, StyleSheet, View } from 'react-native';
+import { Container, Content, Text } from 'native-base';
 import { Comment } from './Comment';
 
 class Comments extends Component {
@@ -35,23 +35,53 @@ class Comments extends Component {
 
   render() {
     return (
-        <Container>
-            <Content>
-            <Text>comments</Text>
-                {/* {
+        <View>
+            {/* <Content> */}
+            <Text style={styles.post_help_text}>{this.state.comments.length} Comments</Text>
+                {
                 this.state.comments.map((item, index) => {
                     return (
-                    <Comment key={index}
+                      <Text key={index}>Comment {index}</Text>
+                    /* <Comment key={index}
                             comment={item}
                             onCommentSelected={() => props.onCommentSelected(key)} 
-                    />
+                    /> */
                     );
                 })
-                } */}
-            </Content>
-        </Container>
+                }
+            {/* </Content> */}
+        </View>
     );
   }
 }
+
+
+
+const styles = StyleSheet.create({
+  user_image:{
+    // flex:1,
+    padding:10,
+    backgroundColor: "#fff",
+    alignItems:"center",
+    justifyContent:"flex-start"
+  },
+  post_help_text:{
+    margin: 10,
+    textAlign:"right",
+    color:"#ff9000",
+    fontSize:14
+    // textShadowColor: '#ff9000',
+    // textShadowOffset: {width: 1, height: 1},
+    // textShadowRadius: 1
+  },
+  card:{
+    // flex:1,
+    padding:5,
+    backgroundColor:"#fff",
+    marginBottom:1,
+    height:325,
+    width:"100%"
+  }
+});
 
 export default Comments;
