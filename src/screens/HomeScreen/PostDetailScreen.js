@@ -12,7 +12,7 @@ import {
 import { MonoText } from '../../common/StyledText';
 import PostDetail from '../../components/Posts/PostDetail';
 import { connect } from 'react-redux';
-import Comments from '../../components/Comments/Comments';
+import PickedComments from '../../components/Comments/PickedComments';
 
 class PostDetailScreen extends React.Component {
 
@@ -111,8 +111,7 @@ class PostDetailScreen extends React.Component {
             <PostDetail
               cur_post = {this.state.cur_post}
             />
-            <Text>1212</Text>
-            <Comments
+            <PickedComments
               postId = { this.props.post.postId } 
               onCommentSelected = { (commentId) => this.onCommentSelected(commentId) }
             />

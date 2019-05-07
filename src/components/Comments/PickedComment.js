@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Container, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, List, ListItem } from 'native-base';
 
-class Comment extends Component {
+class PickedComment extends Component {
   constructor(props) {
     super(props);
     
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
 //   }
 // };
 
-export default Comment;
+export default PickedComment;
