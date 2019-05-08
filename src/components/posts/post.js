@@ -14,8 +14,8 @@ class Post extends Component {
   
   render() {
     return (
-      <Container key={this.props.post.id} style={styles.card}>
-          <Card >
+      <View key={this.props.post.id} style={styles.card}>
+          <Card>
             <CardItem cardBody button onPress={() => this.goToPostDetail(this.props.post.id)}>
               <Image source={{uri: this.props.post.headImage}} style={styles.deal_head_image}/>
             </CardItem>
@@ -32,22 +32,13 @@ class Post extends Component {
             </CardItem>
             <CardItem>
               <Left>
-                {/* <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>{ this.props.comments } Comments</Text>
-                </Button> */}
                   <Text note>{this.props.post.published}</Text>
-                  <Text note> {this.props.post.views > 0 ? this.props.post.views : 0} views</Text> 
+                  <Text note> {this.props.post.views > 0 ? this.props.post.views : 0} views</Text>
+                  <Text note>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
               </Left>
-              <Right>
-                <Button transparent onPress={() => alert("This is like")}>
-                  <Icon name="thumbs-up" />
-                  <Text>{this.props.post.likes > 0 ? this.props.post.likes : 0} Likes</Text>
-                </Button>
-              </Right>
             </CardItem>
           </Card>
-      </Container>
+      </View>
     );
   }
 }
@@ -67,12 +58,10 @@ const styles = StyleSheet.create({
     width:"100%"
   },
   card:{
-    flex:1,
     padding:2,
     backgroundColor:"#fff",
-    marginBottom:1,
-    height:325,
-    width:"100%"
+    width:"100%",
+    marginBottom:-7
   }
 });
 
