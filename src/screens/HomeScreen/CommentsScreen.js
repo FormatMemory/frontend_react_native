@@ -1,15 +1,51 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { Container, Content, Text } from 'native-base';
-import PickedComment from './PickedComment';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  Image,
+  StyleSheet, TextInput,
+  FlatList, View, BaseInput, Keyboard
+} from 'react-native';
+import { 
+  Container, Text, 
+  Button, ListView, Right,
+  Footer, FooterTab, Content
+ } from 'native-base';
+// import Post from '../../components/Posts/Post';
+import { MonoText } from '../../common/StyledText';
+import { connect } from 'react-redux';
 
-class PickedComments extends Component {
+class CommentsScreen extends React.Component {
+
   constructor(props) {
     super(props);
-    this.state = {
-      comments: [],
-      pickedComments : []
-    };
+  }
+
+  state = {
+    comments:[],
+    postId: null,
+    post:null,
+    postComment:'',
+  };
+  componentWillMount() {
+    // this.getComments();
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      console.log('keyboard show');
+    });
+
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      console.log('keyboard hide');
+    });
+  }
+
+  componentDidMount() {
+    // console.log(this.props);
+    // console.log(this.props);
+    // console.log(this.state);
+  }
+
+  componentWillUnmount(){
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
   }
 
   getComments = () => {
@@ -36,82 +72,152 @@ class PickedComments extends Component {
       };
     });
   };
-  
-  getPickedComments = () => {
+
+  getPostDetail = () => {
+    key = this.props.post.postId;
+    console.log("#########");
+    console.log(this.props);
+    console.log("#########");
     this.setState(prevState => {
-        return {
-          pickedComments: [
-            { postId:1, id: 2, content: '2Lorem ipsum do32432324lor sit amet, everti rationibus his ', likes:'323', username: 'tasteCloet', views:'710', comments:'16', created_time:'9h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/G/01/xba/Dashboard_E_2x_April_2019._CB454465255_SY520_.jpg', userImage: 'http://alexsears.com/assets/img/alexsears.jpg' },
-            { postId:1, id: 3, content: '10 Funnyf3e2fre CDFWERFQEWFEWQWED Quotes', username: '⬆️哇塞', views:'698', likes:'43', comments:'8', created_time:'14h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/I/41Z4evkR8TL._AC_SY480_.jpg', userImage: 'https://media.nngroup.com/media/people/photos/Kim-Flaherty-Headshot.png.400x400_q95_autocrop_crop_upscale.png'},
-            { postId:1, id: 4, content: '顺德区我几都去鸡传额我却等如同一条容易废弃物个热狗围观递欧气我甜美可人了两款g绯闻绯闻绯闻宴会厅言谈举止中e车 v 陪我一句有几个人到处 v 下', username: '⬆️哇塞', views:'698', likes:'43', comments:'8', created_time:'14h ago', headImage: 'https://images-na.ssl-images-amazon.com/images/I/41Z4evkR8TL._AC_SY480_.jpg', userImage: 'https://media.nngroup.com/media/people/photos/Kim-Flaherty-Headshot.png.400x400_q95_autocrop_crop_upscale.png'},
-          ]
-        };
-      });
-    };
-    
-  componentWillMount(){
-    this.getComments(); 
-    this.getPickedComments();
+      return {
+        cur_post: this.sample.filter(post => post.id == key)[0]
+      };
+    });
   }
 
-  onCommentSelected(key){
-    this.props.onCommentSelected(key);
+  onCommentSelected = (commentId) => {
+    console.log(commentId+"commentID selected");
   }
 
-  render() {
+  renderNoContent() {
     return (
-        <View>
-            <Text style={styles.post_help_text}>Comments</Text>
-                {
-                this.state.pickedComments.map((item, index) => {
-                    return (
-                      <PickedComment key={index}
-                              comment={item}
-                              onCommentSelected={(key) => this.onCommentSelected(key)} 
-                      />
-                    );
-                })
-                }
-            <Text style={styles.more_comments} onPress={() => this.onCommentSelected(-1) }>--- {this.state.comments.length} Comments ---</Text> 
-        </View>
+      <View style={styles.noContent}>
+          <Icon name='comments-o' style={{color:'grey', fontSize:120}}></Icon>
+          <Text style={{color:'grey', fontSize:28}}>No Content</Text>
+          <Text style={{color:'grey', fontSize:14}}>Be the first one to comment</Text>
+      </View>
     );
   }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      // navigation.getParam('key',
+      title: 'Comments',
+    };
+  };
+
+  render() {
+      return (
+        <Container>
+          {/* {/* {console.log("FROM POST DETAIL SCREEN: "+this.props)}
+          {console.log(this.props)}
+          {console.log("UP FROM POST DETAIL SCREEN")}  */}
+          {//this.state.comments.length() > 0 ?
+            /* true?
+              <Content padder>
+                <FlatList>
+                  data={this.state.comments}
+                  renderItem={()=>{return <Comments></Comments>} }
+                </FlatList>
+              </Content>
+            : */this.renderNoContent() 
+          }
+          
+          <Footer transparent >
+                {console.log("state")
+                }
+                {console.log(this.state)}
+                <View style={styles.footer}>
+                    <TextInput
+                            style={ styles.postInputDefault }
+                            onChangeText={(text) => this.setState({ postComment:text })}
+                            placeholder='Add your comment...'
+                            value={ this.state.postComment }
+                            multiline={true}
+                            onFocus={()=>{console.log(this.state)}}
+                            returnKeyLabel = 'Post'
+                            returnKeyType='send'
+                            blurOnSubmit={ true }
+                            underlineColorAndroid='transparent'
+                            keyboardType='default'
+                          />
+                    <Button small rounded primary style={ styles.postButton }>
+                        <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => alert("This is post")}>
+                          Post
+                        </Text>
+                    </Button>
+                  </View>
+
+          </Footer>
+        </Container>
+      );
+    }
 }
 
+const mapStateToProps = state => {
+    return {
+        // postId: state.postId,
+        post: state.post
+    };
+};
 
 
 const styles = StyleSheet.create({
-  user_image:{
-    // flex:1,
-    padding:10,
-    backgroundColor: "#fff",
-    alignItems:"center",
-    justifyContent:"flex-start"
-  },
-  post_help_text:{
-    margin: 10,
-    textAlign:"left",
-    color:"#ff9000",
-    fontSize:14
-    // textShadowColor: '#ff9000',
-    // textShadowOffset: {width: 1, height: 1},
-    // textShadowRadius: 1
-  },
-  more_comments:{
+  noContent:{
     flex:1,
-    margin: 10,
-    textAlign:"center",
-    color:"#ff9000",
-    fontSize:14
+    alignItems:'center',
+    flexDirection:'column',
+    justifyContent:'center',
   },
-  card:{
-    // flex:1,
+
+  footer:{
+    backgroundColor:"#FFF",
+    alignItems:'center',
+    justifyContent: 'center',
+    flexDirection:'row',
+    paddingVertical:5,
+    flex:1,
+    height:'auto',
+    paddingHorizontal:5,
+  },
+  postButton:{
+    marginStart:10,
+    marginEnd:5,
     padding:5,
-    backgroundColor:"#fff",
-    marginBottom:1,
-    height:325,
-    width:"100%"
-  }
+    alignSelf: 'center',
+    height:30,
+    alignItems:'center',
+    justifyContent:'center',
+    flex:1
+  },
+  postInputDefault:{
+    marginLeft:10,
+    maxHeight:100,
+    height:'auto',
+    width:'100%',
+    borderColor: '#777',
+    paddingHorizontal:12, 
+    paddingVertical: 6,
+    borderRadius:30,
+    borderWidth: 1,
+    alignItems:'center',
+    justifyContent:'center',
+    borderColor:'#d9d9d9',
+    flex:3,
+    textAlignVertical: 'center'
+  },
+  postInputFocus:{
+    marginLeft:10,
+    height: 140,
+    width:'100%',
+    borderColor: '#777',
+    paddingHorizontal:12, 
+    paddingVertical: 6,
+    borderRadius:30,
+    borderWidth: 1,
+    borderColor:'#d9d9d9',
+    flex:3
+  },
 });
 
-export default PickedComments;
+export default connect(mapStateToProps)(CommentsScreen);

@@ -74,7 +74,7 @@ class HomeScreen extends React.Component {
   };
 
   onPostSelected = (key) => {
-    console.log("HomeScreen on post selected "+key);
+    // console.log("HomeScreen on post selected "+key);
     // console.log(key);
     this.props.onUpdatePostId(key);
     // console.log("@#$%^&*(");

@@ -8,10 +8,12 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AccountScreen from '../screens/AccountScreen/AccountScreen';
 import PostDetailScreen from '../screens/HomeScreen/PostDetailScreen';
+import CommentsScreen from '../screens/HomeScreen/CommentsScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Details: PostDetailScreen,
+  Comments: CommentsScreen
 },
 {
   initialRouteName: 'Home',

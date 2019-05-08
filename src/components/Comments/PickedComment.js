@@ -7,11 +7,14 @@ class PickedComment extends Component {
     super(props);
     
   }
+
+  onCommentSelected(key){
+    this.props.onCommentSelected(key);
+  }
+
   render() {
     return (
       <View>
-          {/* <Card style={ styles.card }> */}
-
             <CardItem>
               <Left>
                 <Button small transparent  onPress={() => alert("This is user info")}>
@@ -31,13 +34,12 @@ class PickedComment extends Component {
                  </Button>
               </Right>
             </CardItem>
-            <CardItem style={{marginTop:-10}} Button onPress={()=> this.props.onCommentSelected(this.props.comment.id)}>
-                <Text numberOfLines={2} style={{ fontSize:12 }}>
+            <CardItem style={{marginTop:-10}} >
+                <Text numberOfLines={2} style={{ fontSize:12 }}  onPress={() => this.onCommentSelected(this.props.comment.id)}>
                     {this.props.comment.content}
                 </Text>
             </CardItem>
             <View style={styles.devider}></View>
-          {/* </Card> */}
       </View>
     );
   }
@@ -68,9 +70,7 @@ const styles = StyleSheet.create({
   devider:{
       padding:2,
       backgroundColor:'#fff',
-      height:0.3,
       width:'90%',
-      marginBottom:5
   }
 });
 

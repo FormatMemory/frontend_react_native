@@ -84,6 +84,13 @@ class PostDetailScreen extends React.Component {
 
   onCommentSelected = (commentId) => {
     console.log(commentId+"commentID selected");
+    this.props.navigation.navigate({
+      key:'gotoComments',
+      routeName:'Comments',
+      params:{
+        commentId:commentId
+      }
+    });
   }
 
   renderNoContent() {
@@ -118,7 +125,7 @@ class PostDetailScreen extends React.Component {
             </Content>
             <Footer transparent style={styles.footer}>
                 <FooterTab transparent style={styles.footerTab}>
-                      <Button small style={styles.footerButton} onPress={() => alert("This is comment")}>
+                      <Button small style={styles.footerButton} onPress={() => this.onCommentSelected(-2)}>
                         <Icon active name="chatbubbles" />
                         <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                       </Button>
@@ -126,8 +133,8 @@ class PostDetailScreen extends React.Component {
                         <Icon active name="thumbs-up" />
                         <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                       </Button>
-                    <Button small rounded primary style={{marginStart:10, marginEnd:5, padding:5, alignSelf: 'center', height:'75%' }}>
-                        <Text style={{color:'#fff'}} onPress={() => alert("This is goDeal")}>
+                    <Button small rounded primary style={ styles.goDealButton }>
+                        <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => alert("This is goDeal")}>
                           Go Deal
                         </Text>
                     </Button>
@@ -166,6 +173,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent: 'center',
   },
+  goDealButton:{
+    marginStart:10,
+    marginEnd:5,
+    padding:5,
+    alignSelf: 'center',
+    height:'75%' 
+  }
 });
 
 export default connect(mapStateToProps)(PostDetailScreen);
