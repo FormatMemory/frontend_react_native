@@ -26,18 +26,18 @@ class CommentsScreen extends React.Component {
     postId: null,
     post:null,
     postComment:'',
-    keyboadshow:false
+    keyboadShow:false
   };
   componentWillMount() {
     // this.getComments();
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-      console.log('keyboard show');
-      this.setState({keyboadshow:true})
+      // console.log('keyboard show');
+      this.setState({keyboadShow:true})
     });
 
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      console.log('keyboard hide');
-      this.setState({keyboadshow:false})
+      // console.log('keyboard hide');
+      this.setState({keyboadShow:false})
     });
   }
 
@@ -93,6 +93,14 @@ class CommentsScreen extends React.Component {
     console.log(commentId+"commentID selected");
   }
 
+  submitComment = () => {
+    //submit post
+    new Promise(() => {
+      i
+    })
+    alert("")
+  }
+
   renderNoContent() {
     return (
       <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
@@ -123,15 +131,15 @@ class CommentsScreen extends React.Component {
             {/* {/* {console.log("FROM POST DETAIL SCREEN: "+this.props)}
             {console.log(this.props)}
             {console.log("UP FROM POST DETAIL SCREEN")}  */}
-            {//this.state.comments.length() > 0 ?
-              /* true?
+            {
+              this.state.comments.length > 0 ?
                 <Content padder>
                   <FlatList>
                     data={this.state.comments}
                     renderItem={()=>{return <Comments></Comments>} }
                   </FlatList>
                 </Content>
-              : */this.renderNoContent() 
+              : this.renderNoContent() 
             }
 
         
@@ -153,13 +161,13 @@ class CommentsScreen extends React.Component {
                               ref={ ref => {this._commentInput = ref} }
                             />
                       <Button small rounded primary style={ styles.postButton }>
-                          <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => alert("This is post")}>
+                          <Text style={{color:'#fff', fontWeight:'bold',}} onPress={ this.submitComment }>
                             Post
                           </Text>
                       </Button>
                   </View>
                   {
-                    this.state.keyboadshow ? <View style={{ height:60 }} ></View>:null
+                    this.state.keyboadShow ? <View style={{ height:70 }} ></View>:null
                   }
         </KeyboardAvoidingView>
 
@@ -196,6 +204,7 @@ const styles = StyleSheet.create({
   postButton:{
     marginStart:10,
     marginEnd:5,
+    marginTop:10,
     padding:5,
     alignSelf: 'center',
     height:30,
@@ -216,20 +225,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     borderColor:'#d9d9d9',
+    marginTop: 10,
     flex:3,
     textAlignVertical: 'center'
-  },
-  postInputFocus:{
-    marginLeft:10,
-    height: 140,
-    width:'100%',
-    borderColor: '#777',
-    paddingHorizontal:12, 
-    paddingVertical: 6,
-    borderRadius:30,
-    borderWidth: 1,
-    borderColor:'#d9d9d9',
-    flex:3
   },
 });
 
