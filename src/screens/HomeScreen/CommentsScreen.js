@@ -29,6 +29,7 @@ class CommentsScreen extends React.Component {
     postComment:'',
     keyboadShow:false
   };
+
   componentWillMount() {
     // this.getComments();
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -104,8 +105,11 @@ class CommentsScreen extends React.Component {
     });
   }
 
-  onCommentSelected = (commentId) => {
-    console.log(commentId+"commentID selected");
+  onCommentSelected = (comment) => {
+    this.setState({
+      postComment: "@"+comment.username+" "
+    });
+    this._commentInput.focus();
   }
 
   submitComment = () => {
@@ -166,7 +170,7 @@ class CommentsScreen extends React.Component {
                                     console.log(item);
                                     return <Comment
                                               comment={ item }
-                                              onCommentSelected={ this.onCommentSelected }
+                                              onCommentSelected={ (comment) => this.onCommentSelected(comment) }
                                             />
                                     }}
                     keyExtractor={(item, index) => index.toString()}

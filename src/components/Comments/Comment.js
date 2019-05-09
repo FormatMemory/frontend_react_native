@@ -9,8 +9,8 @@ class Comment extends Component {
   }
 
   componentWillMount(){
-      console.log("This is single comment");
-      console.log(this.props);
+    //   console.log("This is single comment");
+    //   console.log(this.props);
   }
 
   render() {
@@ -36,7 +36,7 @@ class Comment extends Component {
                  </Button>
               </Right>
             </CardItem>
-            <CardItem style={{marginTop:-10}} Button onPress={()=> this.props.onCommentSelected(this.props.comment.id)}>
+            <CardItem style={{marginTop:-10}} button onPress={ ()=> {this.props.onCommentSelected(this.props.comment)} }>
                 <Text numberOfLines={2} style={{ fontSize:12 }}>
                     {this.props.comment.content}
                 </Text>
