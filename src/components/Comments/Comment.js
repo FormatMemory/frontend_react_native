@@ -11,7 +11,6 @@ class Comment extends Component {
     return (
       <View>
           {/* <Card style={ styles.card }> */}
-
             <CardItem>
               <Left>
                 <Button small transparent  onPress={() => alert("This is user info")}>

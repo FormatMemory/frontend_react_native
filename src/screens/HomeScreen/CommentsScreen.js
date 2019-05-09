@@ -94,11 +94,17 @@ class CommentsScreen extends React.Component {
   }
 
   submitComment = () => {
-    //submit post
-    new Promise(() => {
-      i
-    })
-    alert("")
+    //submit postvar didSucceed = Math.random() >= 0.1;
+    if(this.state.postComment.length>0){
+      let didSucceed=Math.random() > 0;
+      if (didSucceed){
+        this.setState({ postComment:'' });
+        alert("submit");
+        Keyboard.dismiss();
+      }else{
+  
+      }
+    }
   }
 
   renderNoContent() {
@@ -153,18 +159,23 @@ class CommentsScreen extends React.Component {
                               value={ this.state.postComment }
                               multiline={true}
                               onFocus={()=>{console.log(this.state)}}
-                              returnKeyLabel = 'Ok'
-                              returnKeyType='send'
+                              returnKeyLabel = 'done'
+                              returnKeyType='done'
                               blurOnSubmit={ true }
                               underlineColorAndroid='transparent'
                               keyboardType='default'
                               ref={ ref => {this._commentInput = ref} }
                             />
-                      <Button small rounded primary style={ styles.postButton }>
-                          <Text style={{color:'#fff', fontWeight:'bold',}} onPress={ this.submitComment }>
-                            Post
-                          </Text>
-                      </Button>
+                      {
+                        !this.state.keyboadShow ?  
+                          <Button small rounded primary style={ styles.postButton }>
+                              <Text style={{color:'#fff', fontWeight:'bold',}} onPress={ this.submitComment }>
+                                Post
+                              </Text>
+                          </Button>
+                          : null
+                      }
+                     
                   </View>
                   {
                     this.state.keyboadShow ? <View style={{ height:70 }} ></View>:null
@@ -210,10 +221,11 @@ const styles = StyleSheet.create({
     height:30,
     alignItems:'center',
     justifyContent:'center',
-    flex:1
+    flex:0.3
   },
   postInputDefault:{
     marginLeft:10,
+    marginRight:10,
     maxHeight:90,
     height:'auto',
     width:'100%',
@@ -226,7 +238,7 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     borderColor:'#d9d9d9',
     marginTop: 10,
-    flex:3,
+    flex:1,
     textAlignVertical: 'center'
   },
 });
