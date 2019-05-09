@@ -3,7 +3,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   Image,
   StyleSheet, TextInput,
-  FlatList, View, BaseInput, Keyboard
+  FlatList, View, BaseInput, Keyboard,
+  KeyboardAvoidingView, TouchableWithoutFeedback,
 } from 'react-native';
 import { 
   Container, Text, 
@@ -25,15 +26,18 @@ class CommentsScreen extends React.Component {
     postId: null,
     post:null,
     postComment:'',
+    keyboadshow:false
   };
   componentWillMount() {
     // this.getComments();
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
       console.log('keyboard show');
+      this.setState({keyboadshow:true})
     });
 
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
       console.log('keyboard hide');
+      this.setState({keyboadshow:false})
     });
   }
 
@@ -91,11 +95,13 @@ class CommentsScreen extends React.Component {
 
   renderNoContent() {
     return (
+      <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
       <View style={styles.noContent}>
-          <Icon name='comments-o' style={{color:'grey', fontSize:120}}></Icon>
-          <Text style={{color:'grey', fontSize:28}}>No Content</Text>
-          <Text style={{color:'grey', fontSize:14}}>Be the first one to comment</Text>
+              <Icon name='comments-o' style={{color:'grey', fontSize:120}}></Icon>
+              <Text style={{color:'grey', fontSize:28}}>No Content</Text>
+              <Text style={{color:'grey', fontSize:14}}>Be the first one to comment</Text>
       </View>
+      </TouchableWithoutFeedback>
     );
   }
 
@@ -108,48 +114,55 @@ class CommentsScreen extends React.Component {
 
   render() {
       return (
-        <Container>
-          {/* {/* {console.log("FROM POST DETAIL SCREEN: "+this.props)}
-          {console.log(this.props)}
-          {console.log("UP FROM POST DETAIL SCREEN")}  */}
-          {//this.state.comments.length() > 0 ?
-            /* true?
-              <Content padder>
-                <FlatList>
-                  data={this.state.comments}
-                  renderItem={()=>{return <Comments></Comments>} }
-                </FlatList>
-              </Content>
-            : */this.renderNoContent() 
-          }
-          
-          <Footer transparent >
-                {console.log("state")
-                }
-                {console.log(this.state)}
-                <View style={styles.footer}>
-                    <TextInput
-                            style={ styles.postInputDefault }
-                            onChangeText={(text) => this.setState({ postComment:text })}
-                            placeholder='Add your comment...'
-                            value={ this.state.postComment }
-                            multiline={true}
-                            onFocus={()=>{console.log(this.state)}}
-                            returnKeyLabel = 'Post'
-                            returnKeyType='send'
-                            blurOnSubmit={ true }
-                            underlineColorAndroid='transparent'
-                            keyboardType='default'
-                          />
-                    <Button small rounded primary style={ styles.postButton }>
-                        <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => alert("This is post")}>
-                          Post
-                        </Text>
-                    </Button>
-                  </View>
+        <KeyboardAvoidingView
+                  keyboardVerticalOffset="20"
+                  behavior="padding" 
+                  enabled
+                  style={{flex: 1, justifyContent: 'space-between', }}>
+        
+            {/* {/* {console.log("FROM POST DETAIL SCREEN: "+this.props)}
+            {console.log(this.props)}
+            {console.log("UP FROM POST DETAIL SCREEN")}  */}
+            {//this.state.comments.length() > 0 ?
+              /* true?
+                <Content padder>
+                  <FlatList>
+                    data={this.state.comments}
+                    renderItem={()=>{return <Comments></Comments>} }
+                  </FlatList>
+                </Content>
+              : */this.renderNoContent() 
+            }
 
-          </Footer>
-        </Container>
+        
+                  {console.log("state")  }
+                  {console.log(this.state)}
+                  <View style={styles.footer}>
+                      <TextInput
+                              style={ styles.postInputDefault }
+                              onChangeText={(text) => this.setState({ postComment:text })}
+                              placeholder='Add your comment...'
+                              value={ this.state.postComment }
+                              multiline={true}
+                              onFocus={()=>{console.log(this.state)}}
+                              returnKeyLabel = 'Ok'
+                              returnKeyType='send'
+                              blurOnSubmit={ true }
+                              underlineColorAndroid='transparent'
+                              keyboardType='default'
+                              ref={ ref => {this._commentInput = ref} }
+                            />
+                      <Button small rounded primary style={ styles.postButton }>
+                          <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => alert("This is post")}>
+                            Post
+                          </Text>
+                      </Button>
+                  </View>
+                  {
+                    this.state.keyboadshow ? <View style={{ height:60 }} ></View>:null
+                  }
+        </KeyboardAvoidingView>
+
       );
     }
 }
@@ -164,19 +177,19 @@ const mapStateToProps = state => {
 
 const styles = StyleSheet.create({
   noContent:{
-    flex:1,
+    flex:0.8,
     alignItems:'center',
     flexDirection:'column',
     justifyContent:'center',
   },
 
   footer:{
+    flex:0.2,
     backgroundColor:"#FFF",
     alignItems:'center',
     justifyContent: 'center',
     flexDirection:'row',
     paddingVertical:5,
-    flex:1,
     height:'auto',
     paddingHorizontal:5,
   },
@@ -192,13 +205,13 @@ const styles = StyleSheet.create({
   },
   postInputDefault:{
     marginLeft:10,
-    maxHeight:100,
+    maxHeight:90,
     height:'auto',
     width:'100%',
     borderColor: '#777',
     paddingHorizontal:12, 
     paddingVertical: 6,
-    borderRadius:30,
+    borderRadius:10,
     borderWidth: 1,
     alignItems:'center',
     justifyContent:'center',
