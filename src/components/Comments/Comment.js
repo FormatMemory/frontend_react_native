@@ -7,6 +7,12 @@ class Comment extends Component {
     super(props);
     
   }
+
+  componentWillMount(){
+      console.log("This is single comment");
+      console.log(this.props);
+  }
+
   render() {
     return (
       <View>
@@ -35,7 +41,7 @@ class Comment extends Component {
                     {this.props.comment.content}
                 </Text>
             </CardItem>
-            <View style={styles.devider}></View>
+            <View style={styles.separator}></View>
           {/* </Card> */}
       </View>
     );
@@ -43,6 +49,13 @@ class Comment extends Component {
 }
 
 const styles = StyleSheet.create({
+    separator:{
+      height: 1,
+      width: "86%",
+      backgroundColor: "#CED0CE",
+      marginLeft: "3%",
+      marginRight: "3%"
+    },
   user_image:{
     // flex:1,
     padding:10,
