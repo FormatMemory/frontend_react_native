@@ -52,7 +52,7 @@ class CommentsScreen extends React.Component {
   }
 
   _Refresh(){
-    this.getComments();
+    this.getComments(this.props.post.postId);
   }
 
   componentWillUnmount(){
