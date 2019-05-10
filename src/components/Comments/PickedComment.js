@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Container, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, List, ListItem } from 'native-base';
+import { Container, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right, List, ListItem } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class PickedComment extends Component {
   constructor(props) {
@@ -10,6 +11,60 @@ class PickedComment extends Component {
 
   onCommentSelected(key){
     this.props.onCommentSelected(key);
+  }
+  
+  state = {
+    liked:false,
+    likes:0
+  };
+
+  onCommentLiked = () => {
+    this.setState((prevState)=>{
+      if(prevState.liked){
+        likes = parseInt(prevState.likes) - 1 
+      }else{
+        likes = parseInt(prevState.likes) + 1
+      }
+      return {
+        likes: likes,
+        liked:!prevState.liked
+      }
+    });
+  }
+
+  componentWillMount(){
+    //   console.log("This is single comment");
+    //   console.log(this.props);
+    this.setState({
+      likes:this.props.comment.likes
+    });
+    if(Math.random() > 0.6){
+      this.setState({
+        liked:true
+      });
+    }
+  }
+
+/* <Button small transparent onPress={() => alert("This is like")}>
+  <View style={{ alignItems:'center', flexDirection:'column', justifyContent:'center'}}>
+      <Icon name="thumbs-up" style={{fontSize:16 }}/>
+      <Text style={{ fontSize:12, color:'grey' }}>{this.props.comment.likes > 0 ? this.props.comment.likes : ''}</Text>
+  </View>
+</Button> */
+
+  renderCommentLikeButton = () =>{
+    return (
+      <Button small transparent onPress={() => this.onCommentLiked() }>
+      <View style={{ alignItems:'center', flexDirection:'column', justifyContent:'center',backgroundColor: 'transparent'}}>
+          {this.state.liked?
+            <Icon name="thumbs-up" color="#0066ff" style={{fontSize:16 }}/>
+            :
+            <Icon name="thumbs-o-up" style={{fontSize:16 }}/>
+          }
+          <Text style={{ fontSize:12, color:'grey' }}>{this.state.likes > 0 ? this.state.likes : ''}</Text>
+      </View>
+    </Button>
+    );
   }
 
   render() {
@@ -26,12 +81,7 @@ class PickedComment extends Component {
                 </Body>
               </Left>
               <Right>
-                  <Button small transparent onPress={() => alert("This is like")}>
-                    <View style={{ alignItems:'center', flexDirection:'column', justifyContent:'center'}}>
-                        <Icon name="thumbs-up" style={{fontSize:16 }}/>
-                        <Text style={{ fontSize:12, color:'grey' }}>{this.props.comment.likes > 0 ? this.props.comment.likes : 0}</Text>
-                    </View>
-                 </Button>
+                  { this.renderCommentLikeButton() }
               </Right>
             </CardItem>
             <CardItem style={{marginTop:-10}} >
