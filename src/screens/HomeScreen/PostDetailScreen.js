@@ -23,16 +23,24 @@ class PostDetailScreen extends React.Component {
       cur_post: null,
       active: true,
       postId: null,
-      post:null
+      post: null,
+      liked: false,
     };
   }
 
   componentWillMount() {
     this.getPostDetail();
+    if(Math.random() > 0.5){
+      this.setState({ liked: true });
+    }
   }
 
   componentDidMount() {
     // console.log(this.props);
+  }
+
+  componentDidUpdate(){
+    console.log(this.state);
   }
 
 
@@ -93,7 +101,7 @@ class PostDetailScreen extends React.Component {
   }
 
   onCommentSelected = (commentId) => {
-    console.log(commentId+"commentID selected");
+    // console.log(commentId+"commentID selected");
     this.props.navigation.navigate({
       key:'gotoComments',
       routeName:'Comments',
@@ -104,9 +112,9 @@ class PostDetailScreen extends React.Component {
   }
 
   onGoDealClicked = (post) => {
-    console.log("go deal");
-    console.log(post);
-    console.log("go deal post info above"); 
+    // console.log("go deal");
+    // console.log(post);
+    // console.log("go deal post info above"); 
     this.props.navigation.navigate({
       key:'goDeal',
       routeName:'DealWeb',
@@ -125,6 +133,41 @@ class PostDetailScreen extends React.Component {
     );
   }
 
+  onPostLiked = () => {
+    this.setState((prevState)=>{
+      new_cur_post = {...prevState.cur_post}
+      if(prevState.liked){
+        new_cur_post.likes = parseInt(new_cur_post.likes)-1 
+      }else{
+        new_cur_post.likes = parseInt(new_cur_post.likes) + 1
+      }
+      return {
+        cur_post:new_cur_post,
+        liked:!prevState.liked
+      }
+    });
+  }
+
+  renderPostLikeButton = () =>{
+    if(this.state.liked){
+      return (
+        <Button small transparent style={ styles.footerButton }  onPress={()=>{this.onPostLiked()}}>
+          <Icon active name="thumbs-up" />
+          <Text style={styles.footerButtonText} > { this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0 } </Text>
+        </Button>
+      );
+    }else{
+      return (
+        <Button small style={ styles.footerButton }  onPress={()=>{this.onPostLiked()}}>
+          <Icon name="thumbs-up" />
+          <Text style={styles.footerButtonText} > { this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0 } </Text>
+        </Button>
+      );
+    }
+    
+  }
+
+  
   static navigationOptions = ({ navigation }) => {
     return {
       // title: String(navigation.getParam('key', 'Title')),
@@ -148,14 +191,13 @@ class PostDetailScreen extends React.Component {
             </Content>
             <Footer transparent style={styles.footer}>
                 <FooterTab transparent style={styles.footerTab}>
-                      <Button small style={styles.footerButton} onPress={() => this.onCommentSelected(-2)}>
-                        <Icon active name="chatbubbles" />
-                        <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
+                      <Button small transparent style={styles.footerButton} onPress={() => this.onCommentSelected(-2)}>
+                        <Icon name="chatbubbles" />
+                        <Text style={styles.footerButtonText}>{this.state.cur_post.comments > 0 ? this.state.cur_post.comments : 0} Comments</Text>
                       </Button>
-                      <Button small style={styles.footerButton} onPress={() => alert("This is like")}>
-                        <Icon active name="thumbs-up" />
-                        <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
-                      </Button>
+                      { 
+                        this.renderPostLikeButton()
+                      }
                     <Button small rounded primary style={ styles.goDealButton }>
                         <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => this.onGoDealClicked(this.state.cur_post)}>
                           Go Deal
