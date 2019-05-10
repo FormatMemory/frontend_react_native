@@ -13,6 +13,7 @@ import { MonoText } from '../../common/StyledText';
 import PostDetail from '../../components/Posts/PostDetail';
 import { connect } from 'react-redux';
 import PickedComments from '../../components/Comments/PickedComments';
+import postReducer from '../../store/reducers/post';
 
 class PostDetailScreen extends React.Component {
 
@@ -45,7 +46,10 @@ class PostDetailScreen extends React.Component {
       comments: '9', 
       published: '4h ago', 
       headImage: 'https://images-na.ssl-images-amazon.com/images/I/617-Kg7OcpL._SL520_.jpg', 
-      userImage: 'https://1ofdmq2n8tc36m6i46scovo2e-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/Steven_Hallam-slide.jpg' },
+      userImage: 'https://1ofdmq2n8tc36m6i46scovo2e-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/Steven_Hallam-slide.jpg',
+      dealLink: 'https://www.macys.com/',
+      CouponCode: 'Happy18',
+    },
 
     { id: 2, 
       title: '2Lorem ipsum dolor sit amet, everti rationibus his ', 
@@ -56,7 +60,10 @@ class PostDetailScreen extends React.Component {
       comments: '16', 
       published: '9h ago', 
       headImage: 'https://images-na.ssl-images-amazon.com/images/G/01/xba/Dashboard_E_2x_April_2019._CB454465255_SY520_.jpg', 
-      userImage: 'http://alexsears.com/assets/img/alexsears.jpg' },
+      userImage: 'http://alexsears.com/assets/img/alexsears.jpg',
+      dealLink: 'https://www.amazon.com/dp/B07MMZ2LTB/ref=ods_gw_ha_vicc_blnk_xt2_dcard_announce?pf_rd_p=0f02a685-f6db-467d-8b92-10bff83707fe&pf_rd_r=XCJPKNT04B7DH6HC0M0N',
+      CouponCode: 'BlackFriday',
+    },
 
     { id: 3, 
       title: '雅诗兰黛的撒娇哭泣都能看见', 
@@ -67,14 +74,17 @@ class PostDetailScreen extends React.Component {
       comments: '8', 
       published: '14h ago', 
       headImage: 'https://images-na.ssl-images-amazon.com/images/I/41Z4evkR8TL._AC_SY480_.jpg', 
-      userImage: 'https://media.nngroup.com/media/people/photos/Kim-Flaherty-Headshot.png.400x400_q95_autocrop_crop_upscale.png' },
+      userImage: 'https://media.nngroup.com/media/people/photos/Kim-Flaherty-Headshot.png.400x400_q95_autocrop_crop_upscale.png',
+      dealLink: 'https://www.amazon.com/',
+      CouponCode: '',
+    },
   ];
 
   getPostDetail = () => {
     key = this.props.post.postId;
-    console.log("#########");
-    console.log(this.props);
-    console.log("#########");
+    // console.log("#########");
+    // console.log(this.props);
+    // console.log("#########");
     this.setState(prevState => {
       return {
         cur_post: this.sample.filter(post => post.id == key)[0]
@@ -89,6 +99,19 @@ class PostDetailScreen extends React.Component {
       routeName:'Comments',
       params:{
         commentId:commentId
+      }
+    });
+  }
+
+  onGoDealClicked = (post) => {
+    console.log("go deal");
+    console.log(post);
+    console.log("go deal post info above"); 
+    this.props.navigation.navigate({
+      key:'goDeal',
+      routeName:'DealWeb',
+      params:{
+        post:post
       }
     });
   }
@@ -134,7 +157,7 @@ class PostDetailScreen extends React.Component {
                         <Text style={styles.footerButtonText}>{this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0} Likes</Text>
                       </Button>
                     <Button small rounded primary style={ styles.goDealButton }>
-                        <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => alert("This is goDeal")}>
+                        <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => this.onGoDealClicked(this.state.cur_post)}>
                           Go Deal
                         </Text>
                     </Button>

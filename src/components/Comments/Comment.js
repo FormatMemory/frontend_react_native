@@ -16,7 +16,6 @@ class Comment extends Component {
   render() {
     return (
       <View>
-          {/* <Card style={ styles.card }> */}
             <CardItem>
               <Left>
                 <Button small transparent  onPress={() => alert("This is user info")}>
@@ -42,7 +41,6 @@ class Comment extends Component {
                 </Text>
             </CardItem>
             <View style={styles.separator}></View>
-          {/* </Card> */}
       </View>
     );
   }

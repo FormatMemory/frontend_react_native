@@ -166,8 +166,8 @@ class CommentsScreen extends React.Component {
                   <FlatList
                     data={this.state.comments}
                     renderItem={({item, index})=>{
-                                    console.log("index: ", index);
-                                    console.log(item);
+                                    // console.log("index: ", index);
+                                    // console.log(item);
                                     return <Comment
                                               comment={ item }
                                               onCommentSelected={ (comment) => this.onCommentSelected(comment) }
