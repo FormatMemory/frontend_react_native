@@ -74,7 +74,7 @@ class PostList extends Component {
   wait(time){
     setTimeout( () =>{
       //do what you need here
-      console.log("wait");
+      // console.log("wait");
       // alert("refreshed");
     }, time);
   }

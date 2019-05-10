@@ -10,7 +10,7 @@ class PostDetail extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   //To DO: Save to libary
