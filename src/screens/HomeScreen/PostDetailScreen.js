@@ -153,14 +153,14 @@ class PostDetailScreen extends React.Component {
       return (
         <Button small transparent style={ styles.footerButton }  onPress={()=>{this.onPostLiked()}}>
           <Icon active name="thumbs-up" />
-          <Text style={styles.footerButtonText} > { this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0 } </Text>
+          <Text style={styles.footerButtonText} > { this.state.cur_post.likes > 0 ? this.state.cur_post.likes : ''} </Text>
         </Button>
       );
     }else{
       return (
         <Button small style={ styles.footerButton }  onPress={()=>{this.onPostLiked()}}>
           <Icon name="thumbs-up" />
-          <Text style={styles.footerButtonText} > { this.state.cur_post.likes > 0 ? this.state.cur_post.likes : 0 } </Text>
+          <Text style={styles.footerButtonText} > { this.state.cur_post.likes > 0 ? this.state.cur_post.likes : '' } </Text>
         </Button>
       );
     }
@@ -193,7 +193,7 @@ class PostDetailScreen extends React.Component {
                 <FooterTab transparent style={styles.footerTab}>
                       <Button small transparent style={styles.footerButton} onPress={() => this.onCommentSelected(-2)}>
                         <Icon name="chatbubbles" />
-                        <Text style={styles.footerButtonText}>{this.state.cur_post.comments > 0 ? this.state.cur_post.comments : 0} Comments</Text>
+                        <Text style={styles.footerButtonText}>{this.state.cur_post.comments > 0 ? this.state.cur_post.comments : ''}</Text>
                       </Button>
                       { 
                         this.renderPostLikeButton()
