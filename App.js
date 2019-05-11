@@ -10,6 +10,7 @@ import {
   stopError
 } from './src/store/actions/index';
 import Colors from './src/constants/Colors';
+import { Root } from 'native-base';
 
 class App extends React.Component {
   state = {
@@ -38,7 +39,9 @@ class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          <Root>
+            <AppNavigator />
+          </Root>
         </View>
       );
     }

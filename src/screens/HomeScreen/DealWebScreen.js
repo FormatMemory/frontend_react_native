@@ -2,19 +2,23 @@ import React, {Component} from 'react';
 import {
   WebView, 
   StyleSheet,
-  View
+  View,
+  Clipboard,
+  TouchableHighlight,
 } from 'react-native';
 import { 
   Header, Text, Icon,
   Button, Right, Left,
-  Container
+  Container,
+  Toast
  } from 'native-base';
 import Colors from '../../constants/Colors';
 
 class DealWebScreen extends Component {
   state = {
     post: null,
-    showCoupon:false
+    showCoupon:false,
+    showToast: false
   }
 
   componentWillMount(){
@@ -32,10 +36,20 @@ class DealWebScreen extends Component {
     });
   }
 
+  onCouponCodeClicked(){
+    Clipboard.setString(this.state.post.CouponCode);
+    Toast.show({
+      text: 'Coupon Copied',
+      position: 'top',
+      duration: 1500,
+      style: { top: "50%" }
+    });
+  }
+
   renderCouponMenue(){
     if(this.state.showCoupon){
       return (
-        <View style={ styles.couponMenue }>
+        <TouchableHighlight style={ styles.couponMenue } onPress={()=>{ this.onCouponCodeClicked()}} underlayColor= {Colors.white}>
         {
           this.state.post.CouponCode.length > 0 ?
             <View>
@@ -49,7 +63,7 @@ class DealWebScreen extends Component {
               No Coupon Code Required
             </Text>
         }
-        </View>
+        </TouchableHighlight>
       );
     }else{
       return null;
