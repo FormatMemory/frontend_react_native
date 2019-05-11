@@ -28,8 +28,6 @@ import {
 import { connect } from 'react-redux';
 
 
-// type Props = {};
-
 class HomeScreen extends React.Component {
 
   // componentWillMount() {
@@ -50,10 +48,6 @@ class HomeScreen extends React.Component {
   }
   componentDidMount(){
     // this.props.navigation.reset();
-    // this.setState({
-    //   scrollUp:false,
-    //   prevOffset:0
-    // })
   }
 
   componentDidUpdate(){
@@ -88,39 +82,11 @@ class HomeScreen extends React.Component {
         key:key
       }
     });
-
-    
-    // this.props.navigation.navigate({
-    //   name:'PostDetail',
-    //   component:PostDetail,
-    //   post_key: key
-    // })
   }
-  
-  // setHeader = (contentOffset) => {
-  //   console.log(contentOffset, this.state.prevOffset);
-  //   if(contentOffset>this.state.prevOffset){
-  //     this.setState({
-  //                   scrollUp:false,
-  //                   prevOffset:contentOffset
-  //                 })
-  //   }else{
-  //     this.setState({
-  //                     scrollUp:true,
-  //                     prevOffset:contentOffset
-  //                   })
-  //   }
-  // }
 
   render() {
       return (
         <Container>
-        {/* { !this.state.scrollUp?
-          <Header>
-            <Title>Deal Site</Title>
-          </Header>
-          :null
-        } */}
           <Header>
             <Title>Deal Site</Title>
           </Header>
@@ -132,11 +98,6 @@ class HomeScreen extends React.Component {
     }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//       postId: state.post.postId
-//   };
-// };
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -15,25 +15,47 @@ import {
     TouchableOpacity,
     View,
   } from 'react-native';
+import { connect } from 'react-redux';
+import LoginSignup from '../../components/LoginSignup/LoginSignup';
+import AccountMain from '../../components/AccountMain/AccountMain';
 
-export default class extends React.Component {
-    // const [errorState, setErrorState] = useState(null);
+class AccountScreen extends React.Component {
+    
+    state = {
+      authenticated: false,
+    }
 
-    // // useEffect( () => {
-    // //     // functions
-    // // }, []);
+    componentWillMount(){
+
+    }
+
 
     render(){
         return (
             <Container>
-              <Content padder>
-              <Text>
-                    Account Screen
-                </Text>
-              </Content>
+              {
+                this.state.authenticated?
+                  <AccountMain>
+                  </AccountMain>
+                :
+                  <LoginSignup>
+                  </LoginSignup>
+              }
             </Container>
         );
     }
 }
 
-// export default AccountScreen;
+const mapStateToProps = state => {
+  return {
+      authenticated: state.authenticated
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onUpdatePostId: (postId) => dispatch(updatePostId(postId))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountScreen);
