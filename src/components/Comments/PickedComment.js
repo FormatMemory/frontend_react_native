@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Container, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right, List, ListItem } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../../constants/Colors';
 
 class PickedComment extends Component {
   constructor(props) {
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
   user_image:{
     // flex:1,
     padding:10,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     alignItems:"center",
     justifyContent:"flex-start"
   },
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
   card:{
     // flex:1,
     padding:5,
-    backgroundColor:"#fff",
+    backgroundColor:Colors.white,
     marginBottom:1,
     height:200,
     width:"100%",
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   },
   devider:{
       padding:2,
-      backgroundColor:'#fff',
+      backgroundColor:Colors.white,
       width:'90%',
   }
 });
