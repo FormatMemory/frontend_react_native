@@ -199,8 +199,8 @@ class PostDetailScreen extends React.Component {
                       { 
                         this.renderPostLikeButton()
                       }
-                    <Button small rounded primary style={ styles.goDealButton }>
-                        <Text style={{color:'#fff', fontWeight:'bold'}} onPress={() => this.onGoDealClicked(this.state.cur_post)}>
+                    <Button small rounded primary style={ styles.goDealButton } onPress={() => this.onGoDealClicked(this.state.cur_post)}>
+                        <Text style={{color:'#fff', fontWeight:'bold'}}>
                           Go Deal
                         </Text>
                     </Button>
