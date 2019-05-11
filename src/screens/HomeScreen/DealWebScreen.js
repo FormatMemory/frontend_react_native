@@ -9,6 +9,7 @@ import {
   Button, Right, Left,
   Container
  } from 'native-base';
+import Colors from '../../constants/Colors';
 
 class DealWebScreen extends Component {
   state = {
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     },
     footer:{
       flex: 0.1,
-      backgroundColor:"#FFF",
+      backgroundColor: Colors.white,
       alignItems:'center',
       justifyContent: 'center',
       flexDirection:'row',
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     },
     couponMenue:{
       padding:5,
-      backgroundColor:"#e6e6e6",
+      backgroundColor: Colors.grayLight,
       alignSelf:'center',
       height:"15%",
       width:"90%",
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
     couponMenueText:{
       fontSize:20,
       fontWeight:'bold',
-      color:'red',
+      color: Colors.red,
     }
   });
 

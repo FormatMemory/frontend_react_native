@@ -9,6 +9,7 @@ import {
   startError,
   stopError
 } from './src/store/actions/index';
+import Colors from './src/constants/Colors';
 
 class App extends React.Component {
   state = {
@@ -73,7 +74,7 @@ class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
   },
 });
 

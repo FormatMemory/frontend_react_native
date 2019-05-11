@@ -2,6 +2,7 @@ import { Card, CardItem, Container, Content, Left, Body, Right, Icon, Button, Te
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
+import Colors from '../../constants/Colors'
 
 class PostDetail extends Component {
 
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   user_image: {
     // flex: 1,
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     alignItems: "center",
     justifyContent: "flex-start"
   },
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     textTransform: "capitalize",
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     alignItems: "center",
     justifyContent: "flex-start"
   },
@@ -74,13 +75,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 5,
     textAlign: "justify",
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     justifyContent: "flex-start"
   },
   card: {
     // flex: 1,
     padding: 5,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     marginBottom: 1,
     height: 325,
     width: "100%"

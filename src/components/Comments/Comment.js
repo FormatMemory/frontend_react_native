@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Container, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right, List, ListItem } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../../constants/Colors';
 
 
 class Comment extends Component {
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     separator:{
       height: 1,
       width: "86%",
-      backgroundColor: "#CED0CE",
+      backgroundColor: Colors.grayLight,
       marginLeft: "3%",
       marginRight: "3%"
     },

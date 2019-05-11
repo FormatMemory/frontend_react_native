@@ -13,7 +13,8 @@ import { MonoText } from '../../common/StyledText';
 import PostDetail from '../../components/Posts/PostDetail';
 import { connect } from 'react-redux';
 import PickedComments from '../../components/Comments/PickedComments';
-import postReducer from '../../store/reducers/post';
+import Colors from '../../constants/Colors';
+
 
 class PostDetailScreen extends React.Component {
 
@@ -229,12 +230,12 @@ const styles = StyleSheet.create({
   },
   footerTab:{
     // flex:1,
-    backgroundColor:"#FFF",
+    backgroundColor: Colors.white,
     alignItems:'center',
     justifyContent: 'center',
   },
   footerd:{
-    backgroundColor:"#FFF",
+    backgroundColor: Colors.white,
     alignItems:'center',
     justifyContent: 'center',
   },
