@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   Image,
-  StyleSheet
+  StyleSheet,
+  Linking
 } from 'react-native';
 import { 
   Container, Text, 
@@ -116,13 +117,17 @@ class PostDetailScreen extends React.Component {
     // console.log("go deal");
     // console.log(post);
     // console.log("go deal post info above"); 
-    this.props.navigation.navigate({
-      key:'goDeal',
-      routeName:'DealWeb',
-      params:{
-        post:post
-      }
-    });
+
+    // this.props.navigation.navigate({
+    //   key:'goDeal',
+    //   routeName:'DealWeb',
+    //   params:{
+    //     post:post
+    //   }
+    // });
+
+    // open device's browser with the post url
+    Linking.openURL(post.dealLink);
   }
 
   renderNoContent() {
