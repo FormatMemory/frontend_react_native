@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Container, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right, List, ListItem } from 'native-base';
+import { Container, Header, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right, List, ListItem } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../constants/Colors';
 import Signup from './Signup';
 import Login from './Login';
-
+import { connect } from 'react-redux'
 
 class LoginSignup extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class LoginSignup extends Component {
   }
 
   state = {
-
+    isLogin:true
   };
 
 
@@ -22,20 +22,57 @@ class LoginSignup extends Component {
 
   }
 
-
+  switchLoginSignup = () => {
+    this.setState( (prevState)=>{
+        // console.log("switch ");
+        return {
+          isLogin: !prevState.isLogin
+        }
+      });
+  }
 
   render() {
     return (
+      <Container>
+      <Header>
+        <Text style={ styles.headerText }>{this.state.isLogin? 'Login':'Signup'}</Text>
+      </Header>
+      <View style={{ height: "15%"}}></View>
       <View>
-            <Text>LoginSignup</Text>
-            <Login></Login>
-            <Signup></Signup>
+      {
+        this.state.isLogin?
+          <Login>
+
+          </Login>
+        :
+          <Signup>
+
+          </Signup>
+      }
       </View>
+      <Text style={ styles.switchButtonText }
+            onPress={()=>this.switchLoginSignup()}>
+            {this.state.isLogin? 'Don\'t have an account? Sign-up here' : 'Already have an account? Login here'}
+      </Text>
+
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
+    headerText:{
+      alignSelf:'center',
+      textAlign: 'center',
+    },
+    switchButtonText:{
+      fontSize: 12,
+      alignSelf:'center',
+      color:Colors.blueDark,
+      textAlign: 'center',
+      textDecorationLine:'underline',
+      marginVertical:10,
+    },
     separator:{
       height: 1,
       width: "86%",
@@ -73,4 +110,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginSignup;
+const mapStateToProps = state => {
+  return {
+    token: ''
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onUpdatePostId: (postId) => dispatch(updatePostId(postId))
+  }
+};
+
+export default connect(null, mapDispatchToProps)(LoginSignup);

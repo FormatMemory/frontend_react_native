@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Container, Card, CardItem, Thumbnail, Text, Button, Left, Body, Right, List, ListItem } from 'native-base';
+import { Container, Card, CardItem, 
+  Thumbnail, Form, Item, Label,
+  Text, Button, Left, Body, Input,
+  Right, List, ListItem } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../constants/Colors';
-
+import { connect } from 'react-redux'
 
 class Signup extends Component {
   constructor(props) {
@@ -12,7 +15,10 @@ class Signup extends Component {
   }
 
   state = {
-
+    isLoading: false,
+    email:'',
+    password:'',
+    showPassword: false,
   };
 
 
@@ -25,14 +31,30 @@ class Signup extends Component {
   render() {
     return (
       <View>
-            <Text>Signup</Text>
+            <Form>
+              <Item floatingLabel>
+                <Label>Username</Label>
+                <Input />
+              </Item>
+              <Item floatingLabel>
+                <Label>Password</Label>
+                <Input />
+              </Item>
+              <Item floatingLabel>
+                <Label>Repeat Password</Label>
+                <Input />
+              </Item>
+              <Button block style={{ marginHorizontal:10, marginTop:30, marginBottom:10}}>
+                <Text style={{color:Colors.white}}>Signup</Text>
+              </Button>
+          </Form>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-    separator:{
+  separator:{
       height: 1,
       width: "86%",
       backgroundColor: Colors.grayLight,

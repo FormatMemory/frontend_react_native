@@ -73,17 +73,27 @@ SettingsStack.navigationOptions = {
 
 const AccountStack = createStackNavigator({
   Account: AccountScreen,
-});
-
-AccountStack.navigationOptions = {
-  tabBarLabel: 'Account',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-happy' : 'md-happy'}
-    />
-  ),
-};
+},
+{
+    initialRouteName: 'Account',
+}
+);
+ 
+AccountStack.navigationOptions = ({ navigation }) =>{
+  let tabBarVisible = true;
+  if (navigation.state.index > 0 ){
+    tabBarVisible  = false;
+  }
+  return{
+    tabBarLabel: 'Account',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-happy' : 'md-happy'}
+      />
+    ),
+  };
+}
 
 export default createBottomTabNavigator({
   HomeStack,
