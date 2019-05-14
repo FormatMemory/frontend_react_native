@@ -20,6 +20,7 @@ const Colors = {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
+  blueDark: '#2f95dc',
 };
 
 export default Colors;
