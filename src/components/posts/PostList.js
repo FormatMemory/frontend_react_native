@@ -14,6 +14,7 @@ import {
   Spinner, ListView
 } from 'native-base';
 import Post from './Post';
+import { getPostsList } from '../../service/Posts/PostService';
 
 class PostList extends Component {
   constructor(props) {
@@ -105,6 +106,11 @@ class PostList extends Component {
 
   updatePostList = (newData) => {
     //update the entire postList state
+
+    getPostsList()
+    .then( data => {
+      console.log(data)
+    })
     this.setState(prevState => {
       return {
         postList:newData.postList
