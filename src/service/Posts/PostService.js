@@ -6,17 +6,16 @@ import {
 
 const MAX_RETRY = 5;
 export const FetchPostsList = (next, retry = 0) => {
-    if(next === undefined){
+    if(next === undefined || next == ''){
         next = PostListEndPoint();
     }
     if(next === null){
-        return {};
+        return [];
     }
-    console.log(next);
+    // console.log(next);
     return fetch(next)
       .then((response) => response.json())
       .then((responseJson) => {
-          console.log(responseJson);
         return (responseJson);
       })
       .catch((error) => {
