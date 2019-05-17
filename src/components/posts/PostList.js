@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Image,
   ScrollView,
   RefreshControl,
-  StyleSheet
+  StyleSheet,
+  FlatList
 } from 'react-native';
 import {
   Container,
@@ -11,7 +12,7 @@ import {
   Thumbnail, Text,
   Button, Icon,
   Left, Body, Right,
-  Spinner, ListView
+  Spinner, ListView, ListItem
 } from 'native-base';
 import Post from './Post';
 import { FetchPostsList } from '../../service/Posts/PostService';
@@ -24,7 +25,7 @@ class PostList extends Component {
       isLoading: true,
       refreshing: false,
       curPage:1,
-      nextPage:'start',
+      nextPage:'',
       hasMore: true,
       isError: false,
       isUpdate: true,
@@ -213,7 +214,16 @@ class PostList extends Component {
     // console.log(this.state.page);
     // console.log(this.state);
     // this.wait(300);
-    if(!this.state.isAppending && (this.state.page*itemPerPage - currentItemIndex ) < 1.5){
+    if((this.state.page*itemPerPage - currentItemIndex ) < 1.5){
+        this.handleLoadMore()
+    }
+    // this.state.dataset.setReadOffset(currentItemIndex);
+    // this.state.page = 12
+  }
+
+  handleLoadMore = () => {
+    console.log(this.state.nextPage);
+    if(!this.state.isAppending && this.state.nextPage!=null){
       this.setState({isAppending: true});
       FetchPostsList(this.state.nextPage)
       .then(newData => this.appendPostList(newData))
@@ -234,9 +244,7 @@ class PostList extends Component {
         this.setState({isAppending: false});
       })
     }
-    // this.state.dataset.setReadOffset(currentItemIndex);
-    // this.state.page = 12
-  }
+  };
 
   render() {
     return (
@@ -269,14 +277,8 @@ class PostList extends Component {
               </CardItem>
           </Card>
         :
-          <Content
-              refreshControl={
-                  <RefreshControl
-                      refreshing={this.state.refreshing}
-                      onRefresh={this._onRefresh.bind(this)}
-                      title="Loading..."
-                  />
-                }
+          /* <Content
+           
               onScroll={this.setCurrentReadOffset}
               scrollEventThrottle={200}
               removeClippedSubviews={true}
@@ -295,7 +297,34 @@ class PostList extends Component {
                   );
                 })
               }
-          </Content>
+          </Content> */
+          <Content
+            refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this._onRefresh.bind(this)}
+                        title="Loading..."
+                    />
+                  }>
+            {this.showSpinner()}
+            <FlatList
+                data={this.state.postList}
+                renderItem={({item}) => {
+                  console.log("item" + +item.title + item.id);
+                  console.log(item);
+                  return <Post 
+                            post={item}
+                            onPostSelected={this.onPostSelected}
+                        />
+                }}
+                keyExtractor={(item, index) => item.id.toString() }
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh}
+                onEndReached={this.handleLoadMore}
+                onEndReachedThreshold={0.5}
+                onEndThreshold={200}
+            />
+           </Content>
         }
         </Container>
     );

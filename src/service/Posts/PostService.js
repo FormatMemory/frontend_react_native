@@ -12,6 +12,7 @@ export const FetchPostsList = (next, retry = 0) => {
     if(next === null){
         return {};
     }
+    console.log(next);
     return fetch(next)
       .then((response) => response.json())
       .then((responseJson) => {
