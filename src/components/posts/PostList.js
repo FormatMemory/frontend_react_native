@@ -14,7 +14,7 @@ import {
   Spinner, ListView
 } from 'native-base';
 import Post from './Post';
-import { getPostsList } from '../../service/Posts/PostService';
+import { FetchPostsList } from '../../service/Posts/PostService';
 
 class PostList extends Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class PostList extends Component {
       isLoading: true,
       refreshing: false,
       curPage:1,
+      nextPage:'start',
       hasMore: true,
       isError: false,
       isUpdate: true,
@@ -96,31 +97,36 @@ class PostList extends Component {
   appendPostList(newData){
     //append new data to the last of current postList state
     this.setState(prevState => {
-      newPostList = prevState.postList.concat(newData.postList);
+      // newPostList = prevState.postList.concat(newData.results);
+      // for item in prevState.postList
       return {
         ...prevState,
-        postList:newPostList
+        postList: [...prevState.postList, ...newData.results],
+        nextPage: newData.next
       }
     })
+    console.log(this.state);
   }
 
   updatePostList = (newData) => {
     //update the entire postList state
 
-    getPostsList()
-    .then( data => {
-      console.log(data)
-    })
     this.setState(prevState => {
       return {
-        postList:newData.postList
+        postList: newData.results,
+        nextPage: newData.next
       }
     })
   }
 
   _onRefresh = () => {
+
+    if(this.state.refreshing){
+      return null;
+    }
     this.setState({refreshing: true});
-    this.fetchData()
+    // this.fetchData()
+    FetchPostsList()
       .then( newData => this.updatePostList(newData))
       .catch(
         err => {
@@ -138,6 +144,7 @@ class PostList extends Component {
                           isError: false,
                           isLoading:false,
                           page:1,
+                          nextPage: 'start',
                           firstLoad:false,
                           isAppending:false
                         }
@@ -190,6 +197,9 @@ class PostList extends Component {
   }
 
   setCurrentReadOffset = (event) => {
+    if(this.state.nextPage == null){
+      return;
+    }
     //console.log(event.nativeEvent.contentOffset);
     let itemHeight = 180;
     let itemPerPage = 3;
@@ -205,7 +215,7 @@ class PostList extends Component {
     // this.wait(300);
     if(!this.state.isAppending && (this.state.page*itemPerPage - currentItemIndex ) < 1.5){
       this.setState({isAppending: true});
-      this.fetchData()
+      FetchPostsList(this.state.nextPage)
       .then(newData => this.appendPostList(newData))
       .then(
         ()=>{
@@ -214,7 +224,7 @@ class PostList extends Component {
               page: prevState.page+1
             }
           })
-          console.log("page: "+ this.state.page);
+          // console.log("page: "+ this.state.page);
         }
       ).
       then(this.setState({isAppending: false}))
@@ -226,10 +236,6 @@ class PostList extends Component {
     }
     // this.state.dataset.setReadOffset(currentItemIndex);
     // this.state.page = 12
-  }
-
-  _handleLoadMore = () => {
-    alert(111);
   }
 
   render() {
