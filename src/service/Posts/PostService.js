@@ -3,6 +3,7 @@ import {
     PostDetailEndPoint, 
     PostCreateEndPoint
 } from '../config';
+import fetch_retry from '../FetchRetry';
 
 const MAX_RETRY = 5;
 export const FetchPostsList = (next, retry = 0) => {
@@ -13,18 +14,31 @@ export const FetchPostsList = (next, retry = 0) => {
         return [];
     }
     // console.log(next);
-    return fetch(next)
+    return fetch_retry(next, MAX_RETRY)
       .then((response) => response.json())
       .then((responseJson) => {
         return (responseJson);
       })
       .catch((error) => {
-          if(retry > MAX_RETRY){
-            console.log('fetch '+ next + ' Failed, retry: '+ retry);
-            FetchPostsList(next, retry+1)
-          }else{
             console.error('fetch error');
             alert('Something goes wrong...');
+            return {};
           }
-      });
+      );
+  }
+
+export const FetchPostsDetail = (postId=-1, retry = 0) => {
+    next = PostDetailEndPoint(postId);
+ 
+    return fetch_retry(next, MAX_RETRY)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        return (responseJson);
+      })
+      .catch((error) => {
+        console.log('fetch '+ next + ' Failed, retry: '+ retry);
+        console.log(error);
+        alert('Something goes wrong...');
+        return {};
+      }); 
   }
