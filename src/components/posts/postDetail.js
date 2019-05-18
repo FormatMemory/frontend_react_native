@@ -18,24 +18,21 @@ class PostDetail extends Component {
 
   render() {
     return (
-      <View key={this.props.post.postId} style={ styles.contentContainer }>
-        {console.log(this.props)}
-        {console.log(this.props.post.postId)}
-        {/* <Text>PostDetail</Text> */}
-            <Image source={{ uri: this.props.cur_post.headImage }}
+      <View style={ styles.contentContainer }>
+            <Image source={ this.props.post.image ? {uri: this.props.post.image} : require('../../../assets/images/image_not_found.png') } 
               style={styles.deal_head_image}
-              onPress={() => alert("This is deal head image")}
+              onPress={this.props.onPressHeadImage}
             />
             <CardItem>
               <Left>
-                <Text note>Posted: {this.props.cur_post.published}</Text>
+                <Text note>Posted: {this.props.cur_post.created_time}</Text>
               </Left>
               <Right>
-                <Text note>{this.props.cur_post.views} views</Text>
+                <Text note>{this.props.cur_post.user_page_view_count} views</Text>
               </Right>
             </CardItem>
             <Text style={styles.post_title}>{this.props.cur_post.title}</Text>
-            <Text style={styles.post_content}>{this.props.cur_post.content}</Text>
+            <Text style={styles.post_content}>{this.props.cur_post.body}</Text>
       </View>
     );
   }

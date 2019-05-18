@@ -68,13 +68,7 @@ class HomeScreen extends React.Component {
   };
 
   onPostSelected = (key) => {
-    // console.log("HomeScreen on post selected "+key);
-    // console.log(key);
     this.props.onUpdatePostId(key);
-    // console.log("@#$%^&*(");
-    // console.log(this.props);
-    // console.log(this.state);
-    // console.log("@#$%^&*(");
     this.props.navigation.navigate({
       key:'goToDetail',
       routeName:'Details',
