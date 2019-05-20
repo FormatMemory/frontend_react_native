@@ -62,7 +62,6 @@ class PostDetailScreen extends React.Component {
   }
   constructor(props) {
     super(props);
-    console.log(this.defaultCurPost);
   }
 
   state = {
@@ -140,7 +139,7 @@ class PostDetailScreen extends React.Component {
       data => {
         console.log(data, Object.keys(data).length);
         if( Object.keys(data).length > 0){
-           console.log("in")
+           console.log("in");
             this.setState(prevState => {
               return {
                 cur_post: data

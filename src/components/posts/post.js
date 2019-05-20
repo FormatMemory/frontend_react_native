@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, Grid, Row, View} from 'native-base';
 import getDefaultImageUri from '../../common/GetDefaultImageUri';
+import { getTime } from '../../common/TimeCalculate';
+
 
 class Post extends Component {
   constructor(props) {
@@ -38,7 +40,7 @@ class Post extends Component {
             </CardItem>
             <CardItem>
               <Left>
-                  <Text note>{this.props.post.created_time}</Text>
+                  <Text note>{ getTime(this.props.post.created_time) }</Text>
                   <Text note> {this.props.post.user_page_view_count > 0 ? this.props.post.user_page_view_count : 0} views</Text>
                   <Text note>{this.props.post.post_upper_votes_count > 0 ? this.props.post.post_upper_votes_count : 0} Likes</Text>
               </Left>

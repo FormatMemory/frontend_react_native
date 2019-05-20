@@ -2,16 +2,19 @@ import { Card, CardItem, Container, Content, Left, Body, Right, Icon, Button, Te
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import Colors from '../../constants/Colors'
+import Colors from '../../constants/Colors';
+import { getTime } from '../../common/TimeCalculate';
 
 class PostDetail extends Component {
 
   componentWillMount() {
-
+    console.log("######");
+    console.log(this.props);
+    console.log("######");
   }
 
   componentDidMount() {
-    // console.log(this.props);
+
   }
 
   //To DO: Save to libary
@@ -19,13 +22,13 @@ class PostDetail extends Component {
   render() {
     return (
       <View style={ styles.contentContainer }>
-            <Image source={ this.props.post.image ? {uri: this.props.post.image} : require('../../../assets/images/image_not_found.png') } 
+            <Image source={ this.props.cur_post.image ? {uri: this.props.cur_post.image} : require('../../../assets/images/image_not_found.png') } 
               style={styles.deal_head_image}
               onPress={this.props.onPressHeadImage}
             />
             <CardItem>
               <Left>
-                <Text note>Posted: {this.props.cur_post.created_time}</Text>
+                <Text note>Posted: {getTime(this.props.cur_post.created_time)}</Text>
               </Left>
               <Right>
                 <Text note>{this.props.cur_post.user_page_view_count} views</Text>

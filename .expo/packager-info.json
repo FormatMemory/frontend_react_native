@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 73594,
-  "expoServerNgrokUrl": "https://cq-9z6.anonymous.dealsite-frontend.exp.direct",
-  "packagerNgrokUrl": "https://packager.cq-9z6.anonymous.dealsite-frontend.exp.direct",
-  "ngrokPid": 73618,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
