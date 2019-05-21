@@ -140,6 +140,7 @@ class PostList extends Component {
           })
         }
       ).then(
+        () =>
         this.setState( prevState => {
                         return {
                           isError: false,
@@ -152,7 +153,7 @@ class PostList extends Component {
                         }
                       })
       ).then(
-        this.updateNotify()
+        () => this.updateNotify()
       )
       // this.setState({
       //             swipeUpRefreshing: false,
