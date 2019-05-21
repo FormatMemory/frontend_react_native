@@ -40,7 +40,7 @@ class Post extends Component {
             </CardItem>
             <CardItem>
               <Left>
-                  <Text note>{ getTime(this.props.post.created_time) }</Text>
+                  <Text note>{ getTime(this.props.post.created_time_timestamp) }</Text>
                   <Text note> {this.props.post.user_page_view_count > 0 ? this.props.post.user_page_view_count : 0} views</Text>
                   <Text note>{this.props.post.post_upper_votes_count > 0 ? this.props.post.post_upper_votes_count : 0} Likes</Text>
               </Left>

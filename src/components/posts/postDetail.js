@@ -28,7 +28,7 @@ class PostDetail extends Component {
             />
             <CardItem>
               <Left>
-                <Text note>Posted: {getTime(this.props.cur_post.created_time)}</Text>
+                <Text note>Posted: {getTime(this.props.cur_post.created_time_timestamp)}</Text>
               </Left>
               <Right>
                 <Text note>{this.props.cur_post.user_page_view_count} views</Text>
