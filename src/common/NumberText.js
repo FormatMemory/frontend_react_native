@@ -7,7 +7,7 @@ export const NumberText = (numToText, txt='') => {
         return numToText+" "+ txt;
     }else{
         if(numToText >= 1000){
-            numToText = Math.floor(numToText/100)/10 + 'k';
+            numToText = Math.floor(numToText/100)/10 + 'K';
         }
         return numToText+" "+ txt + "s";
     }
