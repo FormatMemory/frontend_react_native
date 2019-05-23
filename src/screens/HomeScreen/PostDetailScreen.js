@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import PickedComments from '../../components/Comments/PickedComments';
 import Colors from '../../constants/Colors';
 import { FetchPostsDetail } from '../../service/Posts/PostService'
+import { NumberText } from '../../common/NumberText';
 
 
 class PostDetailScreen extends React.Component {
@@ -214,20 +215,20 @@ class PostDetailScreen extends React.Component {
       }
     });
   }
-
+  
   renderPostLikeButton = () =>{
     if(this.state.liked){
       return (
         <Button small transparent style={ styles.footerButton }  onPress={()=>{this.onPostLiked()}}>
           <Icon active name="thumbs-up" />
-          <Text style={styles.footerButtonText} > { this.state.cur_post.post_upper_votes_count > 0 ? this.state.cur_post.post_upper_votes_count : ''} </Text>
+          <Text style={styles.footerButtonText} >  { NumberText(this.state.cur_post.post_upper_votes_count, '') }  </Text>
         </Button>
       );
     }else{
       return (
         <Button small style={ styles.footerButton }  onPress={()=>{this.onPostLiked()}}>
           <Icon name="thumbs-up" />
-          <Text style={styles.footerButtonText} > { this.state.cur_post.post_upper_votes_count > 0 ? this.state.cur_post.post_upper_votes_count : '' } </Text>
+          <Text style={styles.footerButtonText} > { NumberText(this.state.cur_post.post_upper_votes_count, '') } </Text>
         </Button>
       );
     }

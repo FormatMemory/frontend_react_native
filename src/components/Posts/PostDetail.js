@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Colors from '../../constants/Colors';
 import { getTime } from '../../common/TimeCalculate';
 import { getDefaultImageUri } from '../../service/GetDefaultImageUri';
+import { NumberText } from '../../common/NumberText';
+
 
 class PostDetail extends Component {
 
@@ -32,7 +34,7 @@ class PostDetail extends Component {
                 <Text note>Posted: {getTime(this.props.cur_post.created_time_timestamp)}</Text>
               </Left>
               <Right>
-                <Text note>{this.props.cur_post.user_page_view_count} views</Text>
+                <Text note>{ NumberText(this.props.cur_post.user_page_view_count, 'view') }</Text>
               </Right>
             </CardItem>
             <Text style={styles.post_title}>{this.props.cur_post.title}</Text>
