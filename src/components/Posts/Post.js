@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, Grid, Row, View} from 'native-base';
 import { getTime } from '../../common/TimeCalculate';
-import { getDefaultImageUri } from '../../common/GetDefaultImageUri';
+import { getDefaultImageUri } from '../../service/GetDefaultImageUri';
 
 class Post extends Component {
   constructor(props) {

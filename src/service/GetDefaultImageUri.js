@@ -1,4 +1,4 @@
-import { POSTS_API_ENDOINT } from '../service/config';
+import { POSTS_API_ENDOINT } from './config';
 
 const defailtImage = require('../../assets/images/image_not_found.png');
 const defaultProfile = require('../../assets/images/default_profile.png');

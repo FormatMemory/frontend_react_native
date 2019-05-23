@@ -4,7 +4,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import Colors from '../../constants/Colors';
 import { getTime } from '../../common/TimeCalculate';
-import { getDefaultImageUri } from '../../common/GetDefaultImageUri';
+import { getDefaultImageUri } from '../../service/GetDefaultImageUri';
 
 class PostDetail extends Component {
 
