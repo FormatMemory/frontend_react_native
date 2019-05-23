@@ -1,4 +1,4 @@
-export const POSTS_API_ENDOINT = 'http://192.168.86.23:8080';
+export const POSTS_API_ENDOINT = 'http://35.229.179.199';
 
 export const PostListEndPoint = () => {
   return POSTS_API_ENDOINT + '/posts';
