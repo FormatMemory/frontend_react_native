@@ -82,7 +82,7 @@ class HomeScreen extends React.Component {
       return (
         <Container>
           <Header>
-            <Title>Deal Site</Title>
+            <Title>Taola</Title>
           </Header>
           <PostList
             onPostSelected = {this.onPostSelected}
