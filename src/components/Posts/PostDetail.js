@@ -4,6 +4,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import Colors from '../../constants/Colors';
 import { getTime } from '../../common/TimeCalculate';
+import { getDefaultImageUri } from '../../common/GetDefaultImageUri';
 
 class PostDetail extends Component {
 
@@ -22,7 +23,7 @@ class PostDetail extends Component {
   render() {
     return (
       <View style={ styles.contentContainer }>
-            <Image source={ this.props.cur_post.image ? {uri: this.props.cur_post.image} : require('../../../assets/images/image_not_found.png') } 
+            <Image source={ getDefaultImageUri(this.props.cur_post.image) } 
               style={styles.deal_head_image}
               onPress={this.props.onPressHeadImage}
             />

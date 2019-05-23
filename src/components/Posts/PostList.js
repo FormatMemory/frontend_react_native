@@ -25,7 +25,7 @@ class PostList extends Component {
       isLoading: true,
       refreshing: false,
       curPage:1,
-      nextPage:'',
+      nextPage: null,
       hasMore: true,
       isError: false,
       isUpdate: true,
@@ -87,7 +87,7 @@ class PostList extends Component {
       this.setState({
         isUpdate:true
       })
-    }, 1000);
+    }, 500);
     setTimeout( () =>{
       this.setState({
         isUpdate:false
@@ -111,6 +111,9 @@ class PostList extends Component {
 
   updatePostList = (newData) => {
     //update the entire postList state
+    console.log("###updatePostList###");
+    console.log(newData);
+    console.log("###updatePostList###END");
 
     this.setState(prevState => {
       return {
@@ -180,12 +183,8 @@ class PostList extends Component {
     // });
   };
 
-  componentWillMount(){
-    this._onRefresh();
-  }
-
   componentDidMount(){
-    
+    this._onRefresh();
   }
 
   showSpinner = () => {
@@ -223,6 +222,9 @@ class PostList extends Component {
 
   handleLoadMore = () => {
     console.log(this.state.nextPage);
+    if(this.state.refreshing){
+      return null;
+    }
     if(!this.state.isAppending && this.state.nextPage!=null){
       this.setState({isAppending: true});
       FetchPostsList(this.state.nextPage)

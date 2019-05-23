@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, Grid, Row, View} from 'native-base';
-import getDefaultImageUri from '../../common/GetDefaultImageUri';
 import { getTime } from '../../common/TimeCalculate';
-
+import { getDefaultImageUri } from '../../common/GetDefaultImageUri';
 
 class Post extends Component {
   constructor(props) {
@@ -22,19 +21,19 @@ class Post extends Component {
           <Card>
             <CardItem cardBody button onPress={() => this.goToPostDetail(this.props.post.id)}>
               <Image
-                  source={ this.props.post.image ? {uri: this.props.post.image} : require('../../../assets/images/image_not_found.png') } 
+                  source={ getDefaultImageUri(this.props.post.image) } 
                   style={styles.deal_head_image}
               />
             </CardItem>
             <CardItem>
               <Left>
                 <Button transparent  onPress={() => alert("This is user info")}>
-                  <Thumbnail small source={ this.props.post.user.image ? {uri: this.props.post.user.image} : require('../../../assets/images/default_profile.png') } 
+                  <Thumbnail small source={ getDefaultImageUri(this.props.post.user.profile.image, true) } 
                   />
                 </Button>
                 <Body>
                   <Text onPress={() => this.goToPostDetail(this.props.post.id)}>{this.props.post.title}</Text>
-                  <Text note style={{textAlign: 'left'}}> {this.props.post.user.email} </Text>
+                  <Text note style={{textAlign: 'left'}}> {this.props.post.user.nick_name} </Text>
                 </Body>
               </Left>
             </CardItem>

@@ -73,11 +73,11 @@ class PostDetailScreen extends React.Component {
   };
 
   componentWillMount() {
-    this.getPostDetail();
   }
 
   componentDidMount() {
     // console.log(this.props);
+    this.getPostDetail();
   }
 
   componentDidUpdate(){
