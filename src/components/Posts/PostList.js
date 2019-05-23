@@ -111,9 +111,6 @@ class PostList extends Component {
 
   updatePostList = (newData) => {
     //update the entire postList state
-    console.log("###updatePostList###");
-    console.log(newData);
-    console.log("###updatePostList###END");
 
     this.setState(prevState => {
       return {
@@ -149,7 +146,7 @@ class PostList extends Component {
                           isError: false,
                           isLoading:false,
                           page:1,
-                          nextPage: '',
+                          nextPage: null,
                           firstLoad:false,
                           isAppending:false,
                           refreshing: false
@@ -221,11 +218,11 @@ class PostList extends Component {
   // }
 
   handleLoadMore = () => {
-    console.log(this.state.nextPage);
     if(this.state.refreshing){
       return null;
     }
-    if(!this.state.isAppending && this.state.nextPage!=null){
+
+    if( (!this.state.isAppending) && this.state.nextPage){
       this.setState({isAppending: true});
       FetchPostsList(this.state.nextPage)
       .then(newData => this.appendPostList(newData))
