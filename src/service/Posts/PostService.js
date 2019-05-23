@@ -34,9 +34,6 @@ export const FetchPostsDetail = (postId=-1, retry = 0) => {
     return fetch_retry(next, MAX_RETRY)
       .then((response) => response.json())
       .then((responseJson) => {
-          if( responseJson.image && !responseJson.image.startsWith(POSTS_API_ENDOINT)){
-            responseJson.image = POSTS_API_ENDOINT + responseJson.image 
-          }
         return (responseJson);
       })
       .catch((error) => {
