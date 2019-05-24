@@ -28,7 +28,7 @@ class Post extends Component {
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent  onPress={() => alert("This is user info")}>
+                <Button transparent>
                   <Thumbnail small source={ getDefaultImageUri(this.props.post.user.profile.image, true) } 
                   />
                 </Button>
