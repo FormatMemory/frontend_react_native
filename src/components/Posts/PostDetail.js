@@ -11,9 +11,7 @@ import { NumberText } from '../../common/NumberText';
 class PostDetail extends Component {
 
   componentWillMount() {
-    console.log("######");
-    console.log(this.props);
-    console.log("######");
+
   }
 
   componentDidMount() {
@@ -38,6 +36,7 @@ class PostDetail extends Component {
               </Right>
             </CardItem>
             <Text style={styles.post_title}>{this.props.cur_post.title}</Text>
+            <Text style={styles.couponCodeText}>{this.props.cur_post.coupon_code ? "Counpon Code: "+this.props.cur_post.coupon_code : ""}</Text>
             <Text style={styles.post_content}>{this.props.cur_post.body}</Text>
       </View>
     );
@@ -46,6 +45,14 @@ class PostDetail extends Component {
 
 const styles = StyleSheet.create({
   contentContainer:{
+  },
+  couponCodeText:{
+    padding:10,
+    margin:5,
+    alignSelf:'center',
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: Colors.grayLight,
   },
   user_image: {
     // flex: 1,
