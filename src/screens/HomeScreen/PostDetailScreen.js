@@ -138,15 +138,13 @@ class PostDetailScreen extends React.Component {
     FetchPostsDetail(key)
     .then(
       data => {
-        console.log(data, Object.keys(data).length);
+        // console.log(data, Object.keys(data).length);
         if( Object.keys(data).length > 0){
-           console.log("in");
             this.setState(prevState => {
               return {
                 cur_post: data
               };
-            }
-          , console.log(this.state.cur_post));
+            });
           return data;
         }else{
           console.log('post detail empty')
@@ -215,7 +213,7 @@ class PostDetailScreen extends React.Component {
       }
     });
   }
-  
+
   renderPostLikeButton = () =>{
     if(this.state.liked){
       return (

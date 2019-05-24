@@ -20,6 +20,14 @@ class PostDetail extends Component {
 
   //To DO: Save to libary
 
+  renderCouponCode = ()=>{
+    if(this.props.cur_post.coupon_code){
+      return (<Text style={styles.couponCodeText}>{ "Counpon Code: " +this.props.cur_post.coupon_code }</Text>);
+    }else{
+      return null;
+    }
+  }
+
   render() {
     return (
       <View style={ styles.contentContainer }>
@@ -36,7 +44,7 @@ class PostDetail extends Component {
               </Right>
             </CardItem>
             <Text style={styles.post_title}>{this.props.cur_post.title}</Text>
-            <Text style={styles.couponCodeText}>{this.props.cur_post.coupon_code ? "Counpon Code: "+this.props.cur_post.coupon_code : ""}</Text>
+            {this.renderCouponCode()} 
             <Text style={styles.post_content}>{this.props.cur_post.body}</Text>
       </View>
     );

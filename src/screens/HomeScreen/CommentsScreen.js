@@ -95,9 +95,9 @@ class CommentsScreen extends React.Component {
 
   getPostDetail = () => {
     key = this.props.post.postId;
-    console.log("#########");
-    console.log(this.props);
-    console.log("#########");
+    // console.log("#########");
+    // console.log(this.props);
+    // console.log("#########");
     this.setState(prevState => {
       return {
         cur_post: this.sample.filter(post => post.id == key)[0]
