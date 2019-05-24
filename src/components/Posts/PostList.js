@@ -100,6 +100,7 @@ class PostList extends Component {
     this.setState(prevState => {
       // newPostList = prevState.postList.concat(newData.results);
       // for item in prevState.postList
+      console.log(newData);
       return {
         ...prevState,
         postList: [...prevState.postList, ...newData.results],
@@ -111,7 +112,6 @@ class PostList extends Component {
 
   updatePostList = (newData) => {
     //update the entire postList state
-
     this.setState(prevState => {
       return {
         postList: newData.results,
@@ -146,7 +146,6 @@ class PostList extends Component {
                           isError: false,
                           isLoading:false,
                           page:1,
-                          nextPage: null,
                           firstLoad:false,
                           isAppending:false,
                           refreshing: false
