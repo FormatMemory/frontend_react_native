@@ -5,6 +5,7 @@
 #extra
 *.lock
 package-lock.json
+report.*
 
 # Xcode
 #
