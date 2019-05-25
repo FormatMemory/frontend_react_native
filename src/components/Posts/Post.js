@@ -20,7 +20,7 @@ class Post extends Component {
     return (
       <View style={styles.card}>
           <Card>
-            <CardItem cardBody button onPress={() => this.goToPostDetail(this.props.post.id)}>
+            <CardItem cardBody button onPress={() => this.goToPostDetail()}>
               <Image
                   source={ getDefaultImageUri(this.props.post.image) } 
                   style={styles.deal_head_image}
@@ -33,7 +33,7 @@ class Post extends Component {
                   />
                 </Button>
                 <Body>
-                  <Text onPress={() => this.goToPostDetail(this.props.post.id)}>{this.props.post.title}</Text>
+                  <Text onPress={() => this.goToPostDetail()}>{this.props.post.title}</Text>
                   <Text note style={{textAlign: 'left'}}> {this.props.post.user.nick_name} </Text>
                 </Body>
               </Left>

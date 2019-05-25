@@ -131,7 +131,7 @@ class PostDetailScreen extends React.Component {
   ];
 
   getPostDetail = () => {
-    key = this.props.post.postId;
+    key = this.props.postId;
     // console.log("#########");
     // console.log(this.props);
     // console.log("#########");
@@ -280,7 +280,7 @@ class PostDetailScreen extends React.Component {
 const mapStateToProps = state => {
     return {
         // postId: state.postId,
-        post: state.post
+        postId: state.posts.postId
     };
 };
 

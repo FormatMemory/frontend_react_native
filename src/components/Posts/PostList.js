@@ -15,26 +15,25 @@ import {
   Spinner, ListView, ListItem
 } from 'native-base';
 import Post from './Post';
+import { connect } from 'react-redux';
 import { FetchPostsList } from '../../service/Posts/PostService';
+import { refreshPostList, appendPostList } from '../../store/actions';
 
 class PostList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      postList: [],
-      isLoading: true,
-      refreshing: false,
-      curPage:1,
-      nextPage: null,
-      hasMore: true,
-      isError: false,
-      isUpdate: true,
-      page:1,
-      isAppending:false,
-      firstLoad:true
-    };
   }
-  
+
+  state = {
+    isLoading: true,
+    refreshing: false,
+    hasMore: true,
+    isError: false,
+    isUpdate: true,
+    page:1,
+    isAppending:false,
+    firstLoad:true
+  };
   // fetchaData(){
   //   console.log("start reloading");
   //   return 1;
@@ -95,30 +94,30 @@ class PostList extends Component {
     }, 2500);
   }
   
-  appendPostList(newData){
-    //append new data to the last of current postList state
-    this.setState(prevState => {
-      // newPostList = prevState.postList.concat(newData.results);
-      // for item in prevState.postList
-      console.log(newData);
-      return {
-        ...prevState,
-        postList: [...prevState.postList, ...newData.results],
-        nextPage: newData.next
-      }
-    })
-    // console.log(this.state);
-  }
+  // appendPostList(newData){
+  //   //append new data to the last of current postList state
+  //   this.setState(prevState => {
+  //     // newPostList = prevState.postList.concat(newData.results);
+  //     // for item in prevState.postList
+  //     console.log(newData);
+  //     return {
+  //       ...prevState,
+  //       postList: [...prevState.postList, ...newData.results],
+  //       nextPage: newData.next
+  //     }
+  //   })
+  //   // console.log(this.state);
+  // }
 
-  updatePostList = (newData) => {
-    //update the entire postList state
-    this.setState(prevState => {
-      return {
-        postList: newData.results,
-        nextPage: newData.next
-      }
-    })
-  }
+  // updatePostList = (newData) => {
+  //   //update the entire postList state
+  //   this.setState(prevState => {
+  //     return {
+  //       postList: newData.results,
+  //       nextPage: newData.next
+  //     }
+  //   })
+  // }
 
   _onRefresh = () => {
 
@@ -128,7 +127,7 @@ class PostList extends Component {
     this.setState({refreshing: true});
     // this.fetchData()
     FetchPostsList()
-      .then( newData => this.updatePostList(newData))
+      .then( newData => this.props.onRefreshPostList(newData.results, newData.next))
       .catch(
         err => {
           console.log(err);
@@ -221,10 +220,10 @@ class PostList extends Component {
       return null;
     }
 
-    if( (!this.state.isAppending) && this.state.nextPage){
+    if( (!this.state.isAppending) && this.props.nextPage){
       this.setState({isAppending: true});
-      FetchPostsList(this.state.nextPage)
-      .then(newData => this.appendPostList(newData))
+      FetchPostsList(this.props.nextPage)
+      .then(newData => this.props.onAppendPostList(newData.results, newData.next))
       .then(
         ()=>{
           this.setState(prevState => {
@@ -254,7 +253,7 @@ class PostList extends Component {
           <Text style={ styles.updateNotify }>Updated</Text>
           </CardItem>:null
         }
-        { this.state.postList.length == 0 ?
+        { this.props.postList.length == 0 ?
           <Card transparent >
               <CardItem >
                     <Body style={{
@@ -300,7 +299,7 @@ class PostList extends Component {
 
             /* this.showSpinner() */
             <FlatList
-                data={this.state.postList}
+                data={this.props.postList}
                 renderItem={({item}) => {
                   // console.log("item" + +item.title + item.id);
                   // console.log(item);
@@ -313,7 +312,7 @@ class PostList extends Component {
                 refreshControl={
                     <RefreshControl
                         refreshing={this.state.refreshing}
-                        onRefresh={this._onRefresh.bind(this)}
+                        onRefresh={this._onRefresh}
                         title="Loading..."
                     />
                 }
@@ -343,4 +342,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostList;
+const mapStateToProps = state => {
+  return {
+    postList: state.posts.postList,
+    nextPage: state.posts.nextPage,
+    postId: state.posts.postId
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdatePostId: (postId) => dispatch(updatePostId(postId)),
+    onRefreshPostList: (newData, nextPage) => dispatch(refreshPostList(newData, nextPage)),
+    onAppendPostList: (newData, nextPage) => dispatch(appendPostList(newData, nextPage)),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

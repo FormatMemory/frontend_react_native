@@ -3,6 +3,8 @@ export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const UPDATE_POST_ID = 'UPDATE_POST_ID';
+export const REFRESH_POST_LIST = 'REFRESH_POST_LIST';
+export const APPEND_POST_LIST = 'APPEND_POST_LIST';
 
 //ERROR
 export const START_ERROR = 'START_ERROR';
