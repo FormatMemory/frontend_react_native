@@ -17,6 +17,7 @@ import PickedComments from '../../components/Comments/PickedComments';
 import Colors from '../../constants/Colors';
 import { FetchPostsDetail } from '../../service/Posts/PostService'
 import { NumberText } from '../../common/NumberText';
+import { updatePost, updatePostId } from '../../store/actions';
 
 
 class PostDetailScreen extends React.Component {
@@ -83,6 +84,10 @@ class PostDetailScreen extends React.Component {
 
   componentDidUpdate(){
     // console.log(this.state);
+  }
+
+  componentWillUnmount(){
+    this.props.onUpdatePost(this.state.cur_post);
   }
 
 
@@ -277,14 +282,6 @@ class PostDetailScreen extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        // postId: state.postId,
-        postId: state.posts.postId
-    };
-};
-
-
 const styles = StyleSheet.create({
   footerButton:{
     // flex: 1,
@@ -314,4 +311,19 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(PostDetailScreen);
+
+const mapStateToProps = state => {
+    return {
+        // postId: state.postId,
+        postId: state.posts.postId
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdatePostId: (postId) => dispatch(updatePostId(postId)),
+    onUpdatePost: (post) => dispatch(updatePost(post))
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetailScreen);
