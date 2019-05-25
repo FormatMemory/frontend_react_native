@@ -1,7 +1,6 @@
 import { Card, CardItem, Container, Content, Left, Body, Right, Icon, Button, Text, Footer, FooterTab, Fab } from 'native-base';
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { connect } from 'react-redux';
 import Colors from '../../constants/Colors';
 import { getTime } from '../../common/TimeCalculate';
 import { getDefaultImageUri } from '../../service/GetDefaultImageUri';
@@ -106,16 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => {
-  return {
-    post: state.post
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onUpdatePostId: (postId) => dispatch(updatePostId(postId))
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
+export default PostDetail;
