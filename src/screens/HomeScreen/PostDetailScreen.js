@@ -86,9 +86,7 @@ class PostDetailScreen extends React.Component {
     // console.log(this.state);
   }
 
-  componentWillUnmount(){
-    this.props.onUpdatePost(this.state.cur_post);
-  }
+  componentWillUnmount(){}
 
 
   sample = [
@@ -155,6 +153,8 @@ class PostDetailScreen extends React.Component {
           console.log('post detail empty')
         }
       }
+    ).then(
+      this.props.onUpdatePost(this.state.cur_post)
     )
     .catch(
       err => {

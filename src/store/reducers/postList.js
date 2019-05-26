@@ -6,12 +6,15 @@ import {
     REFRESH_POST_LIST, 
     APPEND_POST_LIST 
 } from "../actions/actionTypes";
+import * as I from 'immutable'
 
-const initialState = {
-    postList: [],
+const makeState = I.Record({
+    posts: I.Map(),
     postId: -1,
-    nextPage: null
-}
+    nextPage: null,
+})
+
+const initialState = makeState()
 
 const postListReducer = (state = initialState, action) => {
     // console.log("post reducer");
@@ -19,36 +22,36 @@ const postListReducer = (state = initialState, action) => {
     // console.log(action.postId);
     switch (action.type) {
         case UPDATE_POST_ID:
-            new_state = {
-                ...state,
-                postId:action.postId,
-            };
-            return new_state;
+            return state.set('postId', action.poseId)
         case UPDATE_POST:
+            return state.update('posts', posts => posts.set(action.post.id, action.post))
+            /*
             newPostList = [];
-            for(let i = 0; i < state.postList.length; i++){
-                if(state.postList[i].id != action.post.id){
-                    newPostList.push(state.postList[i]);
+            for(let i = 0; i < state.posts.length; i++){
+                if(state.posts[i].id != action.post.id){
+                    newPostList.push(state.posts[i]);
                 }else{
                     newPostList.push(action.post); 
                 }
             }
             return {
                 ...state,
-                postList: newPostList
+                posts: newPostList
             };
+            */
+        case POST_LIKE:
+            return state.update('posts', posts=>posts.update(action.postId, post => ({
+                ...post,
+                like: post.like+1,
+            })))
         case REFRESH_POST_LIST:
-            return {
-                ...state,
-                postList: [...action.postList],
-                nextPage: action.nextPage
-            };
+            return state.update('posts', posts => I.Map().withMutations(
+                postMutable => action.posts.forEach(post => postMutable.set(post.postId, post))
+            ))
         case APPEND_POST_LIST:
-            return {
-                ...state,
-                postList:[...state.postList, ...action.postList],
-                nextPage: action.nextPage
-            };
+            return state.update('posts', posts => posts.withMutations(
+                postMutable => action.posts.forEach(post => postMutable.set(post.postId, post))
+            ))
         default:
             return state;
     }
