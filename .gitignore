@@ -6,6 +6,7 @@
 *.lock
 package-lock.json
 report.*
+.expo/packager-info.json
 
 # Xcode
 #
