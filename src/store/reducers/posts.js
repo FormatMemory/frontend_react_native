@@ -3,8 +3,8 @@ import {
     DELETE_POST, 
     UPDATE_POST, 
     UPDATE_POST_ID, 
-    REFRESH_POST_LIST, 
-    APPEND_POST_LIST 
+    REFRESH_POSTS, 
+    APPEND_POSTS
 } from "../actions/actionTypes";
 import * as I from 'immutable'
 
@@ -16,7 +16,7 @@ const makeState = I.Record({
 
 const initialState = makeState()
 
-const postListReducer = (state = initialState, action) => {
+const postsReducer = (state = initialState, action) => {
     // console.log("post reducer");
     // console.log(action.type);
     // console.log(action.postId);
@@ -39,22 +39,22 @@ const postListReducer = (state = initialState, action) => {
                 posts: newPostList
             };
             */
-        case POST_LIKE:
-            return state.update('posts', posts=>posts.update(action.postId, post => ({
-                ...post,
-                like: post.like+1,
-            })))
-        case REFRESH_POST_LIST:
+        // case POST_LIKE:
+        //     return state.update('posts', posts=>posts.update(action.postId, post => ({
+        //         ...post,
+        //         like: post.like+1,
+        //     })))
+        case REFRESH_POSTS:
             return state.update('posts', posts => I.Map().withMutations(
-                postMutable => action.posts.forEach(post => postMutable.set(post.postId, post))
+                postMutable => action.posts.forEach(post => postMutable.set(post.id, post))
             ))
-        case APPEND_POST_LIST:
+        case APPEND_POSTS:
             return state.update('posts', posts => posts.withMutations(
-                postMutable => action.posts.forEach(post => postMutable.set(post.postId, post))
+                postMutable => action.posts.forEach(post => postMutable.set(post.id, post))
             ))
         default:
             return state;
     }
 };
 
-export default postListReducer;
+export default postsReducer;

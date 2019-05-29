@@ -16,10 +16,10 @@ import {
 } from 'native-base';
 import Post from './Post';
 import { connect } from 'react-redux';
-import { FetchPostsList } from '../../service/Posts/PostService';
-import { refreshPostList, appendPostList } from '../../store/actions';
+import { FetchPosts } from '../../service/Posts/PostService';
+import { refreshPosts, appendPosts } from '../../store/actions';
 
-class PostList extends Component {
+class Posts extends Component {
   constructor(props) {
     super(props);
   }
@@ -126,8 +126,8 @@ class PostList extends Component {
     }
     this.setState({refreshing: true});
     // this.fetchData()
-    FetchPostsList()
-      .then( newData => this.props.onRefreshPostList(newData.results, newData.next))
+    FetchPosts()
+      .then( newData => this.props.onRefreshPosts(newData.results, newData.next))
       .catch(
         err => {
           console.log(err);
@@ -182,6 +182,12 @@ class PostList extends Component {
     this._onRefresh();
   }
 
+  componentDidUpdate(){
+    console.log("****")
+    console.log(this.props.posts)
+    console.log("****")
+  }
+
   showSpinner = () => {
       if( this.state.refreshing){
         //this.state.postList == null || this.state.postList.length == 0 ||
@@ -222,19 +228,9 @@ class PostList extends Component {
 
     if( (!this.state.isAppending) && this.props.nextPage){
       this.setState({isAppending: true});
-      FetchPostsList(this.props.nextPage)
-      .then(newData => this.props.onAppendPostList(newData.results, newData.next))
-      .then(
-        ()=>{
-          this.setState(prevState => {
-            return {
-              page: prevState.page+1
-            }
-          })
-          // console.log("page: "+ this.state.page);
-        }
-      ).
-      then(this.setState({isAppending: false}))
+      FetchPosts(this.props.nextPage)
+      .then(newData => this.props.onAppendPosts(newData.results, newData.next))
+      .then(this.setState({isAppending: false}))
       .catch(err=>{
         alert(err);
         console.log(err);
@@ -247,13 +243,14 @@ class PostList extends Component {
   render() {
     return (
         <Container>
+        {console.log(this.props.posts)}
         {
           this.state.isUpdate?
           <CardItem>
           <Text style={ styles.updateNotify }>Updated</Text>
           </CardItem>:null
         }
-        { this.props.postList.length == 0 ?
+        { this.props.posts.size == 0 ?
           <Card transparent >
               <CardItem >
                     <Body style={{
@@ -273,7 +270,7 @@ class PostList extends Component {
 
                     </Body>
               </CardItem>
-          </Card>
+          </Card> 
         :
           /* <Content
            
@@ -298,8 +295,9 @@ class PostList extends Component {
           </Content> */
 
             /* this.showSpinner() */
+
             <FlatList
-                data={this.props.postList}
+                data={this.props.posts}
                 renderItem={({item}) => {
                   // console.log("item" + +item.title + item.id);
                   // console.log(item);
@@ -319,7 +317,7 @@ class PostList extends Component {
                 onEndReached={this.handleLoadMore}
                 onEndReachedThreshold={0.2}
                 onEndThreshold={100}
-            />
+            /> 
 
         }
         </Container>
@@ -344,7 +342,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    postList: state.posts.postList,
+    posts: state.posts.posts.map( (key, value) => value),
     nextPage: state.posts.nextPage,
     postId: state.posts.postId
   };
@@ -353,9 +351,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onUpdatePostId: (postId) => dispatch(updatePostId(postId)),
-    onRefreshPostList: (newData, nextPage) => dispatch(refreshPostList(newData, nextPage)),
-    onAppendPostList: (newData, nextPage) => dispatch(appendPostList(newData, nextPage)),
+    onRefreshPosts: (newData, nextPage) => dispatch(refreshPosts(newData, nextPage)),
+    onAppendPosts: (newData, nextPage) => dispatch(appendPosts(newData, nextPage)),
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);

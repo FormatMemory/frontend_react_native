@@ -3,8 +3,8 @@ import {
     DELETE_POST, 
     UPDATE_POST, 
     UPDATE_POST_ID, 
-    REFRESH_POST_LIST,
-    APPEND_POST_LIST
+    REFRESH_POSTS,
+    APPEND_POSTS
 } from './actionTypes';
 
 export const addPost = (post) => {
@@ -35,18 +35,18 @@ export const updatePostId = (postId) => {
     }
 }
 
-export const refreshPostList = (postList, nextPage) => {
+export const refreshPosts = (posts, nextPage) => {
     return {
-        type: REFRESH_POST_LIST,
-        postList: postList,
+        type: REFRESH_POSTS,
+        posts: posts,
         nextPage: nextPage
     }
 }
 
-export const appendPostList = (postList, nextPage) => {
+export const appendPosts = (posts, nextPage) => {
     return {
-        type: APPEND_POST_LIST,
-        postList: postList,
+        type: APPEND_POSTS,
+        posts: posts,
         nextPage: nextPage
     }
 }

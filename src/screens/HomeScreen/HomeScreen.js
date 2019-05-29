@@ -21,7 +21,7 @@ import {
  } from 'native-base';
 // import Post from '../../components/Posts/Post';
 import { MonoText } from '../../common/StyledText';
-import PostList from '../../components/Posts/PostList';
+import Posts from '../../components/Posts/Posts';
 import {
   updatePostId
 } from '../../store/actions/index';
@@ -84,7 +84,7 @@ class HomeScreen extends React.Component {
           <Header>
             <Title>Taola</Title>
           </Header>
-          <PostList
+          <Posts
             onPostSelected = {this.onPostSelected}
           />
         </Container>

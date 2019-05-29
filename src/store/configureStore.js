@@ -1,5 +1,5 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-import postListReducer from './reducers/postList';
+import postsReducer from './reducers/posts';
 import loadReducer from './reducers/load';
 import errorReducer from './reducers/error';
 import logger from '../middleware/logger';
@@ -8,7 +8,8 @@ const rootReducer = combineReducers({
     isLoading: loadReducer,
     isError: errorReducer,
     errorMessgae: errorReducer,
-    posts: postListReducer,
+    posts: postsReducer,
+    
 });
 
 const configureStore = () => {

@@ -1,15 +1,15 @@
 import { 
     POSTS_API_ENDOINT,
-    PostListEndPoint, 
+    PostsEndPoint, 
     PostDetailEndPoint, 
     PostCreateEndPoint
 } from '../config';
 import fetch_retry from '../FetchRetry';
 
 const MAX_RETRY = 5;
-export const FetchPostsList = (next, retry = 0) => {
+export const FetchPosts = (next, retry = 0) => {
     if(next === undefined || next == ''){
-        next = PostListEndPoint();
+        next = PostsEndPoint();
     }
     if(next === null){
         return [];
