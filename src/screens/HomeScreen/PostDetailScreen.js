@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   Image,
   StyleSheet,
-  Linking
+  Linking,
+  ActivityIndicator,
 } from 'react-native';
 import { 
   Container, Text, 
@@ -69,6 +70,7 @@ class PostDetailScreen extends React.Component {
   state = {
     cur_post: this.defaultCurPost,
     liked: false,
+    isLoading: true
   };
 
   componentWillMount() {
@@ -109,9 +111,11 @@ class PostDetailScreen extends React.Component {
         if(this.state.cur_post.id != -1){
           return this.props.onUpdatePost(this.state.cur_post)
       }
-    }
-    )
-    .catch(
+    }).then(
+      ()=>{
+        this.setState({isLoading:false})
+      }
+    ) .catch(
       err => {
         console.log(err)
       } 
@@ -193,6 +197,28 @@ class PostDetailScreen extends React.Component {
     
   }
 
+  renderPostDetailAndComments = () => {
+    if(this.state.isLoading){
+      return (
+        <Content padder>
+          <ActivityIndicator size="large"/>
+        </Content>
+      )
+    }else{
+      return (
+        <Content padder>
+          <PostDetail
+            cur_post = {this.state.cur_post}
+            onPressHeadImage = {this.onGoDealClicked}
+          />
+          {/* <PickedComments
+            postId = { this.props.post.postId }
+            onCommentSelected = { (commentId) => this.onCommentSelected(commentId) }
+          /> */}
+        </Content>
+      )
+    }
+  }
   
   static navigationOptions = ({ navigation }) => {
     return {
@@ -206,16 +232,7 @@ class PostDetailScreen extends React.Component {
           {/* {console.log("FROM POST DETAIL SCREEN: "+this.props)}
           {console.log(this.props)}
           {console.log("UP FROM POST DETAIL SCREEN")}  */}
-          <Content padder>
-            <PostDetail
-              cur_post = {this.state.cur_post}
-              onPressHeadImage = {this.onGoDealClicked}
-            />
-            {/* <PickedComments
-              postId = { this.props.post.postId } 
-              onCommentSelected = { (commentId) => this.onCommentSelected(commentId) }
-            /> */}
-            </Content>
+          {this.renderPostDetailAndComments()}
             <Footer transparent style={styles.footer}>
                 <FooterTab transparent style={styles.footerTab}>
                       <Button small transparent style={styles.footerButton} onPress={() => this.onCommentSelected(-2)}>
