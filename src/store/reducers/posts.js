@@ -45,13 +45,15 @@ const postsReducer = (state = initialState, action) => {
         //         like: post.like+1,
         //     })))
         case REFRESH_POSTS:
-            return state.update('posts', posts => I.Map().withMutations(
+            newState = state.update('posts', posts => I.Map().withMutations(
                 postMutable => action.posts.forEach(post => postMutable.set(post.id, post))
-            ))
+            ));
+            return newState.set('nextPage', action.nextPage);
         case APPEND_POSTS:
-            return state.update('posts', posts => posts.withMutations(
+            newState = state.update('posts', posts => posts.withMutations(
                 postMutable => action.posts.forEach(post => postMutable.set(post.id, post))
             ))
+            return newState.set('nextPage', action.nextPage);
         default:
             return state;
     }

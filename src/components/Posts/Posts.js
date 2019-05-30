@@ -30,7 +30,6 @@ class Posts extends Component {
     hasMore: true,
     isError: false,
     isUpdate: true,
-    page:1,
     isAppending:false,
     firstLoad:true
   };
@@ -342,7 +341,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts.posts.map( (key, value) => value),
+    posts: state.posts.posts.valueSeq().toArray(),
     nextPage: state.posts.nextPage,
     postId: state.posts.postId
   };
