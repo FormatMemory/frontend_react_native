@@ -42,7 +42,7 @@ class CommentsScreen extends React.Component {
       this.setState({keyboadShow:false})
     });
 
-    this.getComments(this.props.post.postId);
+    this.getComments(this.props.postId);
   }
 
   componentDidMount() {
@@ -221,7 +221,7 @@ class CommentsScreen extends React.Component {
 const mapStateToProps = state => {
     return {
         // postId: state.postId,
-        post: state.post
+        postId: state.posts.postId
     };
 };
 
