@@ -68,9 +68,6 @@ class PostDetailScreen extends React.Component {
 
   state = {
     cur_post: this.defaultCurPost,
-    active: true,
-    postId: null,
-    post: null,
     liked: false,
   };
 
@@ -88,57 +85,11 @@ class PostDetailScreen extends React.Component {
 
   componentWillUnmount(){}
 
-
-  sample = [
-    { id: 1, 
-      title: 'The CDFWERFQEWFEWQWED That Wins Customers', 
-      content: 'It sportsman earnestly ye preserved an on. Moment led family sooner cannot her window pulled any. Or raillery if improved landlord to speaking hastened differed he. Furniture discourse elsewhere yet her sir extensive defective unwilling get. Why resolution one motionless you him thoroughly. Noise is round to in it quick timed doors. Written address greatly get attacks inhabit pursuit our but. Lasted hunted enough an up seeing in lively letter. Had judgment out opinions property the supplied. ', 
-      username: 'closeBwak', 
-      likes: '123', 
-      views: '245', 
-      comments: '9', 
-      published: '4h ago', 
-      headImage: 'https://images-na.ssl-images-amazon.com/images/I/617-Kg7OcpL._SL520_.jpg', 
-      userImage: 'https://1ofdmq2n8tc36m6i46scovo2e-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/Steven_Hallam-slide.jpg',
-      dealLink: 'https://www.macys.com/',
-      CouponCode: 'Happy18',
-    },
-
-    { id: 2, 
-      title: '2Lorem ipsum dolor sit amet, everti rationibus his ', 
-      content: 'Offices parties lasting outward nothing age few resolve. Impression to discretion understood to we interested he excellence. Him remarkably use projection collecting. Going about eat forty world has round miles. Attention affection at my preferred offending shameless me if agreeable. Life lain held calm and true neat she. Much feet each so went no from. Truth began maids linen an mr to after. ', 
-      likes: '323', 
-      username: 'tasteCloet', 
-      views: '710', 
-      comments: '16', 
-      published: '9h ago', 
-      headImage: 'https://images-na.ssl-images-amazon.com/images/G/01/xba/Dashboard_E_2x_April_2019._CB454465255_SY520_.jpg', 
-      userImage: 'http://alexsears.com/assets/img/alexsears.jpg',
-      dealLink: 'https://www.amazon.com/dp/B07MMZ2LTB/ref=ods_gw_ha_vicc_blnk_xt2_dcard_announce?pf_rd_p=0f02a685-f6db-467d-8b92-10bff83707fe&pf_rd_r=XCJPKNT04B7DH6HC0M0N',
-      CouponCode: 'BlackFriday',
-    },
-
-    { id: 3, 
-      title: '雅诗兰黛的撒娇哭泣都能看见', 
-      content: '已经是雅诗兰黛公司近年来在中国区的第四次价格下调了。2015年6月1日，我国降低了部分服装、鞋靴、护肤品、纸尿裤等日用消费品的进口关税税率，平均降幅超过50%，其中，护肤品的进口关税由5%降低到2%。此后，2015年7月1日，雅诗兰黛公司发布声明，自7月1日起下调旗下众多品牌的建议零售价格，囊括了雅诗兰黛公司在中国', 
-      username: '⬆️哇塞', 
-      views: '698', 
-      likes: '43', 
-      comments: '8', 
-      published: '14h ago', 
-      headImage: 'https://images-na.ssl-images-amazon.com/images/I/41Z4evkR8TL._AC_SY480_.jpg', 
-      userImage: 'https://media.nngroup.com/media/people/photos/Kim-Flaherty-Headshot.png.400x400_q95_autocrop_crop_upscale.png',
-      dealLink: 'https://www.amazon.com/',
-      CouponCode: '',
-    },
-  ];
-
   getPostDetail = () => {
-    key = this.props.postId;
     // console.log("#########");
     // console.log(this.props);
     // console.log("#########");
-    FetchPostsDetail(key)
+    FetchPostsDetail(this.props.postId)
     .then(
       data => {
         // console.log(data, Object.keys(data).length);
@@ -154,7 +105,11 @@ class PostDetailScreen extends React.Component {
         }
       }
     ).then(
-      this.props.onUpdatePost(this.state.cur_post)
+      () => {
+        if(this.state.cur_post.id != -1){
+          return this.props.onUpdatePost(this.state.cur_post)
+      }
+    }
     )
     .catch(
       err => {
@@ -321,7 +276,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdatePostId: (postId) => dispatch(updatePostId(postId)),
     onUpdatePost: (post) => dispatch(updatePost(post))
   }
 };

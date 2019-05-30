@@ -22,7 +22,7 @@ const postsReducer = (state = initialState, action) => {
     // console.log(action.postId);
     switch (action.type) {
         case UPDATE_POST_ID:
-            return state.set('postId', action.poseId)
+            return state.set('postId', action.postId)
         case UPDATE_POST:
             return state.update('posts', posts => posts.set(action.post.id, action.post))
             /*

@@ -67,13 +67,13 @@ class HomeScreen extends React.Component {
     header: null,
   };
 
-  onPostSelected = (key) => {
-    this.props.onUpdatePostId(key);
+  onPostSelected = (postId) => {
+    this.props.onUpdatePostId(postId);
     this.props.navigation.navigate({
       key:'goToDetail',
       routeName:'Details',
       params:{
-        key:key
+        postId:postId
       }
     });
   }

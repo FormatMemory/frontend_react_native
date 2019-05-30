@@ -17,7 +17,7 @@ import {
 import Post from './Post';
 import { connect } from 'react-redux';
 import { FetchPosts } from '../../service/Posts/PostService';
-import { refreshPosts, appendPosts } from '../../store/actions';
+import { refreshPosts, appendPosts, updatePostId } from '../../store/actions';
 
 class Posts extends Component {
   constructor(props) {
@@ -90,8 +90,8 @@ class Posts extends Component {
       )
   }
   
-  onPostSelected = (key) => {
-    this.props.onPostSelected(key);
+  onPostSelected = (postId) => {
+    this.props.onPostSelected(postId);
   }
 
   componentDidMount(){
@@ -169,7 +169,7 @@ class Posts extends Component {
                 renderItem={({item}) => {
                   return <Post 
                             post={item}
-                            onPostSelected={this.onPostSelected}
+                            onPostSelected={(postId) => this.onPostSelected(postId)}
                         />
                 }}
                 keyExtractor={(item, index) => item.id.toString() }
@@ -219,6 +219,7 @@ const mapDispatchToProps = dispatch => {
     onUpdatePostId: (postId) => dispatch(updatePostId(postId)),
     onRefreshPosts: (newData, nextPage) => dispatch(refreshPosts(newData, nextPage)),
     onAppendPosts: (newData, nextPage) => dispatch(appendPosts(newData, nextPage)),
+    onUpdatePostId: (postId) => dispatch(updatePostId(postId))
   }
 };
 
