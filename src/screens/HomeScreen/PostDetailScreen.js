@@ -235,13 +235,13 @@ class PostDetailScreen extends React.Component {
           {this.renderPostDetailAndComments()}
             <Footer transparent style={styles.footer}>
                 <FooterTab transparent style={styles.footerTab}>
-                      <Button small transparent style={styles.footerButton} onPress={() => this.onCommentSelected(-2)}>
+                      {/* <Button small transparent style={styles.footerButton} onPress={() => this.onCommentSelected(-2)}>
                         <Icon name="chatbubbles" />
                         <Text style={styles.footerButtonText}>{Object.keys(this.state.cur_post.post_replies).length > 0 ? Object.keys(this.state.cur_post.post_replies).length : ''}</Text>
                       </Button>
                       { 
                         this.renderPostLikeButton()
-                      }
+                      } */}
                     <Button small rounded primary style={ styles.goDealButton } onPress={() => this.onGoDealClicked(this.state.cur_post)}>
                         <Text style={{color:'#fff', fontWeight:'bold'}}>
                           Go Deal
@@ -286,7 +286,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        // postId: state.postId,
         postId: state.posts.postId
     };
 };

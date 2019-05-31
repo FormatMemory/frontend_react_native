@@ -23,7 +23,7 @@ const HomeStack = createStackNavigator({
 );
 
 HomeStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = true;
+  let tabBarVisible = false;
   if (navigation.state.index > 0 ){
     tabBarVisible  = false;
   }
