@@ -65,7 +65,7 @@ class Posts extends Component {
       .then( newData => this.props.onRefreshPosts(newData.results, newData.next))
       .catch(
         err => {
-          console.log(err);
+          // console.log(err);
           alert(err);
           this.setState({
             isError:true,
@@ -124,7 +124,7 @@ class Posts extends Component {
       .then(this.setState({isAppending: false}))
       .catch(err=>{
         alert(err);
-        console.log(err);
+        // console.log(err);
         this.setState({isAppending: false});
       })
     }
@@ -134,7 +134,6 @@ class Posts extends Component {
   render() {
     return (
         <Container>
-        {console.log(this.props.posts)}
         {
           this.state.isUpdate?
           <CardItem>

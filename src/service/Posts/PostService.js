@@ -37,8 +37,8 @@ export const FetchPostsDetail = (postId=-1, retry = 0) => {
         return (responseJson);
       })
       .catch((error) => {
-        console.log('fetch '+ next + ' Failed, retry: '+ retry);
-        console.log(error);
+        // console.log('fetch '+ next + ' Failed, retry: '+ retry);
+        // console.log(error);
         alert('Something goes wrong...');
         return {};
       }); 

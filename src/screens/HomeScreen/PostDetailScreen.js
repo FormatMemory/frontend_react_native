@@ -103,7 +103,7 @@ class PostDetailScreen extends React.Component {
             });
           return data;
         }else{
-          console.log('post detail empty')
+          // console.log('post detail empty')
         }
       }
     ).then(
