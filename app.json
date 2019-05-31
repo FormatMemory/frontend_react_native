@@ -24,7 +24,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIndentifier": "com.taola.dealapp"
+      "bundleIdentifier": "com.taola.dealapp"
     },
     "android":{
       "package": "com.taola.dealapp"
