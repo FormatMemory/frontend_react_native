@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIndentifier": "com.taola.dealapp"
+    },
+    "android":{
+      "package": "com.taola.dealapp"
     }
   }
 }
