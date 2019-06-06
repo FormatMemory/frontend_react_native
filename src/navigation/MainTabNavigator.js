@@ -10,12 +10,27 @@ import AccountScreen from '../screens/AccountScreen/AccountScreen';
 import PostDetailScreen from '../screens/HomeScreen/PostDetailScreen';
 import CommentsScreen from '../screens/HomeScreen/CommentsScreen';
 import DealWebScreen from '../screens/HomeScreen/DealWebScreen';
+import LoginSignupScreen from '../screens/LoginSignupScreen/LoginSignupScreen';
+
+const LoginStack = createStackNavigator(
+  {
+    LoginSignup: LoginSignupScreen
+  },
+  {
+    initialRouteName: 'LoginSignup',
+  }
+)
+
+LoginStack.navigationOptions = {
+
+};
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Details: PostDetailScreen,
   Comments: CommentsScreen,
-  DealWeb: DealWebScreen
+  DealWeb: DealWebScreen,
+  
 },
 {
   initialRouteName: 'Home',
@@ -23,8 +38,8 @@ const HomeStack = createStackNavigator({
 );
 
 HomeStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = false;
-  if (navigation.state.index > 0 ){
+  let tabBarVisible = true;
+  if (navigation.state.index > 1 ){
     tabBarVisible  = false;
   }
   return {
@@ -96,6 +111,7 @@ AccountStack.navigationOptions = ({ navigation }) =>{
 }
 
 export default createBottomTabNavigator({
+  LoginStack,
   HomeStack,
   // LinksStack,
   // SettingsStack,
