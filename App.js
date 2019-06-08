@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
-import AppNavigator from './src/navigation/AppNavigator';
+import AppNavigator, { makeRootNavigator } from './src/navigation/AppNavigator';
 import { connect } from 'react-redux';
 import {
   startLoad,
@@ -22,6 +22,12 @@ class App extends React.Component {
     // isError: false,
     // errorMessage: "",
 
+  renderNavigator = () => {
+    const Navigator =  makeRootNavigator(false);
+    return <Navigator/>
+    // return <AppNavigator/>
+  }
+
   render() {
     // console.log(this.props.isLoading);
     if (this.state.isLoading && !this.props.skipLoadingScreen) {
@@ -40,7 +46,7 @@ class App extends React.Component {
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <Root>
-            <AppNavigator />
+             {this.renderNavigator}
           </Root>
         </View>
       );
