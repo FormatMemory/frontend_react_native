@@ -22,10 +22,10 @@ class App extends React.Component {
     // isError: false,
     // errorMessage: "",
 
-  renderNavigator = () => {
-    const Navigator =  makeRootNavigator(false);
-    return <Navigator/>
-    // return <AppNavigator/>
+  renderNavigator =  () => {
+    // const Navigator =  makeRootNavigator(false);
+    // return <Navigator/>
+    return <AppNavigator/>
   }
 
   render() {
@@ -46,7 +46,7 @@ class App extends React.Component {
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <Root>
-             {this.renderNavigator}
+             {this.renderNavigator()}
           </Root>
         </View>
       );

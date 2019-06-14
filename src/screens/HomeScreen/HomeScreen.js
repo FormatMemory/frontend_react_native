@@ -78,11 +78,16 @@ class HomeScreen extends React.Component {
     });
   }
 
+  logout = () => {
+    alert("logout");
+    
+  }
   render() {
       return (
         <Container>
           <Header>
             <Title>Taola</Title>
+            <Right><Button onPress={this.logout}><Text>Logout</Text></Button></Right>
           </Header>
           <Posts
             onPostSelected = {this.onPostSelected}
