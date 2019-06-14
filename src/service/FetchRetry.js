@@ -1,5 +1,5 @@
 function fetch_retry(url, n=1,  options={} ) {
-    console.log('Fetch from '+url+' remain retry: '+ n);
+    // console.log('Fetch from '+url+' remain retry: '+ n);
     return new Promise(function(resolve, reject) {
         fetch(url, options)
             .then(resolve)
