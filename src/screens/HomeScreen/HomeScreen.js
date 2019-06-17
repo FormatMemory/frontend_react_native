@@ -26,7 +26,16 @@ import {
   updatePostId
 } from '../../store/actions/index';
 import { connect } from 'react-redux';
+import { deleteToken } from '../../store/actions/auth';
+import { NavigationActions } from 'react-navigation';
 
+/*()
+const resetAction = NavigationActions.reset({
+  key: null,
+  index: 0,
+  actions: [],//[NavigationActions.navigate({ routeName: 'Home' })],
+})
+*/
 
 class HomeScreen extends React.Component {
 
@@ -46,8 +55,13 @@ class HomeScreen extends React.Component {
     // scrollUp:false,
     // prevOffset:0
   }
+
+
+  
   componentDidMount(){
     // this.props.navigation.reset();
+    //this.props.navigation.dispatch(resetAction)
+
   }
 
   componentDidUpdate(){
@@ -80,7 +94,13 @@ class HomeScreen extends React.Component {
 
   logout = () => {
     alert("logout");
-    
+    this.props.onDeleteToken();
+    this.props.navigation.navigate({
+      key:'goLoginSignip',
+      routeName:'Auth',
+      params:{
+      }
+    }); 
   }
   render() {
       return (
@@ -97,10 +117,11 @@ class HomeScreen extends React.Component {
     }
 }
 
-
 const mapDispatchToProps = dispatch => {
   return {
-      onUpdatePostId: (postId) => dispatch(updatePostId(postId))
+      onUpdatePostId: (postId) => dispatch(updatePostId(postId)),
+      onUpdateToken: (token) => dispatch(updateToken(token)),
+      onDeleteToken: () => dispatch(deleteToken()),
   }
 };
 

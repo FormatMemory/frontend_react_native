@@ -37,12 +37,8 @@ const HomeStack = createStackNavigator({
 }
 );
 
-HomeStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = true;
-  if (navigation.state.index > 0 ){
-    tabBarVisible  = false;
-  }
-  return {
+HomeStack.navigationOptions = ({ navigation }) => (
+  {
     tabBarLabel: 'Home',
     tabBarIcon: ({ focused }) => (
       <TabBarIcon
@@ -54,9 +50,8 @@ HomeStack.navigationOptions = ({ navigation }) => {
         }
       />
     ),
-    tabBarVisible,
-  };
-};
+    tabBarVisible:navigation.state.routes[navigation.state.index].routeName !== 'Details',
+  })
 
 const LinksStack = createStackNavigator({
   Links: LinksScreen,

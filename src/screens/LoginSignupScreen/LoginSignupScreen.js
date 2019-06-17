@@ -84,14 +84,17 @@ class LoginSignupScreen extends React.Component {
 }
 
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
   return {
-      onUpdatePostId: (postId) => dispatch(updatePostId(postId))
-  }
+      token: state.auth.token
+  };
 };
 
-export default connect(null, mapDispatchToProps)(LoginSignupScreen);
-
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateToken: (token) => dispatch(updateToken(token)),
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -117,3 +120,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
   },
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginSignupScreen);
