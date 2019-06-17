@@ -62,7 +62,11 @@ class Posts extends Component {
     }
     this.setState({refreshing: true});
     FetchPosts()
-      .then( newData => this.props.onRefreshPosts(newData.results, newData.next))
+      .then( newData =>{
+        if(newData){
+          this.props.onRefreshPosts(newData.results, newData.next)
+        }
+      })
       .catch(
         err => {
           // console.log(err);
@@ -120,7 +124,11 @@ class Posts extends Component {
     if( (!this.state.isAppending) && this.props.nextPage){
       this.setState({isAppending: true});
       FetchPosts(this.props.nextPage)
-      .then(newData => this.props.onAppendPosts(newData.results, newData.next))
+      .then(newData => {
+        if(newData){
+          return this.props.onAppendPosts(newData.results, newData.next)
+        }
+      })
       .then(this.setState({isAppending: false}))
       .catch(err=>{
         alert(err);

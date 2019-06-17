@@ -1,5 +1,5 @@
 import { 
-    POSTS_API_ENDOINT,
+    API_ENDOINT,
     PostsEndPoint, 
     PostDetailEndPoint, 
     PostCreateEndPoint
@@ -21,9 +21,9 @@ export const FetchPosts = (next, retry = 0) => {
         return (responseJson);
       })
       .catch((error) => {
-            console.error('fetch error');
+            //console.error('fetch error');
             alert('Something goes wrong...');
-            return {};
+            return null;
           }
       );
   }
