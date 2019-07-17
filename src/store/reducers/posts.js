@@ -9,7 +9,7 @@ import {
 import * as I from 'immutable'
 
 const makeState = I.Record({
-    posts: I.Map(),
+    posts: I.OrderedMap(),
     postId: -1,
     nextPage: null,
 })

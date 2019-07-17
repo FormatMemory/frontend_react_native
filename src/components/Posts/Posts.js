@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts.posts.valueSeq().toArray(),
+    posts: state.posts.posts.valueSeq().toArray().sort((a, b) => {return b.id - a.id}),
     nextPage: state.posts.nextPage,
     postId: state.posts.postId
   };
