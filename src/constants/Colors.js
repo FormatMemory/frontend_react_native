@@ -8,6 +8,7 @@ const Colors = {
   grayUltraLight: '#F7FAFA',
   purple: '#99195E',
   red: '#E74234',
+  FireBrick : '#B22222',
   transparent: 'transparent',
   white: '#FFF',
   tintColor,

@@ -27,6 +27,12 @@ class PostDetail extends Component {
     }
   }
 
+  getSavedRate = (regular, sale) => {
+    return (100 * (regular - sale)/regular).toFixed(2);
+  }
+  getSavedPrice = (regular, sale) => {
+    return (regular - sale).toFixed(2);
+  }
   render() {
     return (
       <View style={ styles.contentContainer }>
@@ -42,6 +48,12 @@ class PostDetail extends Component {
                 <Text note>{ NumberText(this.props.cur_post.user_page_view_count, 'view') }</Text>
               </Right>
             </CardItem>
+            <Text style={styles.sale_price}>${this.props.cur_post.sale_price}</Text>
+            <Text style={styles.saved}>
+                              SAVE: ${this.getSavedPrice(this.props.cur_post.regular_price, this.props.cur_post.sale_price)}
+                               ({this.getSavedRate(this.props.cur_post.regular_price, this.props.cur_post.sale_price)}%)
+            </Text>
+            <Text style={styles.regular_price}>Regular: ${this.props.cur_post.regular_price}</Text> 
             <Text style={styles.post_title}>{this.props.cur_post.title}</Text>
             {this.renderCouponCode()} 
             <Text style={styles.post_content}>{this.props.cur_post.body}</Text>
@@ -60,6 +72,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: Colors.grayLight,
+  },
+  regular_price:{
+    fontSize:15,
+    marginStart:10,
+  },
+  sale_price:{
+    fontSize:23,
+    marginStart:10,
+    marginBottom:5,
+    marginTop:10,
+    fontWeight:"bold"
+  },
+  saved:{
+    fontSize:16,
+    marginStart:10,
+    fontWeight:"bold",
+    backgroundColor: Colors.FireBrick,
+    color: Colors.white,
+    padding:2,
+    alignSelf: "flex-start"
   },
   user_image: {
     // flex: 1,
